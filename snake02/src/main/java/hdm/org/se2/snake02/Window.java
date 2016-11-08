@@ -1,6 +1,7 @@
 package hdm.org.se2.snake02;
 
 import javax.management.openmbean.OpenDataException;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.omg.CORBA.portable.ApplicationException;
 
@@ -19,74 +20,91 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.concurrent.CountDownLatch;
 
-public class Window extends Application {	    
-	    @Override
-	    public void start(Stage primaryStage) {
+@SuppressWarnings("restriction")
+public class Window extends Application {
+	
+	
+	Stage window;
+	Scene mainMenuScene, settingsScene;
+	
+		   
+	public static void main(String[] args) {
+		launch(args);
+	}
+	
+	@Override
+	public void start(Stage primaryStage) throws Exception	{
+		window = primaryStage;
+		window.setTitle("Snake0two");
 
-	    	primaryStage.setTitle("Snake0two");
-	    	Group root = new Group();
-	        Scene scene = new Scene(root, 720, 720, Color.WHITE);
-	        
-	        // Create the grid (Layout)
-	        GridPane gridpane = new GridPane();
-	        gridpane.setAlignment(Pos.CENTER);
-	        gridpane.setHgap(10);
-	        gridpane.setVgap(10);
+		// Setting up the labels
+		Label h1 = new Label("Welcome to Snake 0 two");
+		
+		// Setting up the buttons
+		Button play, highscore, settings, quit, btMm;
+		play 		= new Button("Play");
+		highscore 	= new Button("Highscore");
+		settings 	= new Button("Settings");
+		quit 		= new Button("Quit");
+		btMm		= new Button("Back to MainMenu");
+		
 
-	        // Create the buttons and there functions
-	        Button play = new Button("Play");
-	        play.setOnAction(new EventHandler<ActionEvent>() {
-	            public void handle(ActionEvent event) {
-	                System.out.println("Play");
-	            }
-	        });
-	        Button highscore = new Button("Highscore's");
-	        highscore.setOnAction(new EventHandler<ActionEvent>() {
-	            public void handle(ActionEvent event) {
-	                System.out.println("highscore's");
-	            }
-	        });
-	        Button settings = new Button("Settings");
-	        settings.setOnAction(new EventHandler<ActionEvent>() {
-	            public void handle(ActionEvent event) {	            	
-	            	Class Settings;           	
-	            	
-	            }
-	        });
-	        Button quit = new Button("Quit");
-	        quit.setOnAction(new EventHandler<ActionEvent>() {
-	            public void handle(ActionEvent event) {
-	                System.exit(0);
-	            }
-	        });
-	        
-	        // Setup the style
-	        int btnWidth = 120;
-	        
-	        // Adding the styling
-	        play.setMinWidth(btnWidth);
-	        highscore.setMinWidth(btnWidth);
-	        settings.setMinWidth(btnWidth);
-	        quit.setMinWidth(btnWidth);
-	        
-	        
-	        // Place the buttons in the grid of a VBox	        
-	        VBox menu = new VBox();
-	        menu.setSpacing(10);
-	        menu.setPadding(new Insets(0, 20, 10, 20)); 
-	        menu.getChildren().addAll(play, highscore, settings, quit);
-	        
-	        gridpane.add(menu, 0, 2, 2, 1);
-	       
-	        root.getChildren().add(gridpane);
-	        primaryStage.setScene(scene);
-	        primaryStage.show();
-	    }
+		// Event Handler for the play button (New Syntax since Java 1.8)
+		play.setOnAction(e -> {
+				System.out.println("Hello World");
+			});
+		
+		settings.setOnAction(e -> window.setScene(settingsScene));
+
+		btMm.setOnAction(e -> window.setScene(mainMenuScene));
+		
+		// Close functions for the game
+		window.setOnCloseRequest(e -> closeProgram());
+		quit.setOnAction(e -> closeProgram());
+		
+		// Layout 001 - Setup our layout for the menu
+		// The headline on top
+		HBox headline = new HBox();
+		headline.getChildren().add(h1);
+		// The menu at the center
+		VBox menuList = new VBox(20);
+		menuList.getChildren().addAll(play, highscore, settings, quit);
+		
+		// Setup the borderPane and put the headline and menuList inside.
+		GridPane mainMenu = new GridPane();
+		mainMenu.setPadding(new Insets(10,10,10,10));
+		mainMenu.setVgap(8);
+		mainMenu.setHgap(10);
+		
+		mainMenu.setConstraints(headline, 0, 0);
+		mainMenu.setConstraints(menuList, 0, 1);
+		
+		mainMenu.getChildren().addAll(headline, menuList);
+		
+		mainMenuScene = new Scene(mainMenu, 1280, 720);
+		
+		
+		
+		// Layout 002 - Setup our layout for the settings
+		VBox settingsLayout = new VBox(20);
+		settingsLayout.getChildren().addAll(btMm);
+		settingsScene = new Scene(settingsLayout, 1280, 720);
+		
+		
+		window.setScene(mainMenuScene);
+		window.show();
+		
+	}
+	
+	private void closeProgram()	{
+		System.out.println("Save Game...");
+		window.close();
+	}
+	
 }
