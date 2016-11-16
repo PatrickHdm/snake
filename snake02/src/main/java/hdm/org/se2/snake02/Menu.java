@@ -10,8 +10,7 @@ import hdm.org.se2.snake02.Window;
 
 public class Menu {
 		
-	Parent gameSource, highscoreSource, settingsSource;
-	
+	// Our layout have some buttons with the same function. That we can later handle it, we catch the buttons by there id's
 	@FXML
 	private Button setGameScene;
 	@FXML
@@ -19,6 +18,11 @@ public class Menu {
 	@FXML
 	private Button setSettingsScene;
 	
+	/**
+	 * To change between the scenes.
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void changeScene(ActionEvent event)	{
 		setGameScene.setOnAction(e -> {
@@ -26,7 +30,6 @@ public class Menu {
 			try {
 				myWindow.sceneHandler("/Game.fxml");
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -35,7 +38,6 @@ public class Menu {
 			try {
 				myWindow.sceneHandler("/Highscore.fxml");
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
@@ -44,13 +46,15 @@ public class Menu {
 			try {
 				myWindow.sceneHandler("/Settings.fxml");
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
 	}
 	
 	
+	/**
+	 * Close the program safely.
+	 */
 	@FXML
 	private void closeProgram()	{
 		System.out.println("Save Game...");
