@@ -1,5 +1,8 @@
 package hdm.org.se2.snake02;
 
+import java.awt.event.WindowStateListener;
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,9 +12,10 @@ import javafx.stage.Stage;
 public class Window extends Application {
 	
 	
-	Stage windowStage;
+	public static Stage windowStage;
 	
-	Scene menu, game, highscore, settings;
+	Parent menuSource, gameSource, highscoreSource, settingsSource;
+	public static Scene menu, game, highscore, settings;
 	
 		   
 	public static void main(String[] args) {
@@ -23,25 +27,21 @@ public class Window extends Application {
 		windowStage = primaryStage;
 		windowStage.setTitle("Snake0two");
 		
-		Parent menuSource = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
+		menuSource = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
 		menu = new Scene(menuSource, 1280, 720);
-		Parent gameSource = FXMLLoader.load(getClass().getResource("/Game.fxml"));
-		game = new Scene(gameSource, 1280, 720);
-		Parent highscoreSource = FXMLLoader.load(getClass().getResource("/Highscore.fxml"));
-		highscore = new Scene(highscoreSource, 1280, 720);		
-		Parent settingsSource = FXMLLoader.load(getClass().getResource("/Settings.fxml"));
-		settings = new Scene(settingsSource, 1280, 720);
-		
-		
 		
 		windowStage.setScene(menu);
 		windowStage.show();
 		
 	}
-
-	public static Object getStage() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	
+	public void sceneHandler(String scene) throws Exception	{		
+		System.out.println("Change Scene... ");
+		Parent sceneSource = FXMLLoader.load(getClass().getResource(scene));
+		
+		windowStage.setScene(new Scene(sceneSource, 1280, 720));
 	}
+	
 	
 }
