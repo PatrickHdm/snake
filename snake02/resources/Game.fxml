@@ -20,8 +20,7 @@
 		</top>
 		
 		<center>
-			<BorderPane fx:id="GridField">
-    		</BorderPane>
+			<BorderPane fx:id="GridField"></BorderPane>
 		</center>
 		
 		<bottom>

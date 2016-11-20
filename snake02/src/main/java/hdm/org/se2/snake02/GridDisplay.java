@@ -13,8 +13,8 @@ import javafx.stage.Stage;
 
 public class GridDisplay {
 
-	private static final double ELEMENT_SIZE = 100;
-    private static final double GAP = ELEMENT_SIZE / 10;
+	private static final double ELEMENT_SIZE = 20;
+    private static final double GAP = 1;
 	
 	private TilePane tilePane = new TilePane();
     private Group display = new Group(tilePane);
@@ -22,7 +22,7 @@ public class GridDisplay {
     private int nCols;
 	
     public GridDisplay(int nRows, int nCols) {
-        tilePane.setStyle("-fx-background-color: rgba(255, 215, 0, 0.1);");
+        tilePane.setStyle("-fx-background-color: rgba(0, 0, 0, 1);");
         tilePane.setHgap(GAP);
         tilePane.setVgap(GAP);
         setColumns(nCols);
@@ -49,16 +49,23 @@ public class GridDisplay {
         tilePane.getChildren().clear();
         for (int i = 0; i < nCols; i++) {
             for (int j = 0; j < nRows; j++) {
-                tilePane.getChildren().add(createElement());
+                tilePane.getChildren().add(createElement(i,j));
+                System.out.println("COL: "+i+" ROW: "+j);
             }
         }
     }
 
-    private Rectangle createElement() {
+    private Rectangle createElement(int y, int x) {
         Rectangle rectangle = new Rectangle(ELEMENT_SIZE, ELEMENT_SIZE);
-        rectangle.setStroke(Color.ORANGE);
-        rectangle.setFill(Color.STEELBLUE);
+        rectangle.setStroke(Color.WHITE);
+        rectangle.setFill(Color.BLACK);
+        rectangle.setY(y);
+        rectangle.setX(x);
+        String id = "ra_"+y+""+x;
+        rectangle.setId(id);
 
+        System.out.println(rectangle);
+        
         return rectangle;
     }
     
