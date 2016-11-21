@@ -4,14 +4,40 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.Label?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.Settings">
 	
 	<BorderPane >
 		<top>
 			<Label >Settings</Label>
 		</top>
 		<center>
-			<Label >Placae the settings here!</Label>
+			<VBOX>
+				<Label>Screen-Resolution:</Label>
+				<Combobox fx:id="resolution">
+					<items>
+						<FXCollections fx:factory="observableArrayList">
+							<String fx:value="640x480" />
+							<String fx:value="800x600" />
+							<String fx:value="1024x768" />
+							<String fx:value="1280x720" />
+						</FXCollections>
+					</items>
+				</Combobox>
+				
+				<Label>Difficulty:</Label>
+					<radiobutton fx:id="easybutton">Easy</radiobutton>
+					<radiobutton fx:id="mediumbutton">Medium</radiobutton>
+					<radiobutton fx:id="hardbutton">Hard</radiobutton>
+				
+				<Label>Theme:</Label>
+					<radiobutton fx:id="theme1button">Theme 1</radiobutton>
+				 	<radiobutton fx:id="theme2button">Theme 2</radiobutton>
+				 	
+				 <Label>Mode:</Label>
+					<radiobutton fx:id="normalmodebutton">Normal</radiobutton>
+					<radiobutton fx:id="randommodebutton">Random Numbers</radiobutton>
+					<radiobutton fx:id="binarymodebutton">Learn Binary</radiobutton>	
+			</VBOX>
 		</center>
 	</BorderPane>
 
