@@ -31,27 +31,19 @@ public class Game implements Initializable {
 	@FXML 
 	private BorderPane GridField;
 	
-	public void updateGridPane() {
+	public void addGridPane() {
+		Snake snake = new Snake(gridH / 2, gridW / 2, 1);
+		
 		gridArea = new GridController(gridH, gridW);
 		GridField.setCenter(gridArea.getGrid());
 		
-		Rectangle rectangle = new Rectangle(20, 20);
-		rectangle.setFill(Color.ORANGE);
-		
-	    int nRows = 2;
-	    int nCols = 5;
-		
-		for (Iterator iterator = gridArea.getGrid().getChildren().iterator(); iterator.hasNext();) {
-			GridPane grid = (GridPane) iterator.next();
-			grid.getChildren().remove((gridH * nRows) + nCols);
-			grid.add(rectangle, nRows, nCols);
-		}
+		gridArea.repleaceGrid(gridArea.getGrid(), gridH, gridW, 4, 4, "rectangle");
 		
     }
 
 	
 	public void initialize(URL location, ResourceBundle resources) {
-		updateGridPane();
+		addGridPane();
     }
 	
 	
