@@ -6,6 +6,7 @@ public class Snake {
 
 	Point position;
 	int size;
+	int direction;
 	
 	
 	/**
@@ -56,6 +57,24 @@ public class Snake {
 	 */
 	public void setSize(int size)	{
 		this.size += size;
+	}
+	
+	/**
+	 * Get the current direction of the snake
+	 * 
+	 * @return - The current direction.
+	 */
+	public int getDirection()	{
+		return this.size;
+	}
+	
+	/**
+	 * Set the direction of the snake.
+	 * 
+	 * @param direction - The direction of the snake.
+	 */
+	public void setDirection(int direction)	{
+		this.direction = direction;
 	}
 	
 }

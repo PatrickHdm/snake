@@ -38,9 +38,9 @@ public class Game implements Initializable {
 		GridField.setCenter(gridArea.getGrid());
 		
 		gridArea.repleaceGrid(gridArea.getGrid(), gridH, gridW, 4, 4, "rectangle");
-		
+		gridArea.setSnakeAtGrid(gridArea.getGrid(), snake);
+		gridArea.setSnakeForwardAtGrid(gridArea.getGrid(), snake);
     }
-
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		addGridPane();
