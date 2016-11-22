@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.collections.*?>
+<?import java.lang.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.Settings">
 	
@@ -11,33 +12,34 @@
 			<Label >Settings</Label>
 		</top>
 		<center>
-			<VBOX>
+			<VBox>
 				<Label>Screen-Resolution:</Label>
-				<Combobox fx:id="resolution">
+				<ComboBox fx:id="resolution">
 					<items>
 						<FXCollections fx:factory="observableArrayList">
 							<String fx:value="640x480" />
 							<String fx:value="800x600" />
 							<String fx:value="1024x768" />
 							<String fx:value="1280x720" />
+							<String fx:value="1920x1080"/>
 						</FXCollections>
 					</items>
-				</Combobox>
+				</ComboBox>
 				
 				<Label>Difficulty:</Label>
-					<radiobutton fx:id="easybutton">Easy</radiobutton>
-					<radiobutton fx:id="mediumbutton">Medium</radiobutton>
-					<radiobutton fx:id="hardbutton">Hard</radiobutton>
+					<RadioButton fx:id="easybutton">Easy</RadioButton>
+					<RadioButton fx:id="mediumbutton">Medium</RadioButton>
+					<RadioButton fx:id="hardbutton">Hard</RadioButton>
 				
 				<Label>Theme:</Label>
-					<radiobutton fx:id="theme1button">Theme 1</radiobutton>
-				 	<radiobutton fx:id="theme2button">Theme 2</radiobutton>
+					<RadioButton fx:id="theme1button">1</RadioButton>
+				 	<RadioButton fx:id="theme2button">2</RadioButton>
 				 	
 				 <Label>Mode:</Label>
-					<radiobutton fx:id="normalmodebutton">Normal</radiobutton>
-					<radiobutton fx:id="randommodebutton">Random Numbers</radiobutton>
-					<radiobutton fx:id="binarymodebutton">Learn Binary</radiobutton>	
-			</VBOX>
+					<RadioButton fx:id="normalmodebutton">Normal</RadioButton>
+					<RadioButton fx:id="randommodebutton">Random Numbers</RadioButton>
+					<RadioButton fx:id="binarymodebutton">Learn Binary</RadioButton>
+			</VBox>
 		</center>
 	</BorderPane>
 
