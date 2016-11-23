@@ -32,11 +32,11 @@
 					<RadioButton fx:id="hardbutton">Hard</RadioButton>
 				
 				<Label>Theme:</Label>
-					<RadioButton fx:id="theme1button">1</RadioButton>
+					<RadioButton fx:id="theme1button">Standard</RadioButton>
 				 	<RadioButton fx:id="theme2button">2</RadioButton>
 				 	
 				 <Label>Mode:</Label>
-					<RadioButton fx:id="normalmodebutton">Normal</RadioButton>
+					<RadioButton fx:id="normalmodebutton">Standard</RadioButton>
 					<RadioButton fx:id="randommodebutton">Random Numbers</RadioButton>
 					<RadioButton fx:id="binarymodebutton">Learn Binary</RadioButton>
 			</VBox>

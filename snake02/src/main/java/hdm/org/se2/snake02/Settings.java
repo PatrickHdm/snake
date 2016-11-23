@@ -5,12 +5,12 @@ import java.awt.Point;
 public class Settings {
 	
 	//TODO - change visibility
-	Point resolution; 
+	Point resolution = new Point(); 
 	String difficulty;
 	String theme;
 	String mode;
 
-	private Settings()	{
+	public Settings()	{
 		resolution.x = 1024;
 		resolution.y = 768;
 		
