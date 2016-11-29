@@ -42,7 +42,7 @@ public class GridController {
 			// grid.getChildren().remove((col * nCols) + row);  // TODO - Old grid have to get removed, as a garbage.
 			switch(element)	{
 			case "rectangle":
-				grid.add(createElement("ORANGE"), col, row);	
+				grid.add(createElement("ORANGE"), col, row);
 				break;
 			default:
 				System.out.println("Not able to find element: "+element+".");
@@ -79,9 +79,7 @@ public class GridController {
 		Point position = player.getPosition();
 		int size = player.getSize();
 		for (Iterator iterator = getGrid().getChildren().iterator(); iterator.hasNext();) {
-			GridPane grid = (GridPane) iterator.next();
-
-			
+			GridPane grid = (GridPane) iterator.next();			
 			// grid.getChildren().remove((col * nCols) + row);  // TODO - Old grid have to get removed, as a garbage.
 			grid.add(createElement("GREEN"), position.x, position.y);
 		}
@@ -93,7 +91,11 @@ public class GridController {
 		
 		switch(direction)	{
 		case 1:
-			player.setPosition(position.x + 1, position.y);
+			if(position.x == 16)	{
+				player.setPosition(0, position.y);
+			} else	{
+				player.setPosition(position.x + 1, position.y);
+			}
 			break;
 		case 2:
 			player.setPosition(position.x, position.y + 1);
@@ -106,7 +108,9 @@ public class GridController {
 			break;
 		}
 		
-		setSnakeAtGrid(gridArea, player);
+		System.out.println(player.getPosition().x);
+		
+		//setSnakeAtGrid(gridArea, player);
 	}
 
 }

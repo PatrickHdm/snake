@@ -18,32 +18,36 @@ import javafx.scene.shape.Rectangle;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
+
 import hdm.org.se2.snake02.Window;
 
 public class Game implements Initializable {
 	
 	int gridH = 16, gridW = 16;
 	
-    private GridDisplay gridDisplay;
+    GridDisplay gridDisplay;
+    GameClock game;
+    GridController gridArea;
+    Snake snake;
     
-    private GridController gridArea;
 	
 	@FXML 
 	private BorderPane GridField;
 	
-	public void addGridPane() {
-		Snake snake = new Snake(gridH / 2, gridW / 2, 1);
+	public void main() {
+		game = new GameClock(); // Create a new GameClock
+		game.setGameStuff(gridArea, snake); // Give the GameClock all important variables
+		gridArea = new GridController(gridH, gridW); // Create a GridField
+		snake = new Snake(gridH / 2, gridW / 2, 1); // Create a player
+		GridField.setCenter(gridArea.getGrid()); // Put the Grid into the center of the game
+		gridArea.setSnakeAtGrid(gridArea.getGrid(), snake); // Put the player on the grid
 		
-		gridArea = new GridController(gridH, gridW);
-		GridField.setCenter(gridArea.getGrid());
-		
-		gridArea.repleaceGrid(gridArea.getGrid(), gridH, gridW, 4, 4, "rectangle");
-		gridArea.setSnakeAtGrid(gridArea.getGrid(), snake);
-		gridArea.setSnakeForwardAtGrid(gridArea.getGrid(), snake);
+		game.runGameLoop(); // Let the game start!
     }
 	
 	public void initialize(URL location, ResourceBundle resources) {
-		addGridPane();
+		main();
     }
 	
 	
