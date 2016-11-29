@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.RadioButton?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.Game">
 	
@@ -15,7 +16,7 @@
 		<top>
 			<HBox>
 				<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
-				<Label >Score: XXX</Label>
+				<Label fx:id="score">Score: XXX</Label>
 			</HBox>
 		</top>
 		
@@ -24,7 +25,7 @@
 		</center>
 		
 		<bottom>
-			<Label >Power by HDM</Label>
+			<Label >HDM</Label>
 		</bottom>
 		
 	</BorderPane>

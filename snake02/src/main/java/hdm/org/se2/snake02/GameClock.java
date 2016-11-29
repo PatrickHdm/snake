@@ -1,14 +1,31 @@
 package hdm.org.se2.snake02;
 
+import javafx.scene.Group;
+
 public class GameClock {
 
 	private boolean running = false;
 	private boolean paused = false;
-	private int fps = 60;
+	private int fps = 1;
 	private int frameCount = 0;
 
-	private GameClock()
+    public GridController gridArea;
+    public Snake player;
+
+	public void runGameLoop()
 	{
+		Thread loop = new Thread()
+		{
+			public void run()
+			{
+				running = true;
+				gameLoop();
+			}
+		};
+		loop.start();
+	}
+
+	private void gameLoop()	{
 		//This value would probably be stored elsewhere.
 		final double GAME_HERTZ = 30.0;
 		//Calculate how many ns each frame should take for our target game hertz.
@@ -27,7 +44,6 @@ public class GameClock {
 
 		//Simple way of finding FPS.
 		int lastSecondTime = (int) (lastUpdateTime / 1000000000);
-
 		while (running)
 		{
 			double now = System.nanoTime();
@@ -60,6 +76,7 @@ public class GameClock {
 				if (thisSecond > lastSecondTime)
 				{
 					System.out.println("NEW SECOND " + thisSecond + " " + frameCount);
+					updateGameByFrame();
 					fps = frameCount;
 					frameCount = 0;
 					lastSecondTime = thisSecond;
@@ -85,7 +102,20 @@ public class GameClock {
 	 * Update the game.
 	 * 
 	 */
-	private void updateGame()	{
-		
+	public void updateGame()	{
+		//gridArea.setSnakeForwardAtGrid(gridArea.getGrid(), player);
+	}
+	
+	/**
+	 * Update the game by frame.
+	 * 
+	 */
+	public void updateGameByFrame()	{
+		gridArea.setSnakeForwardAtGrid(gridArea.getGrid(), player);
+	}
+	
+	public void setGameStuff(GridController gridArea, Snake player)	{
+		this.gridArea = gridArea;
+		this.player = player;
 	}
 }
