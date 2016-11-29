@@ -3,6 +3,7 @@ package hdm.org.se2.snake02;
 import java.awt.Point;
 import java.util.Iterator;
 import java.util.Observable;
+import java.util.logging.Logger;
 
 import javax.swing.text.Position;
 
@@ -14,6 +15,8 @@ import javafx.scene.shape.Rectangle;
 
 public class GridController {
 
+	Logger log = Logger.getLogger(Game.class.getName());
+	
 	private static final double ELEMENT_SIZE = 20;
 	private static final double GAP = 1;
 
@@ -23,12 +26,14 @@ public class GridController {
 	private int nCols;
 	private int col;
 	private int row;
+	
+	
 
 	public GridController(int nRows, int nCols)	{
 		for (int col = 0; col < nCols; col++) {
 			for (int row = 0; row < nRows; row++) {
 				gridPane.add(createElement("BLACK"), col, row);
-				System.out.println("COL: "+col+" ROW: "+row);
+				log.config("COL: "+col+" ROW: "+row);
 			}
 		}
 	}
@@ -45,7 +50,7 @@ public class GridController {
 				grid.add(createElement("ORANGE"), col, row);
 				break;
 			default:
-				System.out.println("Not able to find element: "+element+".");
+				log.warning("Not able to find element: "+element+".");
 				break;
 			}
 		}
@@ -54,7 +59,7 @@ public class GridController {
 	private Rectangle createElement(String color) {
 		Rectangle rectangle = new Rectangle(ELEMENT_SIZE, ELEMENT_SIZE);
 		rectangle.setStroke(Color.WHITE);
-		System.out.println();
+		
 		switch(color)	{
 		case "BLACK":
 			rectangle.setFill(Color.BLACK);
@@ -108,7 +113,7 @@ public class GridController {
 			break;
 		}
 		
-		System.out.println(player.getPosition().x);
+		log.config(""+player.getPosition().x);
 		
 		//setSnakeAtGrid(gridArea, player);
 	}

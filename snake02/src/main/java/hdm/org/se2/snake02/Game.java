@@ -1,6 +1,7 @@
 package hdm.org.se2.snake02;
 
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -21,8 +22,11 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import hdm.org.se2.snake02.Window;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class Game implements Initializable {
+	Logger log = Logger.getLogger(Game.class.getName());
 	
 	int gridH = 16, gridW = 16;
 	
@@ -60,7 +64,8 @@ public class Game implements Initializable {
 		try {
 			myWindow.sceneHandler("/Menu.fxml");
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			log.log(Level.SEVERE, "an exception was thrown", e1);
+			
 		}
 	}
 	
@@ -69,7 +74,8 @@ public class Game implements Initializable {
 	 */
 	@FXML
 	private void closeProgram()	{
-		System.out.println("Save Game...");
+		
+		log.info("Save Game...");
 		//window.close();
 		System.exit(0);
 	}

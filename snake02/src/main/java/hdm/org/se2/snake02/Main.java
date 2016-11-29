@@ -7,11 +7,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.logging.Logger;
 
 public class Main {
 
-	public static void main(String[] args) {
-		System.out.println("Start window...");
+	static Logger log = Logger.getLogger(Game.class.getName());
+	
+	public static void main(String[] args) { 
+		log.info("Start window...");
 		 new Thread() {
 	            @Override
 	            public void run() {
