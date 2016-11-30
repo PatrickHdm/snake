@@ -80,17 +80,17 @@ public class GridController {
 		return display;
 	}
 
-	public void setSnakeAtGrid(Group gridArea,Snake player)	{
+	public void setSnakeAtGrid(Group grid, Snake player)	{
 		Point position = player.getPosition();
 		int size = player.getSize();
-		for (Iterator iterator = getGrid().getChildren().iterator(); iterator.hasNext();) {
-			GridPane grid = (GridPane) iterator.next();			
+		for (Iterator iterator = grid.getChildren().iterator(); iterator.hasNext();) {
+			GridPane currentGrid = (GridPane) iterator.next();			
 			// grid.getChildren().remove((col * nCols) + row);  // TODO - Old grid have to get removed, as a garbage.
-			grid.add(createElement("GREEN"), position.x, position.y);
+			currentGrid.add(createElement("GREEN"), position.x, position.y);
 		}
 	}
 
-	public void setSnakeForwardAtGrid(Group gridArea, Snake player)	{
+	public void setSnakeForwardAtGrid(GridController gridArea, Snake player)	{
 		Point position = player.getPosition();
 		int direction = player.getDirection();
 		
@@ -115,7 +115,7 @@ public class GridController {
 		
 		log.config(""+player.getPosition().x);
 		
-		//setSnakeAtGrid(gridArea, player);
+		//setSnakeAtGrid(gridArea.getGrid(), player);
 	}
 
 }

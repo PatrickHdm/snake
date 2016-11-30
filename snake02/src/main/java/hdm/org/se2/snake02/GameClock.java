@@ -111,7 +111,7 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGameByFrame()	{
-		gridArea.setSnakeForwardAtGrid(gridArea.getGrid(), player);
+		gridArea.setSnakeForwardAtGrid(gridArea, player);
 	}
 	
 	public void setGameStuff(GridController gridArea, Snake player)	{

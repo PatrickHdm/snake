@@ -7,7 +7,7 @@ public class Snake {
 	Point position;
 	int size;
 	int direction;
-	
+	Object cur;
 	
 	/**
 	 * Create a snake, with a position and a size.
