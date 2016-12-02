@@ -1,117 +1,104 @@
 package hdm.org.se2.snake02;
 
-import javafx.event.ActionEvent;
+import java.awt.Graphics;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.*;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.control.Label;
 
-import java.awt.Graphics;
-import java.awt.Point;
-import java.net.URL;
-import java.util.Iterator;
-import java.util.ResourceBundle;
-import java.util.logging.Logger;
-
-import hdm.org.se2.snake02.Window;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-
-public class Game implements Initializable {
+public class Game implements Initializable {	
 	Logger log = Logger.getLogger(Game.class.getName());
-
-	private final int GridSize = 20;
-	private final int CellSize = 20;
-	private Snake snake;
-	private boolean isDeath = false;
-	private int curDir = 0;
-	private int[][] grid = new int[GridSize][GridSize];
-
-	final int EMPTY = 0;
-	final int WALL = -1;
-	final int SNAKE = -2;
-
-
+	
+	int gridRow = 24;
+	int gridCol = 24;
+	int gridSize = 20;
+	GridPane gridArea = new GridPane();
+	Node[][] cellField = new Node[gridCol][gridRow];
+	Snake player;
+	int COLLISION = -2, WALL = -1, EMPTY = 0, FOOD = 1;
+	
 	public Game()	{
-		snake = new Snake(3, 10, 10);
-
-		for(int row = 0; row < GridSize; row++)	{
-			for(int col = 0; col < GridSize; col++)	{
-				// Create the walls
-				if(row == 0 || col == 0 || row == GridSize - 1 || col == GridSize - 1)	{
-					grid[row][col] = -1;
-				} else if (col == snake.getPosition().y && row == snake.getPosition().x + 2)	{
-					grid[row][col] = 1;
-				} else	{
-					if(Math.random() > 0.99)
-						grid[row][col] = (int) (Math.random() * 10);
-					else
-						grid[row][col] = 0;
+		player = new Snake(gridRow / 2, gridCol, 3);
+		int index = 0;
+		for(int col = 0; col < gridCol; col++)	{
+			for(int row = 0; row < gridRow; row++)	{
+				try	{			
+					cellField[col][row] = new cellField("", col, row, gridSize, gridSize);
+					gridArea.add(cellField[col][row], col, row);
+					index++;
+				} catch(Exception e)	{
+					System.out.println(e);
 				}
 			}
 		}
-
-
+		gridArea.setHgap(1);
+		gridArea.setVgap(1);
+		gridArea.setPadding(new Insets(10, 10, 10, 10));
 	}
-
-
-	protected void paintComponent(Graphics g) {
-		for(int row = 0; row < GridSize; row++)	{
-			for(int col = 0; col < GridSize; col++)	{
-				int cell = grid[row][col];
-
-				g.drawRect(row * CellSize, col * CellSize, CellSize, CellSize);
-				if(cell == WALL || cell == SNAKE)	{
-					g.fillRect(row * CellSize, row * CellSize, CellSize, CellSize);
-				} else if (cell > EMPTY)	{
-					g.drawString("" + cell, row * CellSize, (row + 1) * CellSize);
-				}
-			}
-		}
-	}
-
-	void step() {
-
-		int dir = snake.getDirection();
-		int nextCell = grid[snake.getPosition().x + dir][snake.getPosition().y + dir];
-		if (nextCell < EMPTY) {
-			isDeath = true;
-		} else {
-			if (nextCell > EMPTY)
-				snake.setSize(nextCell);
-			isDeath = false;
-
-			if (snake.getSize() == 0)
-				grid[snake.getPosition().x][snake.getPosition().y] = EMPTY;
-
-			step();
-
-			int len = snake.size;
-			snake.cur = snake.getPosition();
-			while (len > 0) {
-				grid[snake.getPosition().x][snake.getPosition().y] = SNAKE;
-				snake.cur = snake.cur;
-				len--;
-			}
-			paintComponent(null);
-		}
-	}
-
-	@FXML 
+	
+	@FXML
 	private BorderPane GridField;
 	
 	public void main() {
-		//GridField.setCenter(grid); // Put the Grid into the center of the game
+		GridField.setCenter(gridArea);
 	}
-
+	
 	public void initialize(URL location, ResourceBundle resources) {
 		main();
+		step();
 	}
+	
+	public void step()	{
+		int direction = player.getDirection();
+		Node nextCell = cellField[0][0];
+		switch(direction)	{
+		case 1:
+			if(player.getPosition().x != gridCol)
+				nextCell = cellField[player.getPosition().x + 1][player.getPosition().y];
+			else
+				nextCell = cellField[0][player.getPosition().y];
+			break;
+		case 2:
+			if(player.getPosition().y != gridRow)
+			nextCell = cellField[player.getPosition().x][player.getPosition().y + 1];
+			else
+				nextCell = cellField[0][player.getPosition().y];
+			break;
+		case 3:
+			if(player.getPosition().x != 0)
+			nextCell = cellField[player.getPosition().x - 1][player.getPosition().y];
+			else
+				nextCell = cellField[gridCol][player.getPosition().y];
+			break;
+		case 4:
+			if(player.getPosition().y != 0)
+			nextCell = cellField[player.getPosition().x][player.getPosition().y - 1];
+			else
+				nextCell = cellField[player.getPosition().x][gridRow];
+			break;
+		default:
+			log.log(Level.WARNING, "Something gut mest up with the direction O.o ...");
+		 }
+		
+		System.out.println(nextCell);
 
-
-
-
+//		if(nextCell.getParent() = COLLISION)	{
+//			
+//		}
+	}
+	
+	
 	/**
 	 * Close the program safely.
 	 */
@@ -136,4 +123,21 @@ public class Game implements Initializable {
 		//window.close();
 		System.exit(0);
 	}
+	
+	public static class cellField extends StackPane	{
+		public cellField( String name, double x, double y, double width, double height) {
+
+            // create rectangle
+            Rectangle rectangle = new Rectangle(x, y, width, height);
+            rectangle.setStroke(Color.BLACK);
+            rectangle.setFill(Color.LIGHTBLUE);
+
+            // create label
+            Label label = new Label(name);
+            
+            getChildren().addAll( rectangle, label);
+            
+        }
+	}
+	
 }

@@ -19,6 +19,7 @@ public class Snake {
 	public Snake(int y, int x, int size)	{
 		this.position = new Point(y, x);
 		this.size = size;
+		this.direction = 1;
 	}
 	
 	/**
@@ -65,7 +66,7 @@ public class Snake {
 	 * @return - The current direction.
 	 */
 	public int getDirection()	{
-		return this.size;
+		return this.direction;
 	}
 	
 	/**

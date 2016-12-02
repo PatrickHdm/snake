@@ -9,7 +9,7 @@ public class GameClock {
 	private int fps = 1;
 	private int frameCount = 0;
 
-    public GridController gridArea;
+    //public GridController gridArea;
     public Snake player;
 
 	public void runGameLoop()
@@ -111,11 +111,11 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGameByFrame()	{
-		gridArea.setSnakeForwardAtGrid(gridArea, player);
+		//gridArea.setSnakeForwardAtGrid(gridArea, player);
 	}
 	
-	public void setGameStuff(GridController gridArea, Snake player)	{
-		this.gridArea = gridArea;
-		this.player = player;
-	}
+//	public void setGameStuff(GridController gridArea, Snake player)	{
+//		this.gridArea = gridArea;
+//		this.player = player;
+//	}
 }
