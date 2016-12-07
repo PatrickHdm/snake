@@ -6,23 +6,34 @@ public class GameClock {
 
 	private boolean running = false;
 	private boolean paused = false;
-	private int fps = 1;
+	private int fps = 1; // TODO - Setup the speed in the settings.
 	private int frameCount = 0;
+	Game currentGame;
 
-    //public GridController gridArea;
-    public Snake player;
-
-	public void runGameLoop()
+	public void runGameLoop(String mode)
 	{
-		Thread loop = new Thread()
-		{
-			public void run()
-			{
-				running = true;
-				gameLoop();
-			}
-		};
-		loop.start();
+		switch(mode)	{
+			case "start":
+				Thread loop = new Thread()
+				{
+					public void run()
+					{
+						running = true;
+						gameLoop();
+					}
+				};
+				loop.start();
+				break;
+			case "break":
+				running = false;
+				break;
+			case "stop":
+				System.exit(0);
+				break;		
+			default:
+				System.out.println("The mode was set wrong!"); // TODO - make it to log.
+				break;
+		}
 	}
 
 	private void gameLoop()	{
@@ -103,7 +114,7 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGame()	{
-		//gridArea.setSnakeForwardAtGrid(gridArea.getGrid(), player);
+		
 	}
 	
 	/**
@@ -111,11 +122,14 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGameByFrame()	{
-		//gridArea.setSnakeForwardAtGrid(gridArea, player);
+		try	{
+			currentGame.step();
+		} catch(Exception ex)	{
+			System.out.println(ex);
+		}
 	}
 	
-//	public void setGameStuff(GridController gridArea, Snake player)	{
-//		this.gridArea = gridArea;
-//		this.player = player;
-//	}
+	public void setCurrentGame(Game game)	{
+		this.currentGame = game;
+	}
 }
