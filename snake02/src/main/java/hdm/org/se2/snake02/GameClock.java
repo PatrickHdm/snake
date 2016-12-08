@@ -1,8 +1,12 @@
 package hdm.org.se2.snake02;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.scene.Group;
 
 public class GameClock {
+	Logger log = Logger.getLogger(GameClock.class.getName());
 
 	private boolean running = false;
 	private boolean paused = false;
@@ -31,7 +35,7 @@ public class GameClock {
 				System.exit(0);
 				break;		
 			default:
-				System.out.println("The mode was set wrong!"); // TODO - make it to log.
+				log.log(Level.SEVERE, "The mode was set wrong!"); 
 				break;
 		}
 	}
@@ -86,7 +90,7 @@ public class GameClock {
 				int thisSecond = (int) (lastUpdateTime / 1000000000);
 				if (thisSecond > lastSecondTime)
 				{
-					System.out.println("NEW SECOND " + thisSecond + " " + frameCount);
+					log.log(Level.INFO, "NEW SECOND " + thisSecond + " " + frameCount);
 					updateGameByFrame();
 					fps = frameCount;
 					frameCount = 0;
@@ -114,7 +118,6 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGame()	{
-		
 	}
 	
 	/**
@@ -122,11 +125,7 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGameByFrame()	{
-		try	{
-			currentGame.step();
-		} catch(Exception ex)	{
-			System.out.println(ex);
-		}
+		currentGame.step();
 	}
 	
 	public void setCurrentGame(Game game)	{

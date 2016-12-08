@@ -3,28 +3,21 @@ package hdm.org.se2.snake02;
 import java.awt.Graphics;
 import java.beans.EventHandler;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javafx.animation.Timeline;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 import javafx.scene.control.Label;
 
-public class Game implements Initializable {	
+public class Game {	
 	Logger log = Logger.getLogger(Game.class.getName());
 	
-	Game currentGame;
-	GameClock gc;
 	int gridRow = 24;
 	int gridCol = 24;
 	int gridSize = 20;
@@ -33,8 +26,8 @@ public class Game implements Initializable {
 	Snake player;
 	int COLLISION = -2, WALL = -1, EMPTY = 0, FOOD = 1;
 	
-	public Game()	{
-		player = new Snake(gridRow / 2, gridCol / 2, 3);
+	public Game(GridPane gridArea, Snake player, int gridRow, int gridCol, int GridSize)	{
+		this.player = player;
 		int index = 0;
 		for(int col = 0; col < gridCol; col++)	{
 			for(int row = 0; row < gridRow; row++)	{	
@@ -47,26 +40,7 @@ public class Game implements Initializable {
 		gridArea.setVgap(1);
 		gridArea.setPadding(new Insets(10, 10, 10, 10));
 	}
-	
-	@FXML
-	private BorderPane GridField;
-	
-	public void main() {
-		currentGame = new Game();
-		System.out.println(currentGame);
-		System.out.println(this.getClass());
-		gc = new GameClock();
-		gc.setCurrentGame(currentGame);
-		gc.runGameLoop("start");
-	}
-	
-	public void initialize(URL location, ResourceBundle resources) {
-		main();
-		GridField.setCenter(gridArea);
 		
-		
-	}
-	
 	public void step()	{
 		int direction = player.getDirection();
 		Node currentCell = cellField[player.getPosition().x][player.getPosition().y];
@@ -121,8 +95,7 @@ public class Game implements Initializable {
 		StackPane nextCellSP = (StackPane) nextCell;
 		Label laFromNextCell = (Label) nextCellSP.getChildren().get(1);
 		Rectangle reFromNextCell = (Rectangle) nextCellSP.getChildren().get(0);		
-		reFromNextCell.setFill(Color.BLACK);	
-		System.out.println(reFromNextCell);
+		reFromNextCell.setFill(Color.BLACK);
 
 		
 		if(laFromNextCell.getText() == "0")	{
@@ -132,34 +105,7 @@ public class Game implements Initializable {
 		}
 		
 	}
-	
-	
-	/**
-	 * Close the program safely.
-	 */
-	@FXML
-	private void toMenu()	{
-		Window myWindow = new Window();
-		try {
-			myWindow.sceneHandler("/Menu.fxml");
-		} catch (Exception e1) {
-			log.log(Level.SEVERE, "an exception was thrown", e1);
-
-		}
-	}
-
-	/**
-	 * Close the program safely.
-	 */
-	@FXML
-	private void closeProgram()	{
-
-		log.info("Save Game...");
-		gc.runGameLoop("break");
-		//window.close();
-		System.exit(0); // TODO - Maybe replace with a Bitcoin miner :-P
-	}
-	
+		
 	public static class cellField extends StackPane	{
 		public cellField(String name, double x, double y, double width, double height) {
 

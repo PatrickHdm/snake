@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.RadioButton?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.Game">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.GameController">
 	
 	<BorderPane >
 		<top>
