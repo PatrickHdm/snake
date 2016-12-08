@@ -1,8 +1,21 @@
 package hdm.org.se2.snake02;
 
 import java.awt.Point;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
 
 public class Settings {
+	
+	Logger log = Logger.getLogger(Game.class.getName());
+	
+	@FXML
+	private Button Back;
+	
 	
 	//TODO - change visibility
 	Point resolution = new Point(); 
@@ -55,6 +68,15 @@ public class Settings {
 	}
 	
 	
-	
+	@FXML
+	private void toMenu()	{
+		Window myWindow = new Window();
+		try {
+			myWindow.sceneHandler("/Menu.fxml");
+		} catch (Exception e1) {
+			log.log(Level.SEVERE, "an exception was thrown", e1);
+
+		}
+	}
 	
 }
