@@ -46,7 +46,7 @@ public class Game {
 		Node currentCell = cellField[player.getPosition().x][player.getPosition().y];
 		Node nextCell = cellField[0][0];
 		switch(direction)	{
-		case 1:
+		case 1: // Right
 			if(player.getPosition().x != gridCol - 1)	{
 				nextCell = cellField[player.getPosition().x + 1][player.getPosition().y];
 				player.setPosition(player.getPosition().x + 1, player.getPosition().y);
@@ -56,34 +56,34 @@ public class Game {
 				player.setPosition(0, player.getPosition().y);
 			}
 			break;
-		case 2:
+		case 2: // Down
 			if(player.getPosition().y != gridRow - 1)	{
 				nextCell = cellField[player.getPosition().x][player.getPosition().y + 1];
 				player.setPosition(player.getPosition().x, player.getPosition().y + 1);
 			}
 			else	{
-				nextCell = cellField[0][player.getPosition().y];
-				player.setPosition(0, player.getPosition().y);
+				nextCell = cellField[player.getPosition().x][0];
+				player.setPosition(player.getPosition().x, 0);
 			}
 			break;
-		case 3:
+		case 3: // Left
 			if(player.getPosition().x != 0)	{
 				nextCell = cellField[player.getPosition().x - 1][player.getPosition().y];
 				player.setPosition(player.getPosition().x - 1, player.getPosition().y);
 			}
 			else	{
-				nextCell = cellField[gridCol][player.getPosition().y];
-				player.setPosition(gridCol, player.getPosition().y);
+				nextCell = cellField[gridCol - 1][player.getPosition().y];
+				player.setPosition(gridCol - 1, player.getPosition().y);
 			}
 			break;
-		case 4:
+		case 4: // Up
 			if(player.getPosition().y != 0)	{
 				nextCell = cellField[player.getPosition().x][player.getPosition().y - 1];
 				player.setPosition(player.getPosition().x, player.getPosition().y - 1);
 			}
 			else	{
-				nextCell = cellField[player.getPosition().x][gridRow];
-				player.setPosition(player.getPosition().x + 1, gridRow);
+				nextCell = cellField[player.getPosition().x][gridRow - 1];
+				player.setPosition(player.getPosition().x, gridRow - 1);
 			}
 			break;
 		default:

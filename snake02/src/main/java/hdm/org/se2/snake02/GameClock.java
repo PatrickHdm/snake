@@ -91,12 +91,11 @@ public class GameClock {
 				if (thisSecond > lastSecondTime)
 				{
 					log.log(Level.INFO, "NEW SECOND " + thisSecond + " " + frameCount);
-					updateGameByFrame();
 					fps = frameCount;
 					frameCount = 0;
+					updateGameByFrame();	
 					lastSecondTime = thisSecond;
 				}
-
 				//Yield until it has been at least the target time between renders. This saves the CPU from hogging.
 				while ( now - lastRenderTime < TARGET_TIME_BETWEEN_RENDERS && now - lastUpdateTime < TIME_BETWEEN_UPDATES)
 				{
@@ -118,6 +117,7 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGame()	{
+		currentGame.step();		
 	}
 	
 	/**
@@ -125,7 +125,6 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGameByFrame()	{
-		currentGame.step();
 	}
 	
 	public void setCurrentGame(Game game)	{

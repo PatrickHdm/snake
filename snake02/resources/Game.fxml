@@ -12,7 +12,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.GameController">
 	
-	<BorderPane >
+	<BorderPane fx:id="GridField">
 		<top>
 			<HBox>
 				<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
@@ -21,7 +21,6 @@
 		</top>
 		
 		<center>
-			<BorderPane fx:id="GridField"></BorderPane>
 		</center>
 		
 		<bottom>
