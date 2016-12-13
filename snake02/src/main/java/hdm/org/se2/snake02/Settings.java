@@ -11,12 +11,7 @@ import javafx.scene.control.Button;
 
 public class Settings {
 	
-	Logger log = Logger.getLogger(Game.class.getName());
-	
-	@FXML
-	private Button Back;
-	
-	
+
 	//TODO - change visibility
 	Point resolution = new Point(); 
 	String difficulty;
@@ -68,15 +63,6 @@ public class Settings {
 	}
 	
 	
-	@FXML
-	private void toMenu()	{
-		Window myWindow = new Window();
-		try {
-			myWindow.sceneHandler("/Menu.fxml");
-		} catch (Exception e1) {
-			log.log(Level.SEVERE, "an exception was thrown", e1);
-
-		}
 	}
 	
-}
+

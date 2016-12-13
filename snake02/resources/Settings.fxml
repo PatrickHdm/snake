@@ -5,7 +5,8 @@
 <?import javafx.collections.*?>
 <?import java.lang.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.Settings">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.SettingsController">
+
 	
 	<BorderPane >
 		<top>
@@ -53,7 +54,7 @@
 			   		 
 					
 		<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
-		<Button fx:id="Save">Save</Button>
+		<Button fx:id="Save" onAction="#saveSettings">Save</Button>
 				
 			</VBox>
 		</center>
