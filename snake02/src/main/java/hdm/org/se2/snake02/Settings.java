@@ -1,9 +1,17 @@
 package hdm.org.se2.snake02;
 
 import java.awt.Point;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
 
 public class Settings {
 	
+
 	//TODO - change visibility
 	Point resolution = new Point(); 
 	String difficulty;
@@ -55,6 +63,6 @@ public class Settings {
 	}
 	
 	
+	}
 	
-	
-}
+

@@ -5,7 +5,8 @@
 <?import javafx.collections.*?>
 <?import java.lang.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.Settings">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.SettingsController">
+
 	
 	<BorderPane >
 		<top>
@@ -26,19 +27,35 @@
 					</items>
 				</ComboBox>
 				
-				<Label>Difficulty:</Label>
-					<RadioButton fx:id="easybutton">Easy</RadioButton>
-					<RadioButton fx:id="mediumbutton">Medium</RadioButton>
-					<RadioButton fx:id="hardbutton">Hard</RadioButton>
+		  <fx:define> <ToggleGroup fx:id="difficulty"/> </fx:define>
+			   	<children>
+			    	<Label>difficulty</Label>
+				        <RadioButton text="Easy" toggleGroup="$difficulty"/>
+				        <RadioButton text="Medium" toggleGroup="$difficulty"/>
+				        <RadioButton text="Hard" toggleGroup="$difficulty"/>
+			   	 </children>
+    
+    	  <fx:define> <ToggleGroup fx:id="theme"/> </fx:define>
+	  		    <children>  
+			   	 <Label>theme</Label>
+				        <RadioButton text="Standard1" toggleGroup="$theme"/>
+				        <RadioButton text="Standard2" toggleGroup="$theme"/>
+			    </children>
+    
+    
+        	<fx:define> <ToggleGroup fx:id="mode"/> </fx:define>
+	  		    	<children>  
+			   	 	<Label>mode</Label>
+				        <RadioButton text="Standard" toggleGroup="$mode"/>
+				        <RadioButton text="Random Number" toggleGroup="$mode"/>
+				        <RadioButton text="Learn Binary" toggleGroup="$mode"/>
+			   		 </children>
+			   		 
+			   		 
+					
+		<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
+		<Button fx:id="Save" onAction="#saveSettings">Save</Button>
 				
-				<Label>Theme:</Label>
-					<RadioButton fx:id="theme1button">Standard</RadioButton>
-				 	<RadioButton fx:id="theme2button">2</RadioButton>
-				 	
-				 <Label>Mode:</Label>
-					<RadioButton fx:id="normalmodebutton">Standard</RadioButton>
-					<RadioButton fx:id="randommodebutton">Random Numbers</RadioButton>
-					<RadioButton fx:id="binarymodebutton">Learn Binary</RadioButton>
 			</VBox>
 		</center>
 	</BorderPane>
