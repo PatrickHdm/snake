@@ -6,52 +6,79 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Highscore {
 
-	public void Setter() {
+	public Highscore() {
+		// default
+	}
+
+	public void setHighscore(String name, String score, String date) {
+		final String scorecsv = "temp/Highscore.csv";
+
+		// Create String from Score, Name, Date & Write to File
+		String temp = new StringBuilder("\"").append(score).append("\",\"").append(name).append("\",\"").append(date)
+				.append("\";").toString();
+		writeToFile(scorecsv, temp);
+
+	}
+
+	public ArrayList<String> getHighscore(){
+		final String scorecsv = "temp/Highscore.csv";
+		String temp = readFromFile(scorecsv);
+		ArrayList<String> TempList = new ArrayList<String>(); 
+		
+		for(int i = 0; i < temp.length();i++){ // Abfragen&ArrayList
+			// add split when semicolon for one set
+			// then divide set in 3 strings and schwupsdiwups
+		}
+		
+		return TempList;
+	}
+
+	public String readFromFile(String scorecsv) {
+		String Highscores = null;
 		try {
-			String name = "\"NTest\"";
-			String score = "\"S2433243242\"";
-			File file = new File("C:/test.csv");
-			// if file doesnt exists, then create it
+			File file = new File(scorecsv);
+			if (file.exists()) {
+				System.out.println("Found");
+			}
+			if (!file.exists()) {
+				System.out.println("No Highscores Available");
+			}
+			// init Reader
+			BufferedReader breader = new BufferedReader(new FileReader(file));
+			Highscores = breader.readLine();
+			// Close Reader
+			breader.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return Highscores;
+	}
+
+	public void writeToFile(String scorecsv, String temp) {
+
+		try {
+			// check if File exists. if not, create it. if yes, go on.
+			File file = new File(scorecsv);
+			if (file.exists()) {
+				System.out.println("Found");
+			}
 			if (!file.exists()) {
 				file.createNewFile();
 			}
-			FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(name);
-			bw.write(score);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+
+			bw.write(temp);
 			bw.close();
-			System.out.println("Done");
-
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 	}
 
-	public void Getter() {
-		try {
-			FileReader in = new FileReader("C:/test.csv");
-			BufferedReader br = new BufferedReader(in);
-			
-			String temp;
-			String name;
-			String score;
-			while ((temp = br.readLine()) != null) {
-				if(temp.charAt(1)=='N'){
-					name = temp;
-				}
-				if(temp.charAt(1)=='S'){
-					score = temp;
-				}
-			}
-
-			in.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 }
-
