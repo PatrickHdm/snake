@@ -57,7 +57,7 @@ public class SettingsController extends Settings {
 		}
 		
 		
-		//Set theme
+		//Setr theme
 		try{
 			String tempThemeString = theme.getSelectedToggle().toString();
 			String [] arr1 = tempThemeString.split("]");

@@ -58,8 +58,8 @@
 		</VBox>	   		 	 
 		
 		<HBox>			
-			<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
-			<Button fx:id="Save" onAction="#saveSettings">Save</Button>
+				<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
+				<Button fx:id="Save" onAction="#saveSettings">Save</Button>
 		</HBox>		
 			</VBox>
 		</center>
