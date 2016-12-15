@@ -16,7 +16,7 @@
 		<top>
 			<HBox>
 				<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
-				<Label fx:id="score">Score: XXX</Label>
+				<Label>Score: </Label><Label fx:id="score">XXX</Label>
 			</HBox>
 		</top>
 		

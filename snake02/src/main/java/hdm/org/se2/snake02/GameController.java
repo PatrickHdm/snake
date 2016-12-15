@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -21,38 +22,43 @@ public class GameController implements Initializable {
 	Snake player;
 	GameClock gc;
 	GridPane gridArea = new GridPane();
-		
-	public void main()	{
-		player = new Snake(24 / 2, 24 / 2, 3);
-		currentGame = new Game(gridArea,player,24, 24, 20);
-		gc = new GameClock();
-		gc.setCurrentGame(currentGame);
-		gc.runGameLoop("start");
-	}
-
 
 	@FXML
 	private BorderPane GridField;
+	@FXML
+	private Label score;
+		
+	public void main()	{
+		player = new Snake(24 / 2, 24 / 2, 3);
+		currentGame = new Game(gridArea,player,score,24, 24, 20);
+		gc = new GameClock();
+		gc.setCurrentGame(currentGame);
+		gc.runGameLoop("start");
+		currentGame.setTemplate("standard");
+	}
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		main();
 		GridField.setCenter(gridArea);
 		GridField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>(){
 
-			@Override
-			public void handle(KeyEvent event) {
+		@Override
+		public void handle(KeyEvent event) {
 				KeyCode eventKey = event.getCode();
 				if (eventKey == eventKey.UP || eventKey == eventKey.W)	{
-					player.setDirection(4);
+					if(player.getDirection() != 2)
+						player.setDirection(4);
 				} else if (eventKey == eventKey.DOWN || eventKey == eventKey.S)	{
-					player.setDirection(2);					
+					if(player.getDirection() != 4)
+						player.setDirection(2);					
 				} else if (eventKey == eventKey.LEFT || eventKey == eventKey.A)	{
-					player.setDirection(3);					
+					if(player.getDirection() != 1)
+						player.setDirection(3);					
 				} else if (eventKey == eventKey.RIGHT || eventKey == eventKey.D)	{
-					player.setDirection(1);					
+					if(player.getDirection() != 3)
+						player.setDirection(1);					
 				}
-			}
-			
+			}			
 		});
 	}
 
@@ -63,7 +69,7 @@ public class GameController implements Initializable {
 	private void toMenu()	{
 		Window myWindow = new Window();
 		try {
-			gc.runGameLoop("break");
+			gc.runGameLoop("stop");
 			myWindow.sceneHandler("/Menu.fxml");
 		} catch (Exception e1) {
 			log.log(Level.SEVERE, "an exception was thrown", e1);

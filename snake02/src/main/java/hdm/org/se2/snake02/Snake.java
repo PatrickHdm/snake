@@ -1,13 +1,19 @@
 package hdm.org.se2.snake02;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Snake {
 
 	Point position;
+	int score;
 	int size;
+	LinkedList<Point> entityPosition = new LinkedList<Point>();
 	int direction;
 	Object cur;
+	boolean isDeath;
 	
 	/**
 	 * Create a snake, with a position and a size.
@@ -18,8 +24,10 @@ public class Snake {
 	 */
 	public Snake(int y, int x, int size)	{
 		this.position = new Point(y, x);
+		this.score = 0;
 		this.size = size;
 		this.direction = 1;
+		this.isDeath = false;
 	}
 	
 	/**
@@ -40,6 +48,24 @@ public class Snake {
 	public void setPosition(int x, int y)	{
 		position.y = y;
 		position.x = x;
+	}
+	
+	/**
+	 * Get the current score of the snake
+	 * 
+	 * @return - The current score.
+	 */
+	public int getSore()	{
+		return this.score;
+	}
+	
+	/**
+	 * Add a score to the snake.
+	 * 
+	 * @param size - A score to add on the current score.
+	 */
+	public void setScore(int score)	{
+		this.score += score;
 	}
 	
 	/**
@@ -76,6 +102,24 @@ public class Snake {
 	 */
 	public void setDirection(int direction)	{
 		this.direction = direction;
+	}
+	
+	/**
+	 * Get the current status of the players life
+	 * 
+	 * @return - The players life
+	 */
+	public boolean getIsDeath() {
+		return this.isDeath;
+	}
+	
+	/**
+	 * Set the current status of the players life
+	 * 
+	 * @param rip - Set the status to true or false
+	 */
+	public void setIsDeath(Boolean rip)	{
+		this.isDeath = rip;
 	}
 	
 }

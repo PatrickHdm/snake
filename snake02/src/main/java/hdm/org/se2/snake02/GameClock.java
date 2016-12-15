@@ -5,20 +5,26 @@ import java.util.logging.Logger;
 
 import javafx.scene.Group;
 
+/**
+ * @author Patri
+ *
+ */
 public class GameClock {
 	Logger log = Logger.getLogger(GameClock.class.getName());
 
+	// TODO - Set up visibility
 	private boolean running = false;
 	private boolean paused = false;
 	private int fps = 1; // TODO - Setup the speed in the settings.
 	private int frameCount = 0;
 	Game currentGame;
+	Thread loop;
 
 	public void runGameLoop(String mode)
 	{
 		switch(mode)	{
 			case "start":
-				Thread loop = new Thread()
+				loop = new Thread()
 				{
 					public void run()
 					{
@@ -29,10 +35,11 @@ public class GameClock {
 				loop.start();
 				break;
 			case "break":
-				running = false;
+				paused = true;
 				break;
 			case "stop":
-				System.exit(0);
+				running = false;
+				loop.stop();  // TODO - Replace with a better way!
 				break;		
 			default:
 				log.log(Level.SEVERE, "The mode was set wrong!"); 
@@ -117,7 +124,11 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGame()	{
-		currentGame.step();		
+		currentGame.step();
+		
+		if(currentGame.getPlayerStatus() == true)	{
+			runGameLoop("break");
+		}
 	}
 	
 	/**
@@ -127,6 +138,11 @@ public class GameClock {
 	public void updateGameByFrame()	{
 	}
 	
+	/**
+	 * Set the current game to the gameclock to use.
+	 * 
+	 * @param game
+	 */
 	public void setCurrentGame(Game game)	{
 		this.currentGame = game;
 	}
