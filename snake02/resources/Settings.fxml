@@ -4,6 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.collections.*?>
 <?import java.lang.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.SettingsController">
 
@@ -26,7 +28,7 @@
 						</FXCollections>
 					</items>
 				</ComboBox>
-				
+		<VBox>	
 		  <fx:define> <ToggleGroup fx:id="difficulty"/> </fx:define>
 			   	<children>
 			    	<Label>difficulty</Label>
@@ -34,15 +36,18 @@
 				        <RadioButton text="Medium" toggleGroup="$difficulty"/>
 				        <RadioButton text="Hard" toggleGroup="$difficulty"/>
 			   	 </children>
+    	</VBox>
     
+    	<VBox>
     	  <fx:define> <ToggleGroup fx:id="theme"/> </fx:define>
 	  		    <children>  
 			   	 <Label>theme</Label>
 				        <RadioButton text="Standard1" toggleGroup="$theme"/>
 				        <RadioButton text="Standard2" toggleGroup="$theme"/>
 			    </children>
+    	</VBox>
     
-    
+    	<VBox>
         	<fx:define> <ToggleGroup fx:id="mode"/> </fx:define>
 	  		    	<children>  
 			   	 	<Label>mode</Label>
@@ -50,12 +55,12 @@
 				        <RadioButton text="Random Number" toggleGroup="$mode"/>
 				        <RadioButton text="Learn Binary" toggleGroup="$mode"/>
 			   		 </children>
-			   		 
-			   		 
-					
+		</VBox>	   		 	 
+		
+		<HBox>			
 		<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
 		<Button fx:id="Save" onAction="#saveSettings">Save</Button>
-				
+		</HBox>		
 			</VBox>
 		</center>
 	</BorderPane>
