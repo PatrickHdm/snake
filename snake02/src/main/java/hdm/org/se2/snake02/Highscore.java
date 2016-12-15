@@ -12,6 +12,7 @@ public class Highscore {
 
 	public Highscore() {
 		// defaults
+		//On Git Commented and Submitted Test??
 	}
 
 	public void setHighscore(String name, String score, String date) {
