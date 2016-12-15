@@ -4,6 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 
 /**
  * @author Patri
@@ -124,10 +126,12 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGame()	{
-		currentGame.step();
 		
 		if(currentGame.getPlayerStatus() == true)	{
+			currentGame.setGameOver();
 			runGameLoop("break");
+		} else {
+			currentGame.step();			
 		}
 	}
 	

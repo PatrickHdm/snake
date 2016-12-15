@@ -25,6 +25,7 @@ public class GameController implements Initializable {
 
 	@FXML
 	private BorderPane GridField;
+	
 	@FXML
 	private Label score;
 		

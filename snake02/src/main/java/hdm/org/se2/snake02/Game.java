@@ -169,6 +169,12 @@ public class Game {
 		return player.getIsDeath();
 	}
 	
+	public void setGameOver()	{
+		Label gameOverLabel = new Label("GAME OVER");
+		gridArea.getChildren().removeAll();
+		gridArea.add(gameOverLabel, 0, 0);
+		log.info("GAME OVER");
+	}
 	
 	public void replaceFieldInArray(String element, int[][] grids)	{
 		for(int col = 0; col < grids.length; col++)	{
