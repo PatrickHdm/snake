@@ -18,10 +18,13 @@ import javafx.scene.layout.GridPane;
 public class GameController implements Initializable {
 	Logger log = Logger.getLogger(GameController.class.getName());
 
+	// TODO - Setup visibility
 	Game currentGame;
-	Snake player;
+	Snake player01;
+	Snake player02;
 	GameClock gc;
 	GridPane gridArea = new GridPane();
+	boolean isMultiplayer = false;
 
 	@FXML
 	private BorderPane GridField;
@@ -30,8 +33,15 @@ public class GameController implements Initializable {
 	private Label score;
 		
 	public void main()	{
-		player = new Snake(24 / 2, 24 / 2, 3);
-		currentGame = new Game(gridArea,player,score,24, 24, 20);
+		// TODO - Request for one or two player
+		if(isMultiplayer == true)	{
+			player01 = new Snake(24 / 2, 24 / 2, 3);
+			player02 = new Snake(24 / 4, 24 / 4, 3);
+			currentGame = new Game(gridArea,player01,player02,score,24, 24, 20);		
+		} else	{
+			player01 = new Snake(24 / 2, 24 / 2, 3);			
+			currentGame = new Game(gridArea,player01,null,score,24, 24, 20);
+		}
 		gc = new GameClock();
 		gc.setCurrentGame(currentGame);
 		gc.runGameLoop("start");
@@ -46,18 +56,49 @@ public class GameController implements Initializable {
 		@Override
 		public void handle(KeyEvent event) {
 				KeyCode eventKey = event.getCode();
-				if (eventKey == eventKey.UP || eventKey == eventKey.W)	{
-					if(player.getDirection() != 2)
-						player.setDirection(4);
-				} else if (eventKey == eventKey.DOWN || eventKey == eventKey.S)	{
-					if(player.getDirection() != 4)
-						player.setDirection(2);					
-				} else if (eventKey == eventKey.LEFT || eventKey == eventKey.A)	{
-					if(player.getDirection() != 1)
-						player.setDirection(3);					
-				} else if (eventKey == eventKey.RIGHT || eventKey == eventKey.D)	{
-					if(player.getDirection() != 3)
-						player.setDirection(1);					
+				
+				// TODO - Separate for multiplayer.
+				if(isMultiplayer != true)	{
+					if (eventKey == eventKey.UP || eventKey == eventKey.W)	{
+						if(player01.getDirection() != 2)
+							player01.setDirection(4);
+					} else if (eventKey == eventKey.DOWN || eventKey == eventKey.S)	{
+						if(player01.getDirection() != 4)
+							player01.setDirection(2);					
+					} else if (eventKey == eventKey.LEFT || eventKey == eventKey.A)	{
+						if(player01.getDirection() != 1)
+							player01.setDirection(3);					
+					} else if (eventKey == eventKey.RIGHT || eventKey == eventKey.D)	{
+						if(player01.getDirection() != 3)
+							player01.setDirection(1);					
+					}
+				} else	{
+					if (eventKey == eventKey.UP)	{
+						if(player01.getDirection() != 2)
+							player01.setDirection(4);
+					} else if (eventKey == eventKey.DOWN)	{
+						if(player01.getDirection() != 4)
+							player01.setDirection(2);					
+					} else if (eventKey == eventKey.LEFT)	{
+						if(player01.getDirection() != 1)
+							player01.setDirection(3);					
+					} else if (eventKey == eventKey.RIGHT)	{
+						if(player01.getDirection() != 3)
+							player01.setDirection(1);					
+					}
+					if (eventKey == eventKey.W)	{
+						if(player02.getDirection() != 2)
+							player02.setDirection(4);
+					} else if (eventKey == eventKey.S)	{
+						if(player02.getDirection() != 4)
+							player02.setDirection(2);					
+					} else if (eventKey == eventKey.A)	{
+						if(player02.getDirection() != 1)
+							player02.setDirection(3);					
+					} else if (eventKey == eventKey.D)	{
+						if(player02.getDirection() != 3)
+							player02.setDirection(1);					
+					}
 				}
 			}			
 		});

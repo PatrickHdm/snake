@@ -17,22 +17,29 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
+import hdm.org.se2.snake02.Window;
 
 public class Game {	
 	Logger log = Logger.getLogger(Game.class.getName());
 
-	int gridRow = 24;
-	int gridCol = 24;
-	int gridSize = 20;
+	// TODO - Setup visibility
+	private int gridRow = 24;
+	private int gridCol = 24;
+	private int gridSize = 20;
 	GridPane gridArea = new GridPane();
 	Node[][] cellField = new Node[gridCol][gridRow];
-	Snake player;
+	Snake player01;
+	Snake player02;
 	Label score;
 	int COLLISION = -2, WALL = -1, EMPTY = 0, FOOD = 1;
 
-	public Game(GridPane gridArea, Snake player, Label score, int gridRow, int gridCol, int GridSize)	{
-		this.player = player;
+	public Game(GridPane gridArea, Snake player01, Snake player02, Label score, int gridRow, int gridCol, int GridSize)	{
+		this.player01 = player01;
+		if(player02 != null)	{
+			this.player02 = player02;
+		}
 		this.score = score;
+		this.gridArea = gridArea;
 		int index = 0;
 		for(int col = 0; col < gridCol; col++)	{
 			for(int row = 0; row < gridRow; row++)	{	
@@ -42,8 +49,8 @@ public class Game {
 			}
 		}
 
-		player.entityPosition.add(player.getPosition());
-		score.setText(""+player.getSore());
+		player01.entityPosition.add(player01.getPosition());
+		score.setText(""+player01.getSore());
 		gridArea.setHgap(1);
 		gridArea.setVgap(1);
 		gridArea.setPadding(new Insets(10, 10, 10, 10));
@@ -52,48 +59,48 @@ public class Game {
 	public void step()	{
 		Platform.runLater(new Runnable() {
 			@Override public void run() {
-				int direction = player.getDirection();
-				Node currentCell = cellField[player.getPosition().x][player.getPosition().y];
+				int direction = player01.getDirection();
+				Node currentCell = cellField[player01.getPosition().x][player01.getPosition().y];
 				Node nextCell = cellField[0][0];
 				switch(direction)	{
 				case 1: // Right
-					if(player.getPosition().x != gridCol - 1)	{
-						nextCell = cellField[player.getPosition().x + 1][player.getPosition().y];
-						player.setPosition(player.getPosition().x + 1, player.getPosition().y);
+					if(player01.getPosition().x != gridCol - 1)	{
+						nextCell = cellField[player01.getPosition().x + 1][player01.getPosition().y];
+						player01.setPosition(player01.getPosition().x + 1, player01.getPosition().y);
 					}
 					else	{
-						nextCell = cellField[0][player.getPosition().y];
-						player.setPosition(0, player.getPosition().y);
+						nextCell = cellField[0][player01.getPosition().y];
+						player01.setPosition(0, player01.getPosition().y);
 					}
 					break;
 				case 2: // Down
-					if(player.getPosition().y != gridRow - 1)	{
-						nextCell = cellField[player.getPosition().x][player.getPosition().y + 1];
-						player.setPosition(player.getPosition().x, player.getPosition().y + 1);
+					if(player01.getPosition().y != gridRow - 1)	{
+						nextCell = cellField[player01.getPosition().x][player01.getPosition().y + 1];
+						player01.setPosition(player01.getPosition().x, player01.getPosition().y + 1);
 					}
 					else	{
-						nextCell = cellField[player.getPosition().x][0];
-						player.setPosition(player.getPosition().x, 0);
+						nextCell = cellField[player01.getPosition().x][0];
+						player01.setPosition(player01.getPosition().x, 0);
 					}
 					break;
 				case 3: // Left
-					if(player.getPosition().x != 0)	{
-						nextCell = cellField[player.getPosition().x - 1][player.getPosition().y];
-						player.setPosition(player.getPosition().x - 1, player.getPosition().y);
+					if(player01.getPosition().x != 0)	{
+						nextCell = cellField[player01.getPosition().x - 1][player01.getPosition().y];
+						player01.setPosition(player01.getPosition().x - 1, player01.getPosition().y);
 					}
 					else	{
-						nextCell = cellField[gridCol - 1][player.getPosition().y];
-						player.setPosition(gridCol - 1, player.getPosition().y);
+						nextCell = cellField[gridCol - 1][player01.getPosition().y];
+						player01.setPosition(gridCol - 1, player01.getPosition().y);
 					}
 					break;
 				case 4: // Up
-					if(player.getPosition().y != 0)	{
-						nextCell = cellField[player.getPosition().x][player.getPosition().y - 1];
-						player.setPosition(player.getPosition().x, player.getPosition().y - 1);
+					if(player01.getPosition().y != 0)	{
+						nextCell = cellField[player01.getPosition().x][player01.getPosition().y - 1];
+						player01.setPosition(player01.getPosition().x, player01.getPosition().y - 1);
 					}
 					else	{
-						nextCell = cellField[player.getPosition().x][gridRow - 1];
-						player.setPosition(player.getPosition().x, gridRow - 1);
+						nextCell = cellField[player01.getPosition().x][gridRow - 1];
+						player01.setPosition(player01.getPosition().x, gridRow - 1);
 					}
 					break;
 				default:
@@ -111,41 +118,41 @@ public class Game {
 					laFromCurrentCell.setText("0");
 					reFromNextCell.setFill(Color.BLACK);
 					laFromNextCell.setText("-2");
-					player.entityPosition.add(new Point(player.getPosition().x,player.getPosition().y));
-					Point firstEntity = player.entityPosition.getFirst();
+					player01.entityPosition.add(new Point(player01.getPosition().x,player01.getPosition().y));
+					Point firstEntity = player01.entityPosition.getFirst();
 					Node cellFromEntity = cellField[firstEntity.x][firstEntity.y];
 					StackPane cellSPFromEntity = (StackPane) cellFromEntity;
 					Label laCellFromEntity = (Label) cellSPFromEntity.getChildren().get(1);
 					laCellFromEntity.setText("0");
-					player.entityPosition.removeFirst();
+					player01.entityPosition.removeFirst();
 					break;
 				case "-1":
-					player.setIsDeath(true);
+					player01.setIsDeath(true);
 					reFromNextCell.setFill(Color.RED);
 					laFromNextCell.setText("0");
-					player.entityPosition.removeFirst();
+					player01.entityPosition.removeFirst();
 					break;
 				case "-2":
-					player.setIsDeath(true);
+					player01.setIsDeath(true);
 					reFromNextCell.setFill(Color.RED);
 					laFromNextCell.setText("0");
-					player.entityPosition.removeFirst();
+					player01.entityPosition.removeFirst();
 					break;
 				case "1":
 					reFromNextCell.setFill(Color.BLACK);
 					laFromNextCell.setText("-2");
-					player.setSize(1);
-					player.setScore(1);
-					score.setText(""+player.getSore());
+					player01.setSize(1);
+					player01.setScore(1);
+					score.setText(""+player01.getSore());
 					Random randomGenerator = new Random();
 					int col = randomGenerator.nextInt(gridCol - 1);
 					int row = randomGenerator.nextInt(gridRow - 1);
 					replaceField("FOOD", col, row);
-					player.entityPosition.add(new Point(player.getPosition().x,player.getPosition().y));
+					player01.entityPosition.add(new Point(player01.getPosition().x,player01.getPosition().y));
 					break;
 				}
 				
-				for(Point entity : player.entityPosition)	{
+				for(Point entity : player01.entityPosition)	{
 					replaceField("SNAKE", entity.x, entity.y);
 				}
 
@@ -166,14 +173,18 @@ public class Game {
 	}
 	
 	public boolean getPlayerStatus()	{
-		return player.getIsDeath();
+		return player01.getIsDeath();
 	}
 	
 	public void setGameOver()	{
 		log.info("GAME OVER");
-		Label gameOverLabel = new Label("GAME OVER");
-		gridArea.getChildren().removeAll();
-		gridArea.add(gameOverLabel, 0, 0);
+//		Window myWindow = new Window();
+//		try {
+//			myWindow.sceneHandler("/GameOver.fxml");
+//		} catch (Exception e1) {
+//			log.log(Level.SEVERE, "an exception was thrown", e1);
+//
+//		}
 	}
 	
 	public void replaceFieldInArray(String element, int[][] grids)	{

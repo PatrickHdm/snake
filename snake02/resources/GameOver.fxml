@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.RadioButton?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.GameController">
+	
+	<BorderPane fx:id="GridField">
+		<top>
+			<HBox>
+				<Label>GAME OVER</Label>
+			</HBox>
+		</top>
+		
+		<center>
+				<Label>Your score: </Label><Label fx:id="score">XXX</Label>
+		</center>
+		
+		<bottom>
+				<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
+		</bottom>
+		
+	</BorderPane>
+	
+</AnchorPane>
+

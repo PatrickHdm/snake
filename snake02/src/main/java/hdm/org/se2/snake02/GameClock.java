@@ -19,8 +19,8 @@ public class GameClock {
 	private boolean paused = false;
 	private int fps = 1; // TODO - Setup the speed in the settings.
 	private int frameCount = 0;
-	Game currentGame;
-	Thread loop;
+	private Game currentGame;
+	private Thread loop;
 
 	public void runGameLoop(String mode)
 	{
@@ -99,7 +99,7 @@ public class GameClock {
 				int thisSecond = (int) (lastUpdateTime / 1000000000);
 				if (thisSecond > lastSecondTime)
 				{
-					log.log(Level.INFO, "NEW SECOND " + thisSecond + " " + frameCount);
+					log.info("NEW SECOND " + thisSecond + " " + frameCount);
 					fps = frameCount;
 					frameCount = 0;
 					updateGameByFrame();	
@@ -127,8 +127,8 @@ public class GameClock {
 	 */
 	public void updateGame()	{		
 		if(currentGame.getPlayerStatus() == true)	{
-			currentGame.setGameOver();
 			runGameLoop("break");
+			currentGame.setGameOver();
 		} else {
 			currentGame.step();
 		}

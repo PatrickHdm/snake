@@ -13,7 +13,8 @@ public class Window extends Application {
 	
 	
 	public static Stage windowStage; // This is the window itself. It's public so that we can modify it, like setting a new scene.
-	
+	public int resX = 1280;
+	public int resY = 720;
 		   
 	public static void main(String[] args) {
 		launch(args);
@@ -24,10 +25,15 @@ public class Window extends Application {
 		windowStage = primaryStage;
 		windowStage.setTitle("Snake0two");
 		
+		// Get settings or set new Settings
+		Settings settings = new Settings();
+		this.resX = settings.resolution.x;
+		this.resY = settings.resolution.y;
+		
 		// Before we set a new scene, we need to create our layout. We have it as a fxml, so that we need to load it.
 		Parent menuSource = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
 		// Now we can create the first scene, our menu. Also to add are the scene resolution.
-		Scene menu = new Scene(menuSource, 1280, 720);
+		Scene menu = new Scene(menuSource, resX, resY);
 		
 		// After we create our scene, we have to give it to our window.
 		windowStage.setScene(menu);
@@ -48,7 +54,7 @@ public class Window extends Application {
 		// Again, we firstly load our layout
 		Parent sceneSource = FXMLLoader.load(getClass().getResource(scene));
 		// Now we can setup a new scene and push it to our window.
-		windowStage.setScene(new Scene(sceneSource, 1280, 720));
+		windowStage.setScene(new Scene(sceneSource, resX, resY));
 	}
 	
 	
