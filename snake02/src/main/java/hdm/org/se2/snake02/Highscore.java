@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Highscore {
 
 	public Highscore() {
-		// default
+		// defaults
 	}
 
 	public void setHighscore(String name, String score, String date) {
