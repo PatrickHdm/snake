@@ -24,7 +24,7 @@ public class GameController implements Initializable {
 	Snake player02;
 	GameClock gc;
 	GridPane gridArea = new GridPane();
-	boolean isMultiplayer = false;
+	boolean isMultiplayer = true;
 
 	@FXML
 	private BorderPane GridField;
@@ -37,13 +37,15 @@ public class GameController implements Initializable {
 		if(isMultiplayer == true)	{
 			player01 = new Snake(24 / 2, 24 / 2, 3);
 			player02 = new Snake(24 / 4, 24 / 4, 3);
-			currentGame = new Game(gridArea,player01,player02,score,24, 24, 20);		
+			currentGame = new Game(gridArea,player01,player02,score,24, 24, 20);	
+			gc = new GameClock();
+			gc.setCurrentGame(currentGame, player01, player02);	
 		} else	{
 			player01 = new Snake(24 / 2, 24 / 2, 3);			
 			currentGame = new Game(gridArea,player01,null,score,24, 24, 20);
+			gc = new GameClock();
+			gc.setCurrentGame(currentGame, player01, null);
 		}
-		gc = new GameClock();
-		gc.setCurrentGame(currentGame);
 		gc.runGameLoop("start");
 		currentGame.setTemplate("standard");
 	}

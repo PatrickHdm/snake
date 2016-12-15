@@ -20,6 +20,8 @@ public class GameClock {
 	private int fps = 1; // TODO - Setup the speed in the settings.
 	private int frameCount = 0;
 	private Game currentGame;
+	private Snake player01;
+	private Snake player02;
 	private Thread loop;
 
 	public void runGameLoop(String mode)
@@ -130,7 +132,12 @@ public class GameClock {
 			runGameLoop("break");
 			currentGame.setGameOver();
 		} else {
-			currentGame.step();
+			if(player02 == null)	{
+				currentGame.step(player01);
+			} else	{
+				currentGame.step(player01);
+				currentGame.step(player02);				
+			}
 		}
 	}
 	
@@ -146,7 +153,9 @@ public class GameClock {
 	 * 
 	 * @param game
 	 */
-	public void setCurrentGame(Game game)	{
+	public void setCurrentGame(Game game, Snake player01, Snake player02)	{
 		this.currentGame = game;
+		this.player01 = player01;
+		this.player02 = player02;
 	}
 }
