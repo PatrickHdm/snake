@@ -3,12 +3,9 @@ package hdm.org.se2.snake02;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import org.junit.internal.matchers.ThrowableMessageMatcher;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 
 
 public class SettingsController extends Settings {
@@ -17,6 +14,9 @@ public class SettingsController extends Settings {
 	
 	@FXML
 	Button Back;
+	
+	@FXML
+	Button Save;
 	
 	@FXML
 	ComboBox resolution;
@@ -34,16 +34,53 @@ public class SettingsController extends Settings {
 	public void saveSettings(){
 
 		// Set the resolution
-		String resString = resolution.getValue().toString();
-		int resolutionX, resolutionY;
-		String[] resSplit = resString.split("x");		
-		resolutionX = Integer.parseInt(resSplit[0]);
-		resolutionY = Integer.parseInt(resSplit[1]);		
-		setResolution(resolutionX, resolutionY);		
+		try	{
+			String resString = resolution.getValue().toString();
+			int resolutionX, resolutionY;
+			String[] resSplit = resString.split("x");		
+			resolutionX = Integer.parseInt(resSplit[0]);
+			resolutionY = Integer.parseInt(resSplit[1]);		
+			setResolution(resolutionX, resolutionY);		
+		}catch(Exception e){
+			log.info("no res found");
+		}
 		
+		// Set the difficulty
+		try	{
+			String tempDiffString = difficulty.getSelectedToggle().toString();
+			String [] arr = tempDiffString.split("]");
+			String tempDiffString2 = arr[1];
+			String difficultyString = tempDiffString2.substring(1, tempDiffString2.length()-1);
+			System.out.println(difficultyString);
+		}catch(Exception e){
+			log.info("no diff found");
+		}
+		
+		
+		//Set theme
+		try{
+			String tempThemeString = theme.getSelectedToggle().toString();
+			String [] arr1 = tempThemeString.split("]");
+			String tempDiffString2 = arr1[1];
+			String themeString = tempDiffString2.substring(1, tempDiffString2.length()-1);
+			System.out.println(themeString);
+		}catch(Exception e){
+			log.info("no theme entered");
+		}
+		
+		//Set mode
+		try{
+			String tempModeString = mode.getSelectedToggle().toString();
+			String [] arr2 = tempModeString.split("]");
+			String tempModeString2 = arr2[1];
+			String modeString = tempModeString2.substring(1, tempModeString2.length()-1);
+			System.out.println(modeString);
+		}catch(Exception e){
+			log.info("no mode found");
+		}
+	
+	
 	}
-
-
 
 
 	@FXML
@@ -53,9 +90,9 @@ public class SettingsController extends Settings {
 			myWindow.sceneHandler("/Menu.fxml");
 		} catch (Exception e1) {
 			log.log(Level.SEVERE, "an exception was thrown", e1);
-
 		}
 	}
+	
 }
 
 
