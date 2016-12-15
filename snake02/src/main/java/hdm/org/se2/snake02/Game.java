@@ -170,10 +170,10 @@ public class Game {
 	}
 	
 	public void setGameOver()	{
+		log.info("GAME OVER");
 		Label gameOverLabel = new Label("GAME OVER");
 		gridArea.getChildren().removeAll();
 		gridArea.add(gameOverLabel, 0, 0);
-		log.info("GAME OVER");
 	}
 	
 	public void replaceFieldInArray(String element, int[][] grids)	{

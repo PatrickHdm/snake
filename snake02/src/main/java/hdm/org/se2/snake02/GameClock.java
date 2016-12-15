@@ -125,13 +125,12 @@ public class GameClock {
 	 * Update the game.
 	 * 
 	 */
-	public void updateGame()	{
-		
+	public void updateGame()	{		
 		if(currentGame.getPlayerStatus() == true)	{
 			currentGame.setGameOver();
 			runGameLoop("break");
 		} else {
-			currentGame.step();			
+			currentGame.step();
 		}
 	}
 	

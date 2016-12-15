@@ -7,7 +7,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.HighscoreController">
+	
+	
+	<BorderPane fx:id="GridField">
+		<top>
+			<HBox>
+				<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
+			</HBox>
+		</top>
+		
+		<center>
+		</center>
+		
+		<bottom>
+			<Label>HDM</Label>
+		</bottom>
+		
+	</BorderPane>
 	
 </AnchorPane>	
 

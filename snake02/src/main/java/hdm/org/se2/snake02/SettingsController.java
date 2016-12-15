@@ -3,7 +3,6 @@ package hdm.org.se2.snake02;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.junit.internal.matchers.ThrowableMessageMatcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
