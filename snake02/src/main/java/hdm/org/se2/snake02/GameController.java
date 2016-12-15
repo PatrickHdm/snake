@@ -24,7 +24,7 @@ public class GameController implements Initializable {
 	Snake player02;
 	GameClock gc;
 	GridPane gridArea = new GridPane();
-	boolean isMultiplayer = true;
+	boolean isMultiplayer = false;
 
 	@FXML
 	private BorderPane GridField;
