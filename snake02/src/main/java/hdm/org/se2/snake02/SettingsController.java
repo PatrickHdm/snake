@@ -3,9 +3,7 @@ package hdm.org.se2.snake02;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.junit.internal.matchers.ThrowableMessageMatcher;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -82,7 +80,7 @@ public class SettingsController extends Settings {
 		}
 	
 	
-		}
+	}
 
 
 	@FXML
@@ -92,7 +90,6 @@ public class SettingsController extends Settings {
 			myWindow.sceneHandler("/Menu.fxml");
 		} catch (Exception e1) {
 			log.log(Level.SEVERE, "an exception was thrown", e1);
-
 		}
 	}
 	
