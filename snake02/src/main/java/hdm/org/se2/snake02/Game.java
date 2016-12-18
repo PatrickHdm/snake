@@ -238,7 +238,7 @@ public class Game {
 				{0,0},{0,1},{0,2},{0,3},{0,4},
 				{1,0},{2,0},{3,0},{4,0},
 				};
-			replaceFieldInArray("WALL", wallGrids);
+//			replaceFieldInArray("WALL", wallGrids);
 			//FOOD
 			int[][] food = new int[][]	{
 				{6,4},{12,9},{7,2}

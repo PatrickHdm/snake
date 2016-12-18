@@ -22,7 +22,7 @@ public class GameController implements Initializable {
 	Game currentGame;
 	Snake player01;
 	Snake player02;
-	GameClock gc;
+	public static GameClock gc;
 	GridPane gridArea = new GridPane();
 	boolean isMultiplayer = false;
 
@@ -46,7 +46,6 @@ public class GameController implements Initializable {
 			gc = new GameClock();
 			gc.setCurrentGame(currentGame, player01, null);
 		}
-		gc.runGameLoop("start");
 		currentGame.setTemplate("standard");
 	}
 	
@@ -111,10 +110,10 @@ public class GameController implements Initializable {
 	 */
 	@FXML
 	private void toMenu()	{
-		Window myWindow = new Window();
 		try {
-			gc.runGameLoop("stop");
-			myWindow.sceneHandler("/Menu.fxml");
+			gc.gameStartStop("stop");
+			main();
+			Window.sceneHandler(Window.menu);
 		} catch (Exception e1) {
 			log.log(Level.SEVERE, "an exception was thrown", e1);
 

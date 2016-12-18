@@ -10,9 +10,8 @@ import java.util.logging.Level;
 import hdm.org.se2.snake02.Window;
 
 
-public class Menu {		
-	Logger log = Logger.getLogger(Menu.class.getName());
-	Window myWindow = new Window();
+public class MenuController {		
+	Logger log = Logger.getLogger(MenuController.class.getName());
 	
 	// Our layout have some buttons with the same function. That we can later handle it, we catch the buttons by there id's
 	@FXML
@@ -29,16 +28,19 @@ public class Menu {
 	 */
 	@FXML
 	void changeScene(ActionEvent event)	{
+		
+		
 		setGameScene.setOnAction(e -> {
 			try {
-				myWindow.sceneHandler("/Game.fxml");
+				GameController.gc.runGameLoop();
+				Window.sceneHandler(Window.game);
 			} catch (Exception e1) {
 				log.log(Level.SEVERE, "an exception was thrown", e1);
 			}
 		});
 		setHighscoreScene.setOnAction(e -> {
 			try {
-				myWindow.sceneHandler("/Highscore.fxml");
+				Window.sceneHandler(Window.highscore);
 			} catch (Exception e1) {
 				log.log(Level.SEVERE, "an exception was thrown", e1);
 			}
@@ -46,7 +48,7 @@ public class Menu {
 		});
 		setSettingsScene.setOnAction(e -> {
 			try {
-				myWindow.sceneHandler("/Settings.fxml");
+				Window.sceneHandler(Window.settings);
 			} catch (Exception e1) {
 				log.log(Level.SEVERE, "an exception was thrown", e1);
 			}

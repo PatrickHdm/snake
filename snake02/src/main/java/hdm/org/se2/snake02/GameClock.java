@@ -24,34 +24,37 @@ public class GameClock {
 	private Snake player02;
 	private Thread loop;
 
-	public void runGameLoop(String mode)
-	{
+	public void runGameLoop()	{
+		loop = new Thread()
+		{
+			public void run()
+			{
+				running = true;
+				gameLoop();
+			}
+		};
+		loop.start();
+	}
+	
+	public void gameStartStop(String mode)	{
 		switch(mode)	{
-			case "start":
-				loop = new Thread()
-				{
-					public void run()
-					{
-						running = true;
-						gameLoop();
-					}
-				};
-				loop.start();
-				break;
-			case "break":
-				paused = true;
-				break;
-			case "stop":
-				running = false;
-				loop.stop();  // TODO - Replace with a better way!
-				break;		
-			default:
-				log.log(Level.SEVERE, "The mode was set wrong!"); 
-				break;
+		case "start":
+			this.paused = false;
+			break;
+		case "break":
+			this.paused = true;
+			break;
+		case "stop":
+			this.running = false;
+			loop.stop();
+			break;
+		default:
+			log.warning("We couldn't found the selected mode: "+mode);
 		}
 	}
 
 	private void gameLoop()	{
+		log.info("Start the gameclock!");
 		//This value would probably be stored elsewhere.
 		final double GAME_HERTZ = 30.0;
 		//Calculate how many ns each frame should take for our target game hertz.
@@ -129,8 +132,8 @@ public class GameClock {
 	 */
 	public void updateGame()	{		
 		if(currentGame.getPlayerStatus() == true)	{
-			runGameLoop("break");
 			currentGame.setGameOver();
+			GameController.gc.gameStartStop("stop");
 		} else {
 			if(player02 == null)	{
 				currentGame.step(player01);
