@@ -9,9 +9,10 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.MenuController">
 	
-	<BorderPane >
+	<BorderPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+		
 		<top>
-			<Label >Welcome by Snake 0 two</Label>
+			<Label>Welcome by Snake 0 two</Label>
 		</top>
 		
 		<center>

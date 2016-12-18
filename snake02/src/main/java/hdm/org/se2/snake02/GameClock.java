@@ -132,8 +132,8 @@ public class GameClock {
 	 */
 	public void updateGame()	{		
 		if(currentGame.getPlayerStatus() == true)	{
-			currentGame.setGameOver();
 			GameController.gc.gameStartStop("stop");
+			currentGame.setGameOver();
 		} else {
 			if(player02 == null)	{
 				currentGame.step(player01);

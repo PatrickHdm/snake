@@ -2,6 +2,7 @@ package hdm.org.se2.snake02;
 
 import java.awt.event.WindowStateListener;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,11 +11,12 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 public class Window extends Application {
+	static Logger log = Logger.getLogger(Window.class.getName());
 	
 	
 	public static Stage windowStage; // This is the window itself. It's public so that we can modify it, like setting a new scene.
-	public static Scene game, highscore, settings, menu;
-	public static Parent menuSource, gameSource, highscoreSource, settingsSource;
+	public static Scene game, highscore, settings, menu, gameOver;
+	public static Parent menuSource, gameSource, highscoreSource, settingsSource, gameOverSource;
 	public static int resX = 1280;
 	public static int resY = 720;
 		   
@@ -37,11 +39,14 @@ public class Window extends Application {
 		gameSource = FXMLLoader.load(getClass().getResource("/Game.fxml"));
 		highscoreSource = FXMLLoader.load(getClass().getResource("/Highscore.fxml"));
 		settingsSource = FXMLLoader.load(getClass().getResource("/Settings.fxml"));
+		gameOverSource = FXMLLoader.load(getClass().getResource("/GameOver.fxml"));
 		// Now we can create the first scene, our menu. Also to add are the scene resolution.
 		menu = new Scene(menuSource, resX, resY);
+		menu.getStylesheets().add("/css/menu.css");
 		game = new Scene(gameSource, resX, resY);
 		highscore = new Scene(highscoreSource, resX, resY);
 		settings = new Scene(settingsSource, resX, resY);
+		gameOver = new Scene(gameOverSource, resX, resY);
 		
 		// After we create our scene, we have to give it to our window.
 		windowStage.setScene(menu);
@@ -58,9 +63,7 @@ public class Window extends Application {
 	 * @throws Exception
 	 */
 	public static void sceneHandler(Scene scene) throws Exception	{		
-		System.out.println("Change Scene... "); // Just a little debug!
-		// Again, we firstly load our layout
-//		Parent sceneSource = FXMLLoader.load(getClass().getResource(scene));
+		log.info("Change Scene... "); // Just a little debug!
 		// Now we can setup a new scene and push it to our window.
 		windowStage.setScene(scene);
 	}

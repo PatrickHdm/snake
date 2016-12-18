@@ -1,0 +1,25 @@
+.borderpane	{
+	-fx-alignment: center;
+}
+
+.top .label	{
+    -fx-font: 24px "Serif";
+}
+
+.center .vbox	{
+	-fx-background-color: #ff9933;
+}
+
+.button {
+	-fx-width: 180px;
+    -fx-font: 24px "Serif";
+    -fx-padding: 20 40;
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+    -fx-background-color: none;
+    -fx-text-fill: #000;
+}
+
+.button:hover {
+    -fx-background-color: rgba(158,158,158,.2);	
+}

@@ -178,13 +178,12 @@ public class Game {
 	
 	public void setGameOver()	{
 		log.info("GAME OVER");
-//		Window myWindow = new Window();
-//		try {
-//			myWindow.sceneHandler("/GameOver.fxml");
-//		} catch (Exception e1) {
-//			log.log(Level.SEVERE, "an exception was thrown", e1);
-//
-//		}
+		try {
+			Window.sceneHandler(Window.gameOver);
+		} catch (Exception e1) {
+			log.log(Level.SEVERE, "an exception was thrown", e1);
+
+		}
 	}
 	
 	public void replaceFieldInArray(String element, int[][] grids)	{
@@ -230,21 +229,21 @@ public class Game {
 	}
 	
 	public void setTemplate(String name)	{
+		int[][] food = new int[][]	{
+			{6,4},{12,9},{7,2}
+			};
 		switch (name)	{
-		case "standard":
-			
+		case "standard":	
+			replaceFieldInArray("FOOD", food);			
+			break;
+		case "standard02":			
 			//WALLS
 			int[][] wallGrids = new int[][]	{
 				{0,0},{0,1},{0,2},{0,3},{0,4},
 				{1,0},{2,0},{3,0},{4,0},
 				};
-//			replaceFieldInArray("WALL", wallGrids);
-			//FOOD
-			int[][] food = new int[][]	{
-				{6,4},{12,9},{7,2}
-				};
-			replaceFieldInArray("FOOD", food);
-			
+			replaceFieldInArray("WALL", wallGrids);
+			replaceFieldInArray("FOOD", food);			
 			break;
 		}
 	}
