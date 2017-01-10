@@ -30,10 +30,11 @@ public class Game {
 	Node[][] cellField = new Node[gridCol][gridRow];
 	Snake player01;
 	Snake player02;
+	GameClock gc;
 	Label score;
 	int COLLISION = -2, WALL = -1, EMPTY = 0, FOOD = 1;
 
-	public Game(GridPane gridArea, Snake player01, Snake player02, Label score, int gridRow, int gridCol, int GridSize)	{
+	public Game(GridPane gridArea, Snake player01, Snake player02, GameClock gc,Label score, int gridRow, int gridCol, int GridSize)	{
 		this.player01 = player01;
 		if(player02 != null)	{
 			this.player02 = player02;
@@ -174,16 +175,6 @@ public class Game {
 	
 	public boolean getPlayerStatus()	{
 		return player01.getIsDeath();
-	}
-	
-	public void setGameOver()	{
-		log.info("GAME OVER");
-		try {
-			Window.sceneHandler(Window.gameOver);
-		} catch (Exception e1) {
-			log.log(Level.SEVERE, "an exception was thrown", e1);
-
-		}
 	}
 	
 	public void replaceFieldInArray(String element, int[][] grids)	{

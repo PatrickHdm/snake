@@ -1,8 +1,8 @@
-.borderpane	{
-	-fx-alignment: center;
+#headline	{
+    -fx-font: 24px "Serif";
 }
 
-.top .label	{
+#bottomline	{
     -fx-font: 24px "Serif";
 }
 
@@ -22,4 +22,8 @@
 
 .button:hover {
     -fx-background-color: rgba(158,158,158,.2);	
+}
+
+.button:focused	{
+	-fx-background-color: rgba(158,158,158,.4);
 }

@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.event.ChangeListener;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,19 +33,19 @@ public class GameController implements Initializable {
 	
 	@FXML
 	private Label score;
-		
-	public void main()	{
+	
+	public void main()	{		
 		// TODO - Request for one or two player
 		if(isMultiplayer == true)	{
 			player01 = new Snake(24 / 2, 24 / 2, 3);
-			player02 = new Snake(24 / 4, 24 / 4, 3);
-			currentGame = new Game(gridArea,player01,player02,score,24, 24, 20);	
+			player02 = new Snake(24 / 4, 24 / 4, 3);	
 			gc = new GameClock();
-			gc.setCurrentGame(currentGame, player01, player02);	
+			currentGame = new Game(gridArea,player01,player02,gc,score,24, 24, 20);
+			gc.setCurrentGame(currentGame, player01, player02);
 		} else	{
 			player01 = new Snake(24 / 2, 24 / 2, 3);			
-			currentGame = new Game(gridArea,player01,null,score,24, 24, 20);
 			gc = new GameClock();
+			currentGame = new Game(gridArea,player01,null,gc,score,24, 24, 20);
 			gc.setCurrentGame(currentGame, player01, null);
 		}
 		currentGame.setTemplate("standard");
@@ -104,6 +106,16 @@ public class GameController implements Initializable {
 			}			
 		});
 	}
+	
+	public void toGameOver()	{
+		try {
+			gc.gameStartStop("stop");
+			main();
+			Window.sceneHandler(Window.gameOver);
+		} catch (Exception e1)	{
+			log.log(Level.SEVERE, "an exception was thrown", e1);			
+		}
+	}
 
 	/**
 	 * Close the program safely.
@@ -116,7 +128,6 @@ public class GameController implements Initializable {
 			Window.sceneHandler(Window.menu);
 		} catch (Exception e1) {
 			log.log(Level.SEVERE, "an exception was thrown", e1);
-
 		}
 	}
 

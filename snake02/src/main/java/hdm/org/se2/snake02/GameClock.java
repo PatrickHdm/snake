@@ -46,7 +46,7 @@ public class GameClock {
 			break;
 		case "stop":
 			this.running = false;
-			loop.stop();
+//			loop.stop();
 			break;
 		default:
 			log.warning("We couldn't found the selected mode: "+mode);
@@ -127,13 +127,18 @@ public class GameClock {
 	}
 
 	/**
-	 * Update the game.
+	 * Update   the game.
 	 * 
 	 */
 	public void updateGame()	{		
 		if(currentGame.getPlayerStatus() == true)	{
-			GameController.gc.gameStartStop("stop");
-			currentGame.setGameOver();
+			try {
+				log.info("GAME OVER");
+				currentGame.gc.gameStartStop("stop");
+			} catch (Exception e1) {
+				log.log(Level.SEVERE, "an exception was thrown", e1);
+
+			}
 		} else {
 			if(player02 == null)	{
 				currentGame.step(player01);
