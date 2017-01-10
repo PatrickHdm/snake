@@ -2,6 +2,7 @@ package hdm.org.se2.snake02;
 
 
 import java.util.logging.Level;
+import hdm.org.se2.snake02.Settings;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -50,7 +51,7 @@ public class SettingsController extends Settings {
 			String [] arr = tempDiffString.split("]");
 			String tempDiffString2 = arr[1];
 			String difficultyString = tempDiffString2.substring(1, tempDiffString2.length()-1);
-			System.out.println(difficultyString);
+			setDifficulty(difficultyString);
 		}catch(Exception e){
 			log.info("no diff found");
 		}
@@ -62,7 +63,7 @@ public class SettingsController extends Settings {
 			String [] arr1 = tempThemeString.split("]");
 			String tempDiffString2 = arr1[1];
 			String themeString = tempDiffString2.substring(1, tempDiffString2.length()-1);
-			System.out.println(themeString);
+			setTheme(themeString);
 		}catch(Exception e){
 			log.info("no theme entered");
 		}
@@ -73,13 +74,17 @@ public class SettingsController extends Settings {
 			String [] arr2 = tempModeString.split("]");
 			String tempModeString2 = arr2[1];
 			String modeString = tempModeString2.substring(1, tempModeString2.length()-1);
-			System.out.println(modeString);
+			setMode(modeString);
 		}catch(Exception e){
 			log.info("no mode found");
 		}
+		System.out.println(getMode());
+		Settings.setSettings(getResolution(),getDifficulty(),getTheme(),getMode());
 	
 	
 	}
+	
+	
 
 
 	@FXML

@@ -31,6 +31,7 @@ public class Window extends Application {
 		
 		// Get settings or set new Settings
 		Settings settingsConf = new Settings();
+		settingsConf.readFromFile(settingsConf);
 		this.resX = settingsConf.resolution.x;
 		this.resY = settingsConf.resolution.y;
 		
