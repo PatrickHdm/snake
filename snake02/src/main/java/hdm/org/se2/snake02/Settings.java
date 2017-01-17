@@ -8,8 +8,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.AbstractButton;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +21,10 @@ import javafx.scene.control.Button;
 
 public class Settings {
 	
-
+@FXML
+private void handleCheckBoxAction(){
+	
+}
 	//TODO - change visibility
 	Point resolution = new Point(); 
 	String difficulty;
@@ -97,8 +103,7 @@ public class Settings {
     			settings.setMode(settingsFile[3].replace("\"", ""));
     			
     			
-                
-           }
+            }
             
        } catch (IOException e) {
                e.printStackTrace();

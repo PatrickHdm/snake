@@ -32,7 +32,7 @@
 		  <fx:define> <ToggleGroup fx:id="difficulty"/> </fx:define>
 			   	<children>
 			    	<Label>difficulty</Label>
-				        <RadioButton text="Easy" toggleGroup="$difficulty"/>
+				        <RadioButton text="Easy" toggleGroup="$difficulty" />
 				        <RadioButton text="Medium" toggleGroup="$difficulty"/>
 				        <RadioButton text="Hard" toggleGroup="$difficulty"/>
 			   	 </children>
@@ -52,8 +52,8 @@
 	  		    	<children>  
 			   	 	<Label>mode</Label>
 				        <RadioButton text="Standard" toggleGroup="$mode"/>
-				        <RadioButton text="Random Number" toggleGroup="$mode"/>
-				        <RadioButton text="Learn Binary" toggleGroup="$mode"/>
+				        <RadioButton text="Wall of Rise" toggleGroup="$mode"/>
+				        <RadioButton text="Templewall" toggleGroup="$mode"/>
 			   		 </children>
 		</VBox>	   		 	 
 		

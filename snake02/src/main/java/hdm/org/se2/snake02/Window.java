@@ -34,6 +34,7 @@ public class Window extends Application {
 		settingsConf.readFromFile(settingsConf);
 		this.resX = settingsConf.resolution.x;
 		this.resY = settingsConf.resolution.y;
+		SettingsController.settingsConf = settingsConf;
 		
 		// Before we set a new scene, we need to create our layout. We have it as a fxml, so that we need to load it.
 		menuSource = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
