@@ -119,6 +119,18 @@ public class SettingsController extends Settings implements Initializable {
 		
 	}
 	
+	public void initialize(URL location, ResourceBundle resources){
+		
+		System.out.println(settingsConf.getMode());
+		
+		for(int i = 0; i < mode.getToggles().size();i++){
+			if(mode.getToggles().get(i).toString().contains(settingsConf.getMode()))
+				mode.getToggles().get(i).setSelected(true);
+		}
+
+		
+	}
+	
 	
 
 
