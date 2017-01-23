@@ -34,21 +34,21 @@ public class GameController implements Initializable {
 	@FXML
 	private Label score;
 	
-	public void main()	{		
+	public void main()	{
 		// TODO - Request for one or two player
 		if(isMultiplayer == true)	{
 			player01 = new Snake(24 / 2, 24 / 2, 3);
 			player02 = new Snake(24 / 4, 24 / 4, 3);	
 			gc = new GameClock();
 			currentGame = new Game(gridArea,player01,player02,gc,score,24, 24, 20);
-			gc.setCurrentGame(currentGame, player01, player02);
+			gc.setCurrentGame(this, currentGame, player01, player02);
 		} else	{
 			player01 = new Snake(24 / 2, 24 / 2, 3);			
 			gc = new GameClock();
 			currentGame = new Game(gridArea,player01,null,gc,score,24, 24, 20);
-			gc.setCurrentGame(currentGame, player01, null);
+			gc.setCurrentGame(this, currentGame, player01, null);
 		}
-		currentGame.setTemplate("standard");
+		currentGame.setTemplate(SettingsController.settingsConf.getMode());
 	}
 	
 	public void initialize(URL location, ResourceBundle resources) {
@@ -107,13 +107,12 @@ public class GameController implements Initializable {
 		});
 	}
 	
-	public void toGameOver()	{
+	public static void toGameOver()	{
 		try {
 			gc.gameStartStop("stop");
-			main();
 			Window.sceneHandler(Window.gameOver);
 		} catch (Exception e1)	{
-			log.log(Level.SEVERE, "an exception was thrown", e1);			
+//			log.log(Level.SEVERE, "an exception was thrown", e1);			
 		}
 	}
 

@@ -1,16 +1,21 @@
 package hdm.org.se2.snake02;
 
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import hdm.org.se2.snake02.Settings;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 
-public class SettingsController extends Settings {
+public class SettingsController extends Settings implements Initializable {
 
 	Logger log = Logger.getLogger(Game.class.getName());
+	
+	static Settings settingsConf;
 	
 	@FXML
 	Button Back;
@@ -40,7 +45,8 @@ public class SettingsController extends Settings {
 			String[] resSplit = resString.split("x");		
 			resolutionX = Integer.parseInt(resSplit[0]);
 			resolutionY = Integer.parseInt(resSplit[1]);		
-			setResolution(resolutionX, resolutionY);		
+			setResolution(resolutionX, resolutionY);	
+			
 		}catch(Exception e){
 			log.info("no res found");
 		}
@@ -78,10 +84,39 @@ public class SettingsController extends Settings {
 		}catch(Exception e){
 			log.info("no mode found");
 		}
-		System.out.println(getMode());
 		Settings.setSettings(getResolution(),getDifficulty(),getTheme(),getMode());
+
+		try {
+			Window.sceneHandler(Window.menu);
+		} catch (Exception e1) {
+			log.log(Level.SEVERE, "an exception was thrown", e1);
+		}
 	
+	}
 	
+	public void initialize(URL location, ResourceBundle resources){		
+		
+		System.out.println(settingsConf.getResolution().x+"x"+settingsConf.getResolution().y);
+		
+		resolution.getSelectionModel().select(settingsConf.getResolution().x+"x"+settingsConf.getResolution().y);
+		resolution.setPromptText(resolution.getConverter().toString(resolution.getValue()));	
+		
+		for(int i = 0; i < difficulty.getToggles().size();i++){
+			if(difficulty.getToggles().get(i).toString().contains(settingsConf.getDifficulty()))
+				difficulty.getToggles().get(i).setSelected(true);		
+		}
+		
+		for(int i = 0; i < theme.getToggles().size();i++){
+			if(theme.getToggles().get(i).toString().contains(settingsConf.getTheme()))
+				theme.getToggles().get(i).setSelected(true);
+		}
+		
+		for(int i = 0; i < mode.getToggles().size();i++){
+			if(mode.getToggles().get(i).toString().contains(settingsConf.getMode()))
+				mode.getToggles().get(i).setSelected(true);		
+		}
+
+		
 	}
 	
 	
@@ -95,6 +130,7 @@ public class SettingsController extends Settings {
 			log.log(Level.SEVERE, "an exception was thrown", e1);
 		}
 	}
+	
 	
 }
 

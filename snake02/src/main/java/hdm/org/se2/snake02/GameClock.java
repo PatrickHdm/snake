@@ -19,6 +19,7 @@ public class GameClock {
 	private boolean paused = false;
 	private int fps = 1; // TODO - Setup the speed in the settings.
 	private int frameCount = 0;
+	GameController gameController;
 	private Game currentGame;
 	private Snake player01;
 	private Snake player02;
@@ -134,7 +135,7 @@ public class GameClock {
 		if(currentGame.getPlayerStatus() == true)	{
 			try {
 				log.info("GAME OVER");
-				currentGame.gc.gameStartStop("stop");
+				GameController.toGameOver();
 			} catch (Exception e1) {
 				log.log(Level.SEVERE, "an exception was thrown", e1);
 
@@ -161,7 +162,7 @@ public class GameClock {
 	 * 
 	 * @param game
 	 */
-	public void setCurrentGame(Game game, Snake player01, Snake player02)	{
+	public void setCurrentGame(GameController gameController, Game game, Snake player01, Snake player02)	{
 		this.currentGame = game;
 		this.player01 = player01;
 		this.player02 = player02;

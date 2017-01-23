@@ -11,13 +11,15 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.AbstractButton;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 
 public class Settings {
-	
+
 
 	//TODO - change visibility
 	Point resolution = new Point(); 
@@ -28,16 +30,16 @@ public class Settings {
 	public Settings()	{
 		resolution.x = 1024;
 		resolution.y = 768;
-		
+
 		difficulty = "easy";
-		
+
 		theme = "standard";
-		
+
 		mode = "standard";
 	}
-	
+
 	public static void setSettings(Point resolution, String difficulty, String theme, String mode) {
-		
+
 		final String settingscsv = "temp/Settings.csv";
 
 		// Create String from Score, Name, Date & Write to File
@@ -46,7 +48,7 @@ public class Settings {
 		writeToFile(settingscsv, temp);
 
 	}
-	
+
 	public static void writeToFile(String settingscsv, String temp) {
 
 		try {
@@ -62,59 +64,61 @@ public class Settings {
 
 			bw.write(temp);
 			bw.close();
-			
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace(); }
+			e.printStackTrace(); 
 		}
-	
+	}
+
 	public static void readFromFile(Settings settings){
-		
+
 		String csvFile = "temp/Settings.csv";
 		BufferedReader br = null;
-        String line = "";
-        String cvsSplitBy = ",";
-        
+		String line = "";
+		String cvsSplitBy = ",";
+
 		try{
 			br = new BufferedReader(new FileReader(csvFile));
-            while ((line = br.readLine()) != null) {
+			while ((line = br.readLine()) != null) {
 
-                // use comma as separator
-                String[] settingsFile = line.split(cvsSplitBy);
+				// use comma as separator
+				String[] settingsFile = line.split(cvsSplitBy);
+				settingsFile[settingsFile.length - 1] = settingsFile[settingsFile.length - 1].replace(";", "");
 
-                System.out.println("resolution = " + settingsFile[0].replace("\"", "") + " difficulty =" +  settingsFile[1] + 
-                		" theme = " + settingsFile[2] + " mode = " + settingsFile[3]);
-                
-                
-               
-                int resolutionX, resolutionY;
-    			String[] resSplit = settingsFile[0].replace("\"", "").split("x");		
-    			resolutionX = Integer.parseInt(resSplit[0]);
-    			resolutionY = Integer.parseInt(resSplit[1]);		
-    			settings.setResolution(resolutionX, resolutionY);	
-    			settings.setDifficulty(settingsFile[1].replace("\"", ""));
-    			settings.setTheme(settingsFile[2].replace("\"", ""));
-    			settings.setMode(settingsFile[3].replace("\"", ""));
-    			
-    			
-                
-           }
-            
-       } catch (IOException e) {
-               e.printStackTrace();
-       } finally {
-                if (br != null) {
-                    try {
-                        br.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+				System.out.println("resolution = " + settingsFile[0].replace("\"", "") + " difficulty =" +  settingsFile[1] + 
+						" theme = " + settingsFile[2] + " mode = " + settingsFile[3]);
+
+
+
+				int resolutionX, resolutionY;
+				String[] resSplit = settingsFile[0].replace("\"", "").split("x");		
+				resolutionX = Integer.parseInt(resSplit[0]);
+				resolutionY = Integer.parseInt(resSplit[1]);		
+				settings.setResolution(resolutionX, resolutionY);	
+				settings.setDifficulty(settingsFile[1].replace("\"", ""));
+				settings.setTheme(settingsFile[2].replace("\"", ""));
+				settings.setMode(settingsFile[3].replace("\"", ""));
+
+
+
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 
-	
+
 	public Point getResolution() {
 		return resolution;
 	}
@@ -147,8 +151,8 @@ public class Settings {
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
-	
-	
-	}
-	
+
+
+}
+
 

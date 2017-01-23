@@ -223,17 +223,27 @@ public class Game {
 		int[][] food = new int[][]	{
 			{6,4},{12,9},{7,2}
 			};
+		int[][] standardWalls = new int[][]	{
+			{0,0},{0,1},{0,2},{0,3},{0,4},
+			{1,0},{2,0},{3,0},{4,0},
+			};
+		int[][] expertWalls = new int[][]	{
+			{12,0},{12,1},{12,2},{12,3},{12,4},
+			{1,12},{2,12},{3,12},{4,12},
+			};
 		switch (name)	{
-		case "standard":	
+		case "Standard":	
 			replaceFieldInArray("FOOD", food);			
 			break;
-		case "standard02":			
+		case "Wall of Rise":			
 			//WALLS
-			int[][] wallGrids = new int[][]	{
-				{0,0},{0,1},{0,2},{0,3},{0,4},
-				{1,0},{2,0},{3,0},{4,0},
-				};
-			replaceFieldInArray("WALL", wallGrids);
+			replaceFieldInArray("WALL", standardWalls);
+			replaceFieldInArray("FOOD", food);			
+			break;
+		case "Tempelwall":			
+			//WALLS
+			replaceFieldInArray("WALL", standardWalls);
+			replaceFieldInArray("WALL", expertWalls);
 			replaceFieldInArray("FOOD", food);			
 			break;
 		}
