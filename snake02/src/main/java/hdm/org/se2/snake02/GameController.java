@@ -1,6 +1,7 @@
 package hdm.org.se2.snake02;
 
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -8,6 +9,7 @@ import java.util.logging.Logger;
 
 import javax.swing.event.ChangeListener;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,9 +26,12 @@ public class GameController implements Initializable {
 	Game currentGame;
 	Snake player01;
 	Snake player02;
-	public static GameClock gc;
+	public GameClock gc;
 	GridPane gridArea = new GridPane();
 	boolean isMultiplayer = false;
+	int gridSize, gridCol, gridRow;
+	int speedDivi;
+	static GameOverController goc;
 
 	@FXML
 	private BorderPane GridField;
@@ -35,20 +40,23 @@ public class GameController implements Initializable {
 	private Label score;
 	
 	public void main()	{
+		gameSetup();
 		// TODO - Request for one or two player
 		if(isMultiplayer == true)	{
-			player01 = new Snake(24 / 2, 24 / 2, 3);
-			player02 = new Snake(24 / 4, 24 / 4, 3);	
+			player01 = new Snake(gridRow / 2, gridCol / 2, 3);
+			player02 = new Snake(gridRow / 4, gridCol / 4, 3);	
 			gc = new GameClock();
-			currentGame = new Game(gridArea,player01,player02,gc,score,24, 24, 20);
+			currentGame = new Game(gridArea,player01,player02,gc,score, gridRow, gridCol, gridSize);
 			gc.setCurrentGame(this, currentGame, player01, player02);
 		} else	{
-			player01 = new Snake(24 / 2, 24 / 2, 3);			
+			player01 = new Snake(gridRow / 2, gridCol / 2, 3);			
 			gc = new GameClock();
-			currentGame = new Game(gridArea,player01,null,gc,score,24, 24, 20);
+			currentGame = new Game(gridArea,player01,null,gc,score, gridRow, gridCol, gridSize);
 			gc.setCurrentGame(this, currentGame, player01, null);
 		}
+		gc.speedDivi = this.speedDivi;
 		currentGame.setTemplate(SettingsController.settingsConf.getMode());
+		gc.runGameLoop();
 	}
 	
 	public void initialize(URL location, ResourceBundle resources) {
@@ -60,7 +68,6 @@ public class GameController implements Initializable {
 		public void handle(KeyEvent event) {
 				KeyCode eventKey = event.getCode();
 				
-				// TODO - Separate for multiplayer.
 				if(isMultiplayer != true)	{
 					if (eventKey == eventKey.UP || eventKey == eventKey.W)	{
 						if(player01.getDirection() != 2)
@@ -106,14 +113,57 @@ public class GameController implements Initializable {
 			}			
 		});
 	}
-	
-	public static void toGameOver()	{
-		try {
-			gc.gameStartStop("stop");
-			Window.sceneHandler(Window.gameOver);
-		} catch (Exception e1)	{
-//			log.log(Level.SEVERE, "an exception was thrown", e1);			
+		
+	private void gameSetup()	{
+		String mode = SettingsController.settingsConf.theme;
+		
+		switch(mode)	{
+		case "Small":
+			this.gridCol = 24;
+			this.gridRow = 24;	
+			this.gridSize = 20;
+			break;
+		case "Middle":
+			this.gridSize = 30;	
+			this.gridCol = 16;
+			this.gridRow = 16;		
+			break;
+		case "Big":
+			this.gridSize = 40;
+			this.gridCol = 13;
+			this.gridRow = 13;
+			break;
 		}
+
+		switch(SettingsController.settingsConf.getDifficulty())	{
+			case "Easy":
+				this.speedDivi = 120000000;
+				break;
+			case "Medium":
+				this.speedDivi = 90000000;
+				break;
+			case "Hard":
+				this.speedDivi = 20000000;
+				break;
+		}
+	}
+	
+	public void toGameOver()	{
+		// We are currently in a higher Thread because of the gameClock. To use now the sceneHandler from the lower Thread we do following:
+			Platform.runLater(new Runnable() {
+		        @Override
+		        public void run() {
+					try {
+						goc.setHighScore(player01.getSore()); // First we set the highscore of the current game
+						goc.main(); // Now we reinitialize the main from the goc
+						main(); // After the first two steps we can rebuild the gamearea and create new players for the next game
+						Window.sceneHandler(Window.gameOver); // Change the scene
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
+		   });
 	}
 
 	/**
@@ -135,7 +185,6 @@ public class GameController implements Initializable {
 	 */
 	@FXML
 	private void closeProgram()	{
-
 		log.info("Save Game...");
 		//window.close();
 		System.exit(0); // TODO - Maybe replace with a BitCoin miner :-P

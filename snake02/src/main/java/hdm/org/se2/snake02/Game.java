@@ -29,13 +29,17 @@ public class Game {
 	GridPane gridArea = new GridPane();
 	Node[][] cellField = new Node[gridCol][gridRow];
 	Snake player01;
-	Snake player02;
+	ISnake player02;
 	GameClock gc;
 	Label score;
 	int COLLISION = -2, WALL = -1, EMPTY = 0, FOOD = 1;
 
-	public Game(GridPane gridArea, Snake player01, Snake player02, GameClock gc,Label score, int gridRow, int gridCol, int GridSize)	{
+	public Game(GridPane gridArea, Snake player01, ISnake player02, GameClock gc,Label score, int gridRow, int gridCol, int gridSize)	{
 		this.player01 = player01;
+		this.gridRow = gridRow;
+		this.gridCol = gridCol;
+		this.gridSize = gridSize;
+		
 		if(player02 != null)	{
 			this.player02 = player02;
 		}
@@ -224,12 +228,32 @@ public class Game {
 			{6,4},{12,9},{7,2}
 			};
 		int[][] standardWalls = new int[][]	{
+			// Up left
 			{0,0},{0,1},{0,2},{0,3},{0,4},
 			{1,0},{2,0},{3,0},{4,0},
+			// Up right
+			{gridCol - 1,0},{gridCol - 2,0},{gridCol - 3,0},{gridCol - 4,0},{gridCol - 5,0},
+			{gridCol - 1,1},{gridCol - 1,2},{gridCol - 1,3},{gridCol - 1,4},
+			// Down left
+			{0,gridRow - 1},{0,gridRow - 2},{0,gridRow - 3},{0,gridRow - 4},{0,gridRow - 5},
+			{1,gridRow - 1},{2,gridRow - 1},{3,gridRow - 1},{4,gridRow - 1},
+			// Down right
+			{gridCol - 1,gridRow - 1},{gridCol - 1,gridRow - 2},{gridCol - 1,gridRow - 3},{gridCol - 1,gridRow - 4},{gridCol - 1,gridRow - 5},
+			{gridCol - 1,gridRow - 1},{gridCol - 2,gridRow - 1},{gridCol - 3,gridRow - 1},{gridCol - 4,gridRow - 1},			
 			};
-		int[][] expertWalls = new int[][]	{
-			{12,0},{12,1},{12,2},{12,3},{12,4},
-			{1,12},{2,12},{3,12},{4,12},
+		int[][] standardWallsRan = new int[][]	{
+			// Up left
+			{1,0},{1,1},{1,2},{1,3},{1,4},
+			{1,1},{2,1},{3,1},{4,1},
+			// Up right
+			{gridCol - 2,1},{gridCol - 3,1},{gridCol - 4,1},{gridCol - 5,1},
+			{gridCol - 2,0},{gridCol - 2,1},{gridCol - 2,2},{gridCol - 2,3},{gridCol - 2,4},
+			// Down left
+			{1,gridRow - 1},{1,gridRow - 2},{1,gridRow - 3},{1,gridRow - 4},{1,gridRow - 5},
+			{1,gridRow - 2},{2,gridRow - 2},{3,gridRow - 2},{4,gridRow - 2},
+			// Down right
+			{gridCol - 2,gridRow - 1},{gridCol - 2,gridRow - 2},{gridCol - 2,gridRow - 3},{gridCol - 2,gridRow - 4},{gridCol - 2,gridRow - 5},
+			{gridCol - 2,gridRow - 2},{gridCol - 3,gridRow - 2},{gridCol - 4,gridRow - 2},{gridCol - 5,gridRow - 2},			
 			};
 		switch (name)	{
 		case "Standard":	
@@ -240,10 +264,9 @@ public class Game {
 			replaceFieldInArray("WALL", standardWalls);
 			replaceFieldInArray("FOOD", food);			
 			break;
-		case "Tempelwall":			
+		case "Templewall":			
 			//WALLS
-			replaceFieldInArray("WALL", standardWalls);
-			replaceFieldInArray("WALL", expertWalls);
+			replaceFieldInArray("WALL", standardWallsRan);
 			replaceFieldInArray("FOOD", food);			
 			break;
 		}

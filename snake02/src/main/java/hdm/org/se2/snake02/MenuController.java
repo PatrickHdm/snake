@@ -32,7 +32,6 @@ public class MenuController {
 		
 		setGameScene.setOnAction(e -> {
 			try {
-				GameController.gc.runGameLoop();
 				Window.sceneHandler(Window.game);
 			} catch (Exception e1) {
 				log.log(Level.SEVERE, "an exception was thrown", e1);

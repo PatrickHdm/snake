@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Snake {
+public class Snake implements ISnake {
 
 	Point position;
 	int score;

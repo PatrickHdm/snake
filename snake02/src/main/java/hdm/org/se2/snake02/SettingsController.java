@@ -95,9 +95,7 @@ public class SettingsController extends Settings implements Initializable {
 	}
 	
 	public void initialize(URL location, ResourceBundle resources){		
-		
-		System.out.println(settingsConf.getResolution().x+"x"+settingsConf.getResolution().y);
-		
+				
 		resolution.getSelectionModel().select(settingsConf.getResolution().x+"x"+settingsConf.getResolution().y);
 		resolution.setPromptText(resolution.getConverter().toString(resolution.getValue()));	
 		

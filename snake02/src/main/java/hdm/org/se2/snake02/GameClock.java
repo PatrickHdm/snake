@@ -15,9 +15,10 @@ public class GameClock {
 	Logger log = Logger.getLogger(GameClock.class.getName());
 
 	// TODO - Set up visibility
-	private boolean running = false;
-	private boolean paused = false;
-	private int fps = 1; // TODO - Setup the speed in the settings.
+	private volatile boolean running = false;
+	public boolean paused = false;
+	private int fps = 30;
+	public static int speedDivi = 120000000; // As lower as faster  
 	private int frameCount = 0;
 	GameController gameController;
 	private Game currentGame;
@@ -46,7 +47,7 @@ public class GameClock {
 			this.paused = true;
 			break;
 		case "stop":
-			this.running = false;
+			running = false;
 //			loop.stop();
 			break;
 		default:
@@ -102,10 +103,9 @@ public class GameClock {
 				lastRenderTime = now;
 
 				//Update the frames we got.
-				int thisSecond = (int) (lastUpdateTime / 1000000000);
+				int thisSecond = (int) (lastUpdateTime / speedDivi);
 				if (thisSecond > lastSecondTime)
 				{
-					log.info("NEW SECOND " + thisSecond + " " + frameCount);
 					fps = frameCount;
 					frameCount = 0;
 					updateGameByFrame();	
@@ -135,17 +135,11 @@ public class GameClock {
 		if(currentGame.getPlayerStatus() == true)	{
 			try {
 				log.info("GAME OVER");
-				GameController.toGameOver();
+				running = false;
+				gameController.toGameOver();
 			} catch (Exception e1) {
 				log.log(Level.SEVERE, "an exception was thrown", e1);
 
-			}
-		} else {
-			if(player02 == null)	{
-				currentGame.step(player01);
-			} else	{
-				currentGame.step(player01);
-				currentGame.step(player02);				
 			}
 		}
 	}
@@ -155,6 +149,12 @@ public class GameClock {
 	 * 
 	 */
 	public void updateGameByFrame()	{
+		if(player02 == null)	{
+			currentGame.step(player01);
+		} else	{
+			currentGame.step(player01);
+			currentGame.step(player02);				
+		}
 	}
 	
 	/**
@@ -163,6 +163,7 @@ public class GameClock {
 	 * @param game
 	 */
 	public void setCurrentGame(GameController gameController, Game game, Snake player01, Snake player02)	{
+		this.gameController = gameController;
 		this.currentGame = game;
 		this.player01 = player01;
 		this.player02 = player02;

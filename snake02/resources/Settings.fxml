@@ -42,8 +42,9 @@
     	  <fx:define> <ToggleGroup fx:id="theme"/> </fx:define>
 	  		    <children>  
 			   	 <Label>theme</Label>
-				        <RadioButton text="Standard1" toggleGroup="$theme"/>
-				        <RadioButton text="Standard2" toggleGroup="$theme"/>
+				        <RadioButton text="Small" toggleGroup="$theme"/>
+				        <RadioButton text="Middle" toggleGroup="$theme"/>
+				        <RadioButton text="Big" toggleGroup="$theme"/>
 			    </children>
     	</VBox>
     
