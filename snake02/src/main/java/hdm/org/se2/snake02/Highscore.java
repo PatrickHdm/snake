@@ -65,9 +65,6 @@ public class Highscore {
 		try {
 			// check if File exists. if not, create it. if yes, go on.
 			File file = new File(scorecsv);
-			if (file.exists()) {
-				System.out.println("Found");
-			}
 			if (!file.exists()) {
 				file.createNewFile();
 			}

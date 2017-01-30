@@ -16,6 +16,8 @@ import javax.swing.AbstractButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.paint.Color;
 
 
 public class Settings {
@@ -26,24 +28,29 @@ public class Settings {
 	String difficulty;
 	String theme;
 	String mode;
+	Color background, player, wall, food;
 
 	public Settings()	{
-		resolution.x = 1024;
-		resolution.y = 768;
-
-		difficulty = "easy";
-
-		theme = "standard";
-
-		mode = "standard";
+		this.resolution.x = 1024;
+		this.resolution.y = 768;
+		this.difficulty = "easy";
+		this.theme = "standard";
+		this.mode = "standard";
+		this.background = Color.WHITE;
+		this.player = Color.ORANGE;
+		this.wall = Color.BLACK;
+		this.food = Color.GREEN;
 	}
 
-	public static void setSettings(Point resolution, String difficulty, String theme, String mode) {
+	public static void setSettings(Point resolution, String difficulty, String theme, String mode, Color background, Color player, Color wall, Color food) {
 
 		final String settingscsv = "temp/Settings.csv";
 
 		// Create String from Score, Name, Date & Write to File
-		String temp = new StringBuilder("\"").append(resolution.x).append("x").append(resolution.y).append("\",\"").append(difficulty).append("\",\"").append(theme).append("\",\"").append(mode)
+		String temp = 
+				new StringBuilder("\"").append(resolution.x).append("x").append(resolution.y).append("\",\"").append(difficulty)
+				.append("\",\"").append(theme).append("\",\"").append(mode).append("\",\"").append(background.toString()).append("\",\"")
+				.append(player.toString()).append("\",\"").append(wall.toString()).append("\",\"").append(food.toString())
 				.append("\";").toString();
 		writeToFile(settingscsv, temp);
 
@@ -87,7 +94,9 @@ public class Settings {
 				settingsFile[settingsFile.length - 1] = settingsFile[settingsFile.length - 1].replace(";", "");
 
 				System.out.println("resolution = " + settingsFile[0].replace("\"", "") + " difficulty =" +  settingsFile[1] + 
-						" theme = " + settingsFile[2] + " mode = " + settingsFile[3]);
+						" theme = " + settingsFile[2] + " mode = " + settingsFile[3] + " background = " + 
+						settingsFile[4] + " player = " + settingsFile[5] + " wall = " + settingsFile[6] + 
+						" food = " + settingsFile[7]);
 
 
 
@@ -99,8 +108,15 @@ public class Settings {
 				settings.setDifficulty(settingsFile[1].replace("\"", ""));
 				settings.setTheme(settingsFile[2].replace("\"", ""));
 				settings.setMode(settingsFile[3].replace("\"", ""));
-
-
+				
+				
+				Color backgroundFix = picker2color(settingsFile[4]);
+				Color playerFix = picker2color(settingsFile[5]);
+				Color wallFix = picker2color(settingsFile[6]);
+				Color foodFix = picker2color(settingsFile[7]);
+				
+				
+				settings.setColors(backgroundFix, playerFix, wallFix, foodFix);
 
 			}
 
@@ -151,7 +167,43 @@ public class Settings {
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
-
+	
+	public void setColors(Color background, Color player, Color wall, Color food)	{
+		this.background = background;
+		this.player = player;
+		this.wall = wall;
+		this.food = food;
+		
+	}
+	
+	public Color getBackground()	{
+		return background;
+	}
+	
+	public Color getPlayer()	{
+		return player;
+	}
+	
+	public Color getWall()	{
+		return wall;
+	}
+	
+	public Color getFood()	{
+		return food;
+	}
+	
+	/**
+	 * 
+	 * @param colorStr e.g. "#FFFFFF"
+	 * @return 
+	 */
+	public static Color picker2color(String colorStr) {
+		colorStr = colorStr.substring(2);
+		colorStr = colorStr.replace("x", "#");
+		colorStr = colorStr.replace("\"", "");
+		Color nColor = Color.web(colorStr);
+		return nColor;
+	}	
 
 }
 

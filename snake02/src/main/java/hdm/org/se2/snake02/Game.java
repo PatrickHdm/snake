@@ -33,6 +33,7 @@ public class Game {
 	GameClock gc;
 	Label score;
 	int COLLISION = -2, WALL = -1, EMPTY = 0, FOOD = 1;
+	static Settings settingsConf;
 
 	public Game(GridPane gridArea, Snake player01, ISnake player02, GameClock gc,Label score, int gridRow, int gridCol, int gridSize)	{
 		this.player01 = player01;
@@ -198,20 +199,20 @@ public class Game {
 
 		switch (element)	{
 		case "EMPTY":
-			reFromCurrentCell.setFill(Color.LIGHTBLUE);
+			reFromCurrentCell.setFill(settingsConf.background);
 			laFromCurrentCell.setText("0");
 			break;
 		case "SNAKE":
-			reFromCurrentCell.setFill(Color.BLACK);
+			reFromCurrentCell.setFill(settingsConf.player);
 			laFromCurrentCell.setText("-2");
 			break;
 		case "WALL":
-			reFromCurrentCell.setFill(Color.FUCHSIA);
+			reFromCurrentCell.setFill(settingsConf.wall);
 			laFromCurrentCell.setText("-1");
 			break;
 		case "FOOD":
 			if(laFromCurrentCell.getText().equals("0"))	{
-				reFromCurrentCell.setFill(Color.YELLOW);
+				reFromCurrentCell.setFill(settingsConf.food);
 				laFromCurrentCell.setText("1");
 			} else	{
 				Random randomGenerator = new Random();
@@ -277,8 +278,8 @@ public class Game {
 
 			// create rectangle
 			Rectangle rectangle = new Rectangle(x, y, width, height);
-			rectangle.setStroke(Color.BLACK);
-			rectangle.setFill(Color.LIGHTBLUE);
+			rectangle.setStroke(settingsConf.background);
+			rectangle.setFill(settingsConf.background);
 
 			// create label
 			Label label = new Label(name);

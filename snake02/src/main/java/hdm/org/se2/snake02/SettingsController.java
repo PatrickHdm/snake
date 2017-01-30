@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 
 
 public class SettingsController extends Settings implements Initializable {
@@ -34,6 +35,18 @@ public class SettingsController extends Settings implements Initializable {
 
 	@FXML
 	ToggleGroup mode;
+	
+	@FXML
+	ColorPicker colorPickerBackground;
+	
+	@FXML
+	ColorPicker colorPickerPlayer;
+	
+	@FXML
+	ColorPicker colorPickerWall;
+	
+	@FXML
+	ColorPicker colorPickerFood;
 
 	@FXML	
 	public void saveSettings(){
@@ -84,7 +97,14 @@ public class SettingsController extends Settings implements Initializable {
 		}catch(Exception e){
 			log.info("no mode found");
 		}
-		Settings.setSettings(getResolution(),getDifficulty(),getTheme(),getMode());
+		
+		try{			
+			setColors(picker2color(colorPickerBackground), picker2color(colorPickerPlayer), picker2color(colorPickerWall), picker2color(colorPickerFood));
+		} catch(Exception e1)	{
+			log.log(Level.SEVERE, "an exception was thrown", e1);			
+		}
+		
+		Settings.setSettings(getResolution(),getDifficulty(),getTheme(),getMode(),getBackground(),getPlayer(),getWall(),getFood());
 
 		try {
 			Window.sceneHandler(Window.menu);
@@ -113,6 +133,11 @@ public class SettingsController extends Settings implements Initializable {
 			if(mode.getToggles().get(i).toString().contains(settingsConf.getMode()))
 				mode.getToggles().get(i).setSelected(true);		
 		}
+		
+		colorPickerBackground.setValue(getBackground());
+		colorPickerPlayer.setValue(getPlayer());
+		colorPickerWall.setValue(getWall());
+		colorPickerFood.setValue(getFood());
 
 		
 	}
@@ -125,6 +150,21 @@ public class SettingsController extends Settings implements Initializable {
 		} catch (Exception e1) {
 			log.log(Level.SEVERE, "an exception was thrown", e1);
 		}
+	}
+	
+	/**
+	 * 
+	 * @param colorStr e.g. "#FFFFFF"
+	 * @return 
+	 */
+	public static Color picker2color(ColorPicker colorPicker) {
+		Color nColor = null;
+		String colorString = colorPicker.toString().format( "#%02X%02X%02X",
+	            (int)( colorPicker.getValue().getRed() * 255 ),
+	            (int)( colorPicker.getValue().getGreen() * 255 ),
+	            (int)( colorPicker.getValue().getBlue() * 255 ) );
+		nColor = nColor.web(colorString);
+		return nColor;
 	}
 	
 	

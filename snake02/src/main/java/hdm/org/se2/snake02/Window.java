@@ -31,10 +31,13 @@ public class Window extends Application {
 		
 		// Get settings or set new Settings
 		Settings settingsConf = new Settings();
+		Highscore highscoreConf = new Highscore();
 		settingsConf.readFromFile(settingsConf);
 		this.resX = settingsConf.resolution.x;
 		this.resY = settingsConf.resolution.y;
 		SettingsController.settingsConf = settingsConf;
+		Game.settingsConf = settingsConf;
+		GameOverController.highscoreConf = highscoreConf;
 		
 		// Before we set a new scene, we need to create our layout. We have it as a fxml, so that we need to load it.
 		menuSource = FXMLLoader.load(getClass().getResource("/Menu.fxml"));

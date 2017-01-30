@@ -6,6 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ColorPicker?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.SettingsController">
 
@@ -57,6 +58,21 @@
 				        <RadioButton text="Templewall" toggleGroup="$mode"/>
 			   		 </children>
 		</VBox>	   		 	 
+		
+		<VBox>
+			<HBox>
+				<Label>Background: </Label><ColorPicker fx:id="colorPickerBackground"></ColorPicker>
+			</HBox>
+			<HBox>
+				<Label>Player: </Label><ColorPicker fx:id="colorPickerPlayer"></ColorPicker>
+			</HBox>
+			<HBox>
+				<Label>Walls: </Label><ColorPicker fx:id="colorPickerWall"></ColorPicker>
+			</HBox>
+			<HBox>
+				<Label>Food: </Label><ColorPicker fx:id="colorPickerFood"></ColorPicker>
+			</HBox>
+		</VBox>
 		
 		<HBox>			
 			<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
