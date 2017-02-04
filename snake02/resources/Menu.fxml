@@ -12,7 +12,7 @@
 	<BorderPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 		
 		<top>
-			<Label fx:id="headline">Welcome by Snake 0 two</Label>
+			<Label fx:id="headline">Welcome to Snake 0 two</Label>
 		</top>
 		
 		<center>

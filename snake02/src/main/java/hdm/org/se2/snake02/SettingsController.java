@@ -1,29 +1,44 @@
 package hdm.org.se2.snake02;
 
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import hdm.org.se2.snake02.Settings;
 import java.util.logging.Logger;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 
-public class SettingsController extends Settings implements Initializable {
+public class SettingsController extends Settings implements Initializable, ActionListener {
 
 	Logger log = Logger.getLogger(Game.class.getName());
-	
+
 	static Settings settingsConf;
-	
+	static Window currentWindow;
+
 	@FXML
 	Button Back;
-	
+
 	@FXML
 	Button Save;
-	
+
 	@FXML
 	ComboBox resolution;
 
@@ -35,21 +50,27 @@ public class SettingsController extends Settings implements Initializable {
 
 	@FXML
 	ToggleGroup mode;
-	
+
+	@FXML
+	ToggleGroup multiplayer;
+
 	@FXML
 	ColorPicker colorPickerBackground;
-	
+
 	@FXML
 	ColorPicker colorPickerPlayer;
-	
+
 	@FXML
 	ColorPicker colorPickerWall;
-	
+
 	@FXML
 	ColorPicker colorPickerFood;
 
 	@FXML	
-	public void saveSettings(){
+	public void saveSettings() throws Exception{
+
+		boolean isReadyToSave = false;
+		boolean isOpen = true;
 
 		// Set the resolution
 		try	{
@@ -59,11 +80,11 @@ public class SettingsController extends Settings implements Initializable {
 			resolutionX = Integer.parseInt(resSplit[0]);
 			resolutionY = Integer.parseInt(resSplit[1]);		
 			setResolution(resolutionX, resolutionY);	
-			
+
 		}catch(Exception e){
 			log.info("no res found");
 		}
-		
+
 		// Set the difficulty
 		try	{
 			String tempDiffString = difficulty.getSelectedToggle().toString();
@@ -74,8 +95,8 @@ public class SettingsController extends Settings implements Initializable {
 		}catch(Exception e){
 			log.info("no diff found");
 		}
-		
-		
+
+
 		//Set theme
 		try{
 			String tempThemeString = theme.getSelectedToggle().toString();
@@ -86,7 +107,7 @@ public class SettingsController extends Settings implements Initializable {
 		}catch(Exception e){
 			log.info("no theme entered");
 		}
-		
+
 		//Set mode
 		try{
 			String tempModeString = mode.getSelectedToggle().toString();
@@ -97,51 +118,72 @@ public class SettingsController extends Settings implements Initializable {
 		}catch(Exception e){
 			log.info("no mode found");
 		}
-		
+
+		//Set mode
+		try{
+			String tempMultiplayerString = multiplayer.getSelectedToggle().toString();
+			String [] arr3 = tempMultiplayerString.split("]");
+			String tempMultiplayerString2 = arr3[1];
+			String multiplayerString = tempMultiplayerString2.substring(1, tempMultiplayerString2.length()-1);
+			setMultiplayer(multiplayerString);
+		}catch(Exception e){
+			log.info("no multiplayer found");
+		}
+
 		try{			
 			setColors(picker2color(colorPickerBackground), picker2color(colorPickerPlayer), picker2color(colorPickerWall), picker2color(colorPickerFood));
 		} catch(Exception e1)	{
 			log.log(Level.SEVERE, "an exception was thrown", e1);			
 		}
-		
-		Settings.setSettings(getResolution(),getDifficulty(),getTheme(),getMode(),getBackground(),getPlayer(),getWall(),getFood());
 
+		Settings.setSettings(getResolution(),getDifficulty(),getTheme(),getMode(),getBackground(),getPlayer(),getWall(),getFood(),getMultiplayer());
+
+		currentWindow.restart(currentWindow.windowStage);
+
+	}
+
+	public void saveAllSettings()	{
 		try {
-			Window.sceneHandler(Window.menu);
+			saveSettings();
 		} catch (Exception e1) {
 			log.log(Level.SEVERE, "an exception was thrown", e1);
 		}
-	
+
 	}
-	
+
 	public void initialize(URL location, ResourceBundle resources){		
-				
+
 		resolution.getSelectionModel().select(settingsConf.getResolution().x+"x"+settingsConf.getResolution().y);
 		resolution.setPromptText(resolution.getConverter().toString(resolution.getValue()));	
-		
+
 		for(int i = 0; i < difficulty.getToggles().size();i++){
 			if(difficulty.getToggles().get(i).toString().contains(settingsConf.getDifficulty()))
 				difficulty.getToggles().get(i).setSelected(true);		
 		}
-		
+
 		for(int i = 0; i < theme.getToggles().size();i++){
 			if(theme.getToggles().get(i).toString().contains(settingsConf.getTheme()))
 				theme.getToggles().get(i).setSelected(true);
 		}
-		
+
 		for(int i = 0; i < mode.getToggles().size();i++){
 			if(mode.getToggles().get(i).toString().contains(settingsConf.getMode()))
 				mode.getToggles().get(i).setSelected(true);		
 		}
-		
+
+		for(int i = 0; i < multiplayer.getToggles().size();i++){
+			if(multiplayer.getToggles().get(i).toString().contains(settingsConf.getMultiplayer()))
+				multiplayer.getToggles().get(i).setSelected(true);		
+		}
+
 		colorPickerBackground.setValue(getBackground());
 		colorPickerPlayer.setValue(getPlayer());
 		colorPickerWall.setValue(getWall());
 		colorPickerFood.setValue(getFood());
 
-		
+
 	}
-	
+
 
 	@FXML
 	private void toMenu()	{
@@ -151,7 +193,7 @@ public class SettingsController extends Settings implements Initializable {
 			log.log(Level.SEVERE, "an exception was thrown", e1);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param colorStr e.g. "#FFFFFF"
@@ -160,14 +202,18 @@ public class SettingsController extends Settings implements Initializable {
 	public static Color picker2color(ColorPicker colorPicker) {
 		Color nColor = null;
 		String colorString = colorPicker.toString().format( "#%02X%02X%02X",
-	            (int)( colorPicker.getValue().getRed() * 255 ),
-	            (int)( colorPicker.getValue().getGreen() * 255 ),
-	            (int)( colorPicker.getValue().getBlue() * 255 ) );
+				(int)( colorPicker.getValue().getRed() * 255 ),
+				(int)( colorPicker.getValue().getGreen() * 255 ),
+				(int)( colorPicker.getValue().getBlue() * 255 ) );
 		nColor = nColor.web(colorString);
 		return nColor;
 	}
-	
-	
+
+	@Override
+	public void actionPerformed(java.awt.event.ActionEvent e) {		
+	}
+
+
 }
 
 

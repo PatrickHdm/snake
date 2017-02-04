@@ -26,7 +26,11 @@ public class Window extends Application {
 	}
 	
 	@Override
-	public void start(Stage primaryStage) throws Exception	{
+	public void start(Stage primaryStage) throws Exception {
+	    startGame(primaryStage);
+	}
+	
+	public void startGame(Stage primaryStage) throws Exception	{
 		windowStage = primaryStage;
 		windowStage.setTitle("Snake0two");
 		
@@ -36,6 +40,7 @@ public class Window extends Application {
 		settingsConf.readFromFile(settingsConf);
 		this.resX = settingsConf.resolution.x;
 		this.resY = settingsConf.resolution.y;
+		SettingsController.currentWindow = this;
 		SettingsController.settingsConf = settingsConf;
 		Game.settingsConf = settingsConf;
 		GameOverController.highscoreConf = highscoreConf;
@@ -59,6 +64,15 @@ public class Window extends Application {
 		// Now we can let show the new and fresh window.
 		windowStage.show();
 		
+	}
+	
+	public void cleanup() {
+	    // stop animations reset model ect.
+	}
+	
+	public void restart(Stage stage) throws Exception {
+	    cleanup();
+	    startGame(stage);
 	}
 	
 	

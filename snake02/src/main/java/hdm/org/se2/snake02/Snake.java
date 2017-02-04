@@ -5,15 +5,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Snake implements ISnake {
+public class Snake implements IPlayer {
 
-	Point position;
-	int score;
-	int size;
-	LinkedList<Point> entityPosition = new LinkedList<Point>();
-	int direction;
-	Object cur;
-	boolean isDeath;
+	public int playerIndex;
+	public Point position;
+	public int score;
+	public int size;
+	public LinkedList<Point> entityPosition = new LinkedList<Point>();
+	public int direction;
+	public Object cur;
+	public boolean isDeath;
 	
 	/**
 	 * Create a snake, with a position and a size.
@@ -23,6 +24,7 @@ public class Snake implements ISnake {
 	 * @param size
 	 */
 	public Snake(int y, int x, int size)	{
+		this.playerIndex = 0;
 		this.position = new Point(y, x);
 		this.score = 0;
 		this.size = size;
@@ -30,6 +32,14 @@ public class Snake implements ISnake {
 		this.isDeath = false;
 	}
 	
+	public int getPlayerIndex() {
+		return playerIndex;
+	}
+
+	public void setPlayerIndex(int playerIndex) {
+		this.playerIndex = playerIndex;
+	}
+
 	/**
 	 * Get the current position of the snake
 	 * 

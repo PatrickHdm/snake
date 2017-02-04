@@ -57,7 +57,16 @@
 				        <RadioButton text="Wall of Rise" toggleGroup="$mode"/>
 				        <RadioButton text="Templewall" toggleGroup="$mode"/>
 			   		 </children>
-		</VBox>	   		 	 
+		</VBox>	   	
+		
+		<VBox>	
+		  <fx:define> <ToggleGroup fx:id="multiplayer"/> </fx:define>
+			   	<children>
+			    	<Label>Multiplayer (Alpha)</Label>
+				        <RadioButton text="Yes" toggleGroup="$multiplayer" />
+				        <RadioButton text="No" toggleGroup="$multiplayer"/>
+			   	 </children>
+    	</VBox>	 	 
 		
 		<VBox>
 			<HBox>
@@ -76,7 +85,7 @@
 		
 		<HBox>			
 			<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
-			<Button fx:id="Save" onAction="#saveSettings">Save</Button>
+			<Button fx:id="Save" onAction="#saveAllSettings">Save</Button>
 		</HBox>		
 			</VBox>
 		</center>

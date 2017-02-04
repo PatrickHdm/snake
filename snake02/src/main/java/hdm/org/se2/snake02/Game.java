@@ -22,21 +22,21 @@ import hdm.org.se2.snake02.Window;
 public class Game {	
 	Logger log = Logger.getLogger(Game.class.getName());
 
-	// TODO - Setup visibility
 	private int gridRow = 24;
 	private int gridCol = 24;
 	private int gridSize = 20;
-	GridPane gridArea = new GridPane();
-	Node[][] cellField = new Node[gridCol][gridRow];
-	Snake player01;
-	ISnake player02;
-	GameClock gc;
-	Label score;
-	int COLLISION = -2, WALL = -1, EMPTY = 0, FOOD = 1;
-	static Settings settingsConf;
+	public GridPane gridArea = new GridPane();
+	public Node[][] cellField = new Node[gridCol][gridRow];
+	public Snake player01;
+	public Snake player02;
+	public GameClock gc;
+	public Label score;
+	public int COLLISION = -2, WALL = -1, EMPTY = 0, FOOD = 1;
+	public static Settings settingsConf;
 
-	public Game(GridPane gridArea, Snake player01, ISnake player02, GameClock gc,Label score, int gridRow, int gridCol, int gridSize)	{
+	public Game(GridPane gridArea, Snake player01, Snake player02, GameClock gc,Label score, int gridRow, int gridCol, int gridSize)	{
 		this.player01 = player01;
+		this.player02 = player02;
 		this.gridRow = gridRow;
 		this.gridCol = gridCol;
 		this.gridSize = gridSize;
@@ -170,7 +170,11 @@ public class Game {
 						if(laFromCellRepaint.getText().equals("0"))
 							replaceField("EMPTY", col, row);
 						if(laFromCellRepaint.getText().equals("-2"))
-							replaceField("SNAKE", col, row);
+							if(player.getPlayerIndex() == 0)	{
+								replaceField("SNAKE", col, row);								
+							} else	{
+								replaceField("SNAKE02", col, row);								
+							}
 					}
 				}
 				
@@ -204,6 +208,10 @@ public class Game {
 			break;
 		case "SNAKE":
 			reFromCurrentCell.setFill(settingsConf.player);
+			laFromCurrentCell.setText("-2");
+			break;
+		case "SNAKE02":
+			reFromCurrentCell.setFill(settingsConf.player02);
 			laFromCurrentCell.setText("-2");
 			break;
 		case "WALL":

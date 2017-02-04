@@ -23,15 +23,15 @@ public class GameController implements Initializable {
 	Logger log = Logger.getLogger(GameController.class.getName());
 
 	// TODO - Setup visibility
-	Game currentGame;
-	Snake player01;
-	Snake player02;
+	public Game currentGame;
+	public Snake player01;
+	public Snake player02;
 	public GameClock gc;
-	GridPane gridArea = new GridPane();
-	boolean isMultiplayer = false;
-	int gridSize, gridCol, gridRow;
-	int speedDivi;
-	static GameOverController goc;
+	public GridPane gridArea = new GridPane();
+	public boolean isMultiplayer = false;
+	public int gridSize, gridCol, gridRow;
+	public int speedDivi;
+	public static GameOverController goc;
 
 	@FXML
 	private BorderPane GridField;
@@ -44,7 +44,8 @@ public class GameController implements Initializable {
 		// TODO - Request for one or two player
 		if(isMultiplayer == true)	{
 			player01 = new Snake(gridRow / 2, gridCol / 2, 3);
-			player02 = new Snake(gridRow / 4, gridCol / 4, 3);	
+			player02 = new Snake(gridRow / 4, gridCol / 4, 3);
+			player02.setPlayerIndex(1);
 			gc = new GameClock();
 			currentGame = new Game(gridArea,player01,player02,gc,score, gridRow, gridCol, gridSize);
 			gc.setCurrentGame(this, currentGame, player01, player02);
@@ -146,6 +147,10 @@ public class GameController implements Initializable {
 				this.speedDivi = 20000000;
 				break;
 		}
+		
+		if(SettingsController.settingsConf.getMultiplayer().equals("Yes")) 	{
+			this.isMultiplayer = true;
+		}
 	}
 	
 	public void toGameOver()	{
@@ -159,8 +164,7 @@ public class GameController implements Initializable {
 						main(); // After the first two steps we can rebuild the gamearea and create new players for the next game
 						Window.sceneHandler(Window.gameOver); // Change the scene
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						log.log(Level.SEVERE, "an exception was thrown", e);
 					}
 		        }
 		   });

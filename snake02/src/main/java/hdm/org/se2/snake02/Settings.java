@@ -22,13 +22,15 @@ import javafx.scene.paint.Color;
 
 public class Settings {
 
+	public static Logger log = Logger.getLogger(Settings.class.getName());
 
 	//TODO - change visibility
 	Point resolution = new Point(); 
 	String difficulty;
 	String theme;
 	String mode;
-	Color background, player, wall, food;
+	String multiplayer;
+	Color background, player, player02, wall, food;
 
 	public Settings()	{
 		this.resolution.x = 1024;
@@ -38,11 +40,13 @@ public class Settings {
 		this.mode = "standard";
 		this.background = Color.WHITE;
 		this.player = Color.ORANGE;
+		this.player02 = Color.RED;
 		this.wall = Color.BLACK;
 		this.food = Color.GREEN;
+		this.multiplayer = "no";
 	}
 
-	public static void setSettings(Point resolution, String difficulty, String theme, String mode, Color background, Color player, Color wall, Color food) {
+	public static void setSettings(Point resolution, String difficulty, String theme, String mode, Color background, Color player, Color wall, Color food, String multiplayer) {
 
 		final String settingscsv = "temp/Settings.csv";
 
@@ -51,7 +55,7 @@ public class Settings {
 				new StringBuilder("\"").append(resolution.x).append("x").append(resolution.y).append("\",\"").append(difficulty)
 				.append("\",\"").append(theme).append("\",\"").append(mode).append("\",\"").append(background.toString()).append("\",\"")
 				.append(player.toString()).append("\",\"").append(wall.toString()).append("\",\"").append(food.toString())
-				.append("\";").toString();
+				.append("\",\"").append(multiplayer).append("\";").toString();
 		writeToFile(settingscsv, temp);
 
 	}
@@ -93,10 +97,10 @@ public class Settings {
 				String[] settingsFile = line.split(cvsSplitBy);
 				settingsFile[settingsFile.length - 1] = settingsFile[settingsFile.length - 1].replace(";", "");
 
-				System.out.println("resolution = " + settingsFile[0].replace("\"", "") + " difficulty =" +  settingsFile[1] + 
+				log.info("resolution = " + settingsFile[0].replace("\"", "") + " difficulty =" +  settingsFile[1] + 
 						" theme = " + settingsFile[2] + " mode = " + settingsFile[3] + " background = " + 
 						settingsFile[4] + " player = " + settingsFile[5] + " wall = " + settingsFile[6] + 
-						" food = " + settingsFile[7]);
+						" food = " + settingsFile[7] + " Multiplayer = " + settingsFile[8]);
 
 
 
@@ -108,6 +112,7 @@ public class Settings {
 				settings.setDifficulty(settingsFile[1].replace("\"", ""));
 				settings.setTheme(settingsFile[2].replace("\"", ""));
 				settings.setMode(settingsFile[3].replace("\"", ""));
+				settings.setMultiplayer(settingsFile[8].replace("\"", ""));
 				
 				
 				Color backgroundFix = picker2color(settingsFile[4]);
@@ -121,7 +126,7 @@ public class Settings {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.log(Level.SEVERE, "an exception was thrown", e);		
 		} finally {
 			if (br != null) {
 				try {
@@ -166,6 +171,14 @@ public class Settings {
 
 	public void setMode(String mode) {
 		this.mode = mode;
+	}
+
+	public String getMultiplayer() {
+		return multiplayer;
+	}
+
+	public void setMultiplayer(String multiplayer) {
+		this.multiplayer = multiplayer;
 	}
 	
 	public void setColors(Color background, Color player, Color wall, Color food)	{
