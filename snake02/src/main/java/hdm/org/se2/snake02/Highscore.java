@@ -9,14 +9,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Highscore {
+	final String scorecsv = "temp/Highscore.csv";
 
 	public Highscore() {
-		// defaults
-		//On Git Commented and Submitted Test??
+
 	}
 
 	public void setHighscore(String name, String score, String date) {
-		final String scorecsv = "temp/Highscore.csv";
 
 		// Create String from Score, Name, Date & Write to File
 		String temp = new StringBuilder("\"").append(score).append("\",\"").append(name).append("\",\"").append(date)
@@ -25,23 +24,11 @@ public class Highscore {
 
 	}
 
-	public ArrayList<String> getHighscore(){
-		final String scorecsv = "temp/Highscore.csv";
-		String temp = readFromFile(scorecsv);
-		ArrayList<String> TempList = new ArrayList<String>(); 
-		
-		for(int i = 0; i < temp.length();i++){ // Abfragen&ArrayList
-			// add split when semicolon for one set
-			// then divide set in 3 strings and schwupsdiwups
-		}
-		
-		return TempList;
-	}
+	public ArrayList<String> readFromFile() {
+		ArrayList<String> TempList = new ArrayList<String>();
 
-	public String readFromFile(String scorecsv) {
-		String Highscores = null;
 		try {
-			File file = new File(scorecsv);
+			File file = new File("temp/Highscore.csv");
 			if (file.exists()) {
 				System.out.println("Found");
 			}
@@ -50,17 +37,24 @@ public class Highscore {
 			}
 			// init Reader
 			BufferedReader breader = new BufferedReader(new FileReader(file));
-			Highscores = breader.readLine();
-			// Close Reader
-			breader.close();
+			String temp = breader.readLine();
+			
+			
+			String[] ntemp = temp.split(";");
+			breader.close(); // Close Reader
+			
+			for (int i = 0; i < ntemp.length; i++) { // Abfragen&ArrayList
+				TempList.add(ntemp[i]);
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return Highscores;
+
+		return TempList;
 	}
 
-	public void writeToFile(String scorecsv, String temp) {
+	public void writeToFile(String scoresv, String temp) {
 
 		try {
 			// check if File exists. if not, create it. if yes, go on.
