@@ -15,10 +15,11 @@ public class Window extends Application {
 	
 	
 	public static Stage windowStage; // This is the window itself. It's public so that we can modify it, like setting a new scene.
-	public static Scene game, highscore, settings, menu, gameOver;
+	public static Scene game, highscore, settings, menu, gameOver,unknown;
 	public static Parent menuSource, gameSource, highscoreSource, settingsSource, gameOverSource;
 	public static int resX = 1280;
 	public static int resY = 720;
+
 		   
 	public static void main(String[] args) {
 		launch(args);
