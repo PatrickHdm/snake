@@ -12,7 +12,7 @@
 	<BorderPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 		
 		<top>
-			<Label fx:id="headline">Welcome to Snake 0 two</Label>
+			<Label fx:id="headline">Snake</Label>
 		</top>
 		
 		<center>
@@ -25,7 +25,7 @@
 		</center>
 		
 		<bottom>
-			<Label fx:id="bottomline">HDM</Label>
+			<Label fx:id="bottomline">Hochschule der Medien Stuttgart</Label>
 		</bottom>
 		
 	</BorderPane>
