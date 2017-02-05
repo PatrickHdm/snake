@@ -43,14 +43,17 @@ public class GameController implements Initializable {
 		gameSetup();
 		// TODO - Request for one or two player
 		if(isMultiplayer == true)	{
-			player01 = new Snake(gridRow / 2, gridCol / 2, 3);
-			player02 = new Snake(gridRow / 4, gridCol / 4, 3);
+			player01 = PlayerFactory.getPlayer("Snake");
+			player01.setPosition(gridRow / 2, gridCol / 2);
+			player02 = PlayerFactory.getPlayer("Snake");
+			player02.setPosition(gridRow / 2 + 1, gridCol / 2);
 			player02.setPlayerIndex(1);
 			gc = new GameClock();
 			currentGame = new Game(gridArea,player01,player02,gc,score, gridRow, gridCol, gridSize);
 			gc.setCurrentGame(this, currentGame, player01, player02);
 		} else	{
-			player01 = new Snake(gridRow / 2, gridCol / 2, 3);			
+			player01 = PlayerFactory.getPlayer("Snake");
+			player01.setPosition(gridRow / 2, gridCol / 2);	
 			gc = new GameClock();
 			currentGame = new Game(gridArea,player01,null,gc,score, gridRow, gridCol, gridSize);
 			gc.setCurrentGame(this, currentGame, player01, null);

@@ -10,8 +10,13 @@
    -fx-text-fill: #fff;
 }
 
-#body .label	{
+#body	{
 	-fx-padding: 10 20;
+}
+
+#body .label	{
+	-fx-min-width: 120;
+	-fx-padding: 20 20 10 0;
 }
 
 #content	{
@@ -28,6 +33,27 @@
 #footer .label	{
     -fx-font: 24px "Serif";
 	-fx-text-fill: #000000;
+}
+
+.color-picker	{
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+    -fx-background-color: none;
+    -fx-text-fill: #000;
+}
+
+.radio-button .radio	{
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+    -fx-background-color: none;
+    -fx-text-fill: #000;	
+}
+
+.combo-box	{
+    -fx-border-insets: 10px;
+    -fx-background-insets: 10px;
+    -fx-background-color: none;
+    -fx-text-fill: #000;	
 }
 
 .button {
