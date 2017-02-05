@@ -18,11 +18,11 @@
 		</top>
 		
 		<center>
-		
+		<VBox fx:id="pHighscore">
+		</VBox>
 		</center>
 		
 		<bottom>
-			<Label>HDM</Label>
 		</bottom>
 		
 	</BorderPane>

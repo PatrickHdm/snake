@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
 import javafx.fxml.FXML;
@@ -17,6 +18,9 @@ public class HighscoreController implements Initializable {
 	
 	@FXML
 	private BorderPane HighscoreField;
+	
+	@FXML 
+	private VBox pHighscore;
 	
 	@FXML
 	private void toMenu()	{
@@ -33,10 +37,15 @@ public class HighscoreController implements Initializable {
 		Highscore highscore = new Highscore();
 		ArrayList<String> scores = highscore.readFromFile();
 		int sScores = scores.size();
+		VBox pHighscore = new VBox(sScores+1);
+		Label header = new Label("Score \t Name \t\t Date");
+		pHighscore.getChildren().add(header);
+		
 		for (int i = 0; i < sScores; i++) {
-			
-			Label label = new Label(scores.get(i));
-			HighscoreField.setCenter(label);
+			Label label = new Label(scores.get(i)
+			.replaceAll("\"", "  ").replaceAll(",","   \t"));
+			pHighscore.getChildren().add(label);
+			HighscoreField.setCenter(pHighscore);
 		}
 		
 		
