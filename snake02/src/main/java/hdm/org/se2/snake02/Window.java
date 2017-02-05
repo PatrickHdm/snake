@@ -55,9 +55,13 @@ public class Window extends Application {
 		menu = new Scene(menuSource, resX, resY);
 		menu.getStylesheets().add("/css/menu.css");
 		game = new Scene(gameSource, resX, resY);
+		game.getStylesheets().add("/css/Game.css");
 		highscore = new Scene(highscoreSource, resX, resY);
+		highscore.getStylesheets().add("/css/Highscore.css");
 		settings = new Scene(settingsSource, resX, resY);
+		settings.getStylesheets().add("/css/Settings.css");
 		gameOver = new Scene(gameOverSource, resX, resY);
+		gameOver.getStylesheets().add("/css/Game.css");
 		
 		// After we create our scene, we have to give it to our window.
 		windowStage.setScene(menu);

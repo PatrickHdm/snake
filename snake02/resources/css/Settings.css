@@ -10,8 +10,8 @@
    -fx-text-fill: #fff;
 }
 
-#body	{
-	-fx-alignment: center;
+#body .label	{
+	-fx-padding: 10 20;
 }
 
 #content	{

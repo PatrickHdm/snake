@@ -13,7 +13,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.GameOverController">
 	
-	<BorderPane fx:id="GridField">
+	<BorderPane fx:id="GridField" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 		<top>
 			<VBox>
 				<Label>GAME OVER</Label>

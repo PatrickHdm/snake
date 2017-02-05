@@ -10,85 +10,105 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.SettingsController">
 
-	
-	<BorderPane >
+
+	<BorderPane fx:id="content" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 		<top>
-			<Label >Settings</Label>
+			<HBox id="header">
+				<Label id="headline">Settings</Label>
+			</HBox>
 		</top>
 		<center>
-			<VBox>
-				<Label>Screen-Resolution:</Label>
+			<VBox id="body">
+				<Label>SCREEN-RESOLUTION:</Label>
 				<ComboBox fx:id="resolution">
 					<items>
 						<FXCollections fx:factory="observableArrayList">
-							<String fx:value="640x480" />
-							<String fx:value="800x600" />
 							<String fx:value="1024x768" />
 							<String fx:value="1280x720" />
-							<String fx:value="1920x1080"/>
+							<String fx:value="1920x1080" />
 						</FXCollections>
 					</items>
 				</ComboBox>
-		<VBox>	
-		  <fx:define> <ToggleGroup fx:id="difficulty"/> </fx:define>
-			   	<children>
-			    	<Label>difficulty</Label>
-				        <RadioButton text="Easy" toggleGroup="$difficulty" />
-				        <RadioButton text="Medium" toggleGroup="$difficulty"/>
-				        <RadioButton text="Hard" toggleGroup="$difficulty"/>
-			   	 </children>
-    	</VBox>
-    
-    	<VBox>
-    	  <fx:define> <ToggleGroup fx:id="theme"/> </fx:define>
-	  		    <children>  
-			   	 <Label>theme</Label>
-				        <RadioButton text="Small" toggleGroup="$theme"/>
-				        <RadioButton text="Middle" toggleGroup="$theme"/>
-				        <RadioButton text="Big" toggleGroup="$theme"/>
-			    </children>
-    	</VBox>
-    
-    	<VBox>
-        	<fx:define> <ToggleGroup fx:id="mode"/> </fx:define>
-	  		    	<children>  
-			   	 	<Label>mode</Label>
-				        <RadioButton text="Standard" toggleGroup="$mode"/>
-				        <RadioButton text="Wall of Rise" toggleGroup="$mode"/>
-				        <RadioButton text="Templewall" toggleGroup="$mode"/>
-			   		 </children>
-		</VBox>	   	
-		
-		<VBox>	
-		  <fx:define> <ToggleGroup fx:id="multiplayer"/> </fx:define>
-			   	<children>
-			    	<Label>Multiplayer (Alpha)</Label>
-				        <RadioButton text="Yes" toggleGroup="$multiplayer" />
-				        <RadioButton text="No" toggleGroup="$multiplayer"/>
-			   	 </children>
-    	</VBox>	 	 
-		
-		<VBox>
-			<HBox>
-				<Label>Background: </Label><ColorPicker fx:id="colorPickerBackground"></ColorPicker>
-			</HBox>
-			<HBox>
-				<Label>Player: </Label><ColorPicker fx:id="colorPickerPlayer"></ColorPicker>
-			</HBox>
-			<HBox>
-				<Label>Walls: </Label><ColorPicker fx:id="colorPickerWall"></ColorPicker>
-			</HBox>
-			<HBox>
-				<Label>Food: </Label><ColorPicker fx:id="colorPickerFood"></ColorPicker>
-			</HBox>
-		</VBox>
-		
-		<HBox>			
-			<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
-			<Button fx:id="Save" onAction="#saveAllSettings">Save</Button>
-		</HBox>		
+				<HBox>
+					<VBox>
+						<fx:define>
+							<ToggleGroup fx:id="difficulty" />
+						</fx:define>
+						<children>
+							<Label>DIFFICULTY</Label>
+							<RadioButton text="Easy" toggleGroup="$difficulty" />
+							<RadioButton text="Medium" toggleGroup="$difficulty" />
+							<RadioButton text="Hard" toggleGroup="$difficulty" />
+						</children>
+					</VBox>
+
+					<VBox>
+						<fx:define>
+							<ToggleGroup fx:id="theme" />
+						</fx:define>
+						<children>
+							<Label>THEME</Label>
+							<RadioButton text="Small" toggleGroup="$theme" />
+							<RadioButton text="Middle" toggleGroup="$theme" />
+							<RadioButton text="Big" toggleGroup="$theme" />
+						</children>
+					</VBox>
+
+					<VBox>
+						<fx:define>
+							<ToggleGroup fx:id="mode" />
+						</fx:define>
+						<children>
+							<Label>MODE</Label>
+							<RadioButton text="Standard" toggleGroup="$mode" />
+							<RadioButton text="Wall of Rise" toggleGroup="$mode" />
+							<RadioButton text="Templewall" toggleGroup="$mode" />
+						</children>
+					</VBox>
+				</HBox>
+
+
+				<VBox>
+					<fx:define>
+						<ToggleGroup fx:id="multiplayer" />
+					</fx:define>
+					<children>
+						<Label>MULTIPLAYER (Alpha)</Label>
+						<RadioButton text="Yes" toggleGroup="$multiplayer" />
+						<RadioButton text="No" toggleGroup="$multiplayer" />
+					</children>
+				</VBox>
+
+				<VBox>
+					<Label>COLORS</Label>
+					<HBox>
+						<Label>Background: </Label>
+						<ColorPicker fx:id="colorPickerBackground"></ColorPicker>
+					</HBox>
+					<HBox>
+						<Label>Player: </Label>
+						<ColorPicker fx:id="colorPickerPlayer"></ColorPicker>
+					</HBox>
+					<HBox>
+						<Label>Walls: </Label>
+						<ColorPicker fx:id="colorPickerWall"></ColorPicker>
+					</HBox>
+					<HBox>
+						<Label>Food: </Label>
+						<ColorPicker fx:id="colorPickerFood"></ColorPicker>
+					</HBox>
+				</VBox>
+				
 			</VBox>
 		</center>
+		
+		<bottom>
+			<HBox id="footer">
+				<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
+				<Button fx:id="Save" onAction="#saveAllSettings">Save</Button>
+			</HBox>
+		</bottom>
+		
 	</BorderPane>
 
 </AnchorPane>

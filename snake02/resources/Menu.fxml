@@ -9,14 +9,16 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.MenuController">
 	
-	<BorderPane AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+	<BorderPane id="content" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 		
 		<top>
-			<Label fx:id="headline">Welcome to Snake 0 two</Label>
+			<HBox id="header">
+				<Label id="headline">Welcome to Snake 0 two</Label>
+			</HBox>
 		</top>
 		
 		<center>
-			<VBox>
+			<VBox id="body">
 				<Button fx:id="setGameScene" onAction="#changeScene">Play</Button>
 				<Button fx:id="setHighscoreScene" onAction="#changeScene">Highscore's</Button>
 				<Button fx:id="setSettingsScene" onAction="#changeScene">Settings</Button>
@@ -25,7 +27,9 @@
 		</center>
 		
 		<bottom>
-			<Label fx:id="bottomline">HDM</Label>
+			<HBox id="footer">
+				<Label>Created by ls112, dp047, pd018</Label>
+			</HBox>
 		</bottom>
 		
 	</BorderPane>

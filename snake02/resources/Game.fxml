@@ -12,10 +12,10 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.GameController">
 	
-	<BorderPane fx:id="GridField">
+	<BorderPane fx:id="GridField" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+		
 		<top>
-			<HBox>
-				<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
+			<HBox id="header">
 				<Label>Score: </Label><Label fx:id="score">XXX</Label>
 			</HBox>
 		</top>
@@ -24,7 +24,9 @@
 		</center>
 		
 		<bottom>
-			<Label >HDM</Label>
+			<VBox id="footer">
+				<Button fx:id="backToMenu" onAction="#toMenu">Back</Button>
+			</VBox>
 		</bottom>
 		
 	</BorderPane>
