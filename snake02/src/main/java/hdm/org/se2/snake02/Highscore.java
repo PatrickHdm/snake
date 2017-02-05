@@ -30,10 +30,10 @@ public class Highscore {
 		try {
 			File file = new File("temp/Highscore.csv");
 			if (file.exists()) {
-				System.out.println("Found");
+				System.out.println("HighScoreFile Found");
 			}
 			if (!file.exists()) {
-				System.out.println("No Highscores Available");
+				System.out.println("No HighscoreFile Available");
 			}
 			// init Reader
 			BufferedReader breader = new BufferedReader(new FileReader(file));
