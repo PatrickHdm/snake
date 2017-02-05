@@ -12,13 +12,9 @@
 	<BorderPane id="content" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 		
 		<top>
-<<<<<<< HEAD
 			<HBox id="header">
 				<Label id="headline">Welcome to Snake 0 two</Label>
 			</HBox>
-=======
-			<Label fx:id="headline">Snake</Label>
->>>>>>> branch 'master' of https://github.com/PatrickHdm/snake.git
 		</top>
 		
 		<center>
@@ -31,13 +27,9 @@
 		</center>
 		
 		<bottom>
-<<<<<<< HEAD
 			<HBox id="footer">
 				<Label>Created by ls112, dp047, pd018</Label>
 			</HBox>
-=======
-			<Label fx:id="bottomline">Hochschule der Medien Stuttgart</Label>
->>>>>>> branch 'master' of https://github.com/PatrickHdm/snake.git
 		</bottom>
 		
 	</BorderPane>

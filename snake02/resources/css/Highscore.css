@@ -10,8 +10,9 @@
    -fx-text-fill: #fff;
 }
 
-#body	{
-	-fx-alignment: center;
+#body .label	{
+   -fx-font-size: 24px;
+	-fx-padding: 10 20;
 }
 
 #HighscoreField	{
