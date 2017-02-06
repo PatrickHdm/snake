@@ -11,45 +11,53 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Highscore {
-	
+
 	public static Logger log = Logger.getLogger(Highscore.class.getName());
-	
-	final String scorecsv = "temp/Highscore.csv";
+
+	static Window currentWindow;
+	final static String highscorecsv = "config/Highscore.csv";
 
 	public Highscore() {
 
 	}
 
-	public void setHighscore(String name, String score, String date) {
+	public void setHighscore(String name, String score, String date) throws Exception {
 
 		// Create String from Score, Name, Date & Write to File
 		String temp = new StringBuilder("\"").append(score).append("\",\"").append(name).append("\",\"").append(date)
 				.append("\";").toString();
-		writeToFile(scorecsv, temp);
+		writeToFile(highscorecsv, temp);
+
+
+		currentWindow.restart(currentWindow.windowStage);
 
 	}
 
-	public ArrayList<String> readFromFile() {
+	public static ArrayList<String> readFromFile() {
 		ArrayList<String> TempList = new ArrayList<String>();
 
 		try {
-			File file = new File("temp/Highscore.csv");
+			File file = new File(highscorecsv);
 			if (file.exists()) {
 				log.info("HighScoreFile Found");
-			}
-			if (!file.exists()) {
+			} else {
+				file.createNewFile();
 				log.info("No HighscoreFile Available");
 			}
+
 			// init Reader
 			BufferedReader breader = new BufferedReader(new FileReader(file));
-			String temp = breader.readLine();
-			
-			
-			String[] ntemp = temp.split(";");
-			breader.close(); // Close Reader
-			
-			for (int i = 0; i < ntemp.length; i++) { // Abfragen&ArrayList
-				TempList.add(ntemp[i]);
+			if(breader.ready())	{
+				String temp = breader.readLine();
+
+				if(!temp.isEmpty())	{
+					String[] ntemp = temp.split(";");
+					breader.close(); // Close Reader
+
+					for (int i = 0; i < ntemp.length; i++) { // Abfragen&ArrayList
+						TempList.add(ntemp[i]);
+					}
+				}
 			}
 
 		} catch (IOException e) {
@@ -63,7 +71,7 @@ public class Highscore {
 
 		try {
 			// check if File exists. if not, create it. if yes, go on.
-			File file = new File(scorecsv);
+			File file = new File(highscorecsv);
 			if (!file.exists()) {
 				file.createNewFile();
 			}

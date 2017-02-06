@@ -38,7 +38,7 @@ public class GameOverController implements Initializable {
 		this.highScore = highScore;
 	}
 	
-	public void saveHighscore()	{
+	public void saveHighscore() throws Exception	{
 		highscoreConf.setHighscore(name.getText(), ""+highScore, new Date().toString());
 		try {
 			Window.sceneHandler(Window.highscore);

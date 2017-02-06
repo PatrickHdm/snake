@@ -8,6 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,31 +27,41 @@ public class Settings {
 
 	public static Logger log = Logger.getLogger(Settings.class.getName());
 
-	//TODO - change visibility
+
 	Point resolution = new Point(); 
-	String difficulty;
-	String theme;
-	String mode;
-	String multiplayer;
-	Color background, player, player02, wall, food;
+	public String difficulty;
+	public String theme;
+	public String mode;
+	public String multiplayer;
+	public Color background, player, player02, wall, food;
+	final static String settingscsv = "config/Settings.csv";
 
 	public Settings()	{
-		this.resolution.x = 1024;
-		this.resolution.y = 768;
-		this.difficulty = "easy";
-		this.theme = "standard";
-		this.mode = "standard";
-		this.background = Color.WHITE;
-		this.player = Color.ORANGE;
-		this.player02 = Color.RED;
-		this.wall = Color.BLACK;
-		this.food = Color.GREEN;
-		this.multiplayer = "no";
+		
+		File file = new File(settingscsv);
+		if (file.exists()) {
+			log.info("SettingsFile Found");
+			readFromFile(this);
+		}
+		if (!file.exists()) {
+			log.info("No SettingsFile Available");
+			this.resolution.x = 1024;
+			this.resolution.y = 768;
+			this.difficulty = "Medium";
+			this.theme = "Middle";
+			this.mode = "Standard";
+			this.background = Color.WHITE;
+			this.player = Color.ORANGE;
+			this.player02 = Color.RED;
+			this.wall = Color.BLACK;
+			this.food = Color.GREEN;
+			this.multiplayer = "No";
+			setSettings(getResolution(), getDifficulty(), getTheme(), getMode(), getBackground(), getPlayer(), getWall(), getFood(), getMultiplayer());
+		}
 	}
 
 	public static void setSettings(Point resolution, String difficulty, String theme, String mode, Color background, Color player, Color wall, Color food, String multiplayer) {
 
-		final String settingscsv = "temp/Settings.csv";
 
 		// Create String from Score, Name, Date & Write to File
 		String temp = 
@@ -90,7 +103,7 @@ public class Settings {
 		String cvsSplitBy = ",";
 
 		try{
-			br = new BufferedReader(new FileReader(csvFile));
+			br = new BufferedReader(new FileReader(settingscsv));
 			while ((line = br.readLine()) != null) {
 
 				// use comma as separator
@@ -113,14 +126,14 @@ public class Settings {
 				settings.setTheme(settingsFile[2].replace("\"", ""));
 				settings.setMode(settingsFile[3].replace("\"", ""));
 				settings.setMultiplayer(settingsFile[8].replace("\"", ""));
-				
-				
+
+
 				Color backgroundFix = picker2color(settingsFile[4]);
 				Color playerFix = picker2color(settingsFile[5]);
 				Color wallFix = picker2color(settingsFile[6]);
 				Color foodFix = picker2color(settingsFile[7]);
-				
-				
+
+
 				settings.setColors(backgroundFix, playerFix, wallFix, foodFix);
 
 			}
@@ -132,7 +145,7 @@ public class Settings {
 				try {
 					br.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					log.log(Level.SEVERE, "an exception was thrown", e);	
 				}
 			}
 		}
@@ -180,31 +193,31 @@ public class Settings {
 	public void setMultiplayer(String multiplayer) {
 		this.multiplayer = multiplayer;
 	}
-	
+
 	public void setColors(Color background, Color player, Color wall, Color food)	{
 		this.background = background;
 		this.player = player;
 		this.wall = wall;
 		this.food = food;
-		
+
 	}
-	
+
 	public Color getBackground()	{
 		return background;
 	}
-	
+
 	public Color getPlayer()	{
 		return player;
 	}
-	
+
 	public Color getWall()	{
 		return wall;
 	}
-	
+
 	public Color getFood()	{
 		return food;
 	}
-	
+
 	/**
 	 * 
 	 * @param colorStr e.g. "#FFFFFF"

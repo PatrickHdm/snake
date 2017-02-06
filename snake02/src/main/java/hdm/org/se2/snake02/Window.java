@@ -1,6 +1,7 @@
 package hdm.org.se2.snake02;
 
 import java.awt.event.WindowStateListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -19,6 +20,7 @@ public class Window extends Application {
 	public static Parent menuSource, gameSource, highscoreSource, settingsSource, gameOverSource;
 	public static int resX = 1280;
 	public static int resY = 720;
+	public static String homeDir = System.getProperty("user.home");
 
 		   
 	public static void main(String[] args) {
@@ -27,20 +29,22 @@ public class Window extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-	    startGame(primaryStage);
+	    saveDirectory();
+		startGame(primaryStage);
 	}
 	
 	public void startGame(Stage primaryStage) throws Exception	{
 		windowStage = primaryStage;
 		windowStage.setTitle("Snake0two");
 		
-		// Get settings or set new Settings
+		// Set a reference to settings and highscore
 		Settings settingsConf = new Settings();
 		Highscore highscoreConf = new Highscore();
 		settingsConf.readFromFile(settingsConf);
 		this.resX = settingsConf.resolution.x;
 		this.resY = settingsConf.resolution.y;
 		SettingsController.currentWindow = this;
+		highscoreConf.currentWindow = this;
 		SettingsController.settingsConf = settingsConf;
 		Game.settingsConf = settingsConf;
 		GameOverController.highscoreConf = highscoreConf;
@@ -90,6 +94,17 @@ public class Window extends Application {
 		log.info("Change Scene... "); // Just a little debug!
 		// Now we can setup a new scene and push it to our window.
 		windowStage.setScene(scene);
+	}
+	
+	public void saveDirectory()	{
+		if(new File("config").exists())	{
+		} else	{
+			boolean success = (new File("config")).mkdirs();
+			if(!success)	{
+				log.warning("Could not create folder for config");
+			}
+		}	
+		
 	}
 	
 	

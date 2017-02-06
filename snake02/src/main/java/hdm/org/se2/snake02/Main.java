@@ -13,7 +13,7 @@ public class Main {
 
 	static Logger log = Logger.getLogger(Game.class.getName());
 	
-	public static void main(String[] args) { 
+	public static void main(String[] args) { 		
 		log.info("Start window...");
 		 new Thread() {
 	            @Override

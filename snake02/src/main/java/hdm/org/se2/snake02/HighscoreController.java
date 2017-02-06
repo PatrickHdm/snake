@@ -34,18 +34,19 @@ public class HighscoreController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		Highscore highscore = new Highscore();
-		ArrayList<String> scores = highscore.readFromFile();
-		int sScores = scores.size();
-		VBox pHighscore = new VBox(sScores+1);
-		Label header = new Label("Score \t Name \t\t Date");
-		pHighscore.getChildren().add(header);
-		
-		for (int i = 0; i < sScores; i++) {
-			Label label = new Label(scores.get(i)
-			.replaceAll("\"", "  ").replaceAll(",","   \t"));
-			pHighscore.getChildren().add(label);
-			HighscoreField.setCenter(pHighscore);
+		ArrayList<String> scores = Highscore.readFromFile();
+		if(!scores.isEmpty())	{
+			int sScores = scores.size();
+			VBox pHighscore = new VBox(sScores+1);
+			Label header = new Label("Score \t Name \t\t Date");
+			pHighscore.getChildren().add(header);
+			
+			for (int i = 0; i < sScores; i++) {
+				Label label = new Label(scores.get(i)
+				.replaceAll("\"", "  ").replaceAll(",","   \t"));
+				pHighscore.getChildren().add(label);
+				HighscoreField.setCenter(pHighscore);
+			}	
 		}
 		
 		

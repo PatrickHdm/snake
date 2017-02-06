@@ -40,7 +40,7 @@ public class Game {
 		this.gridRow = gridRow;
 		this.gridCol = gridCol;
 		this.gridSize = gridSize;
-		
+
 		if(player02 != null)	{
 			this.player02 = player02;
 		}
@@ -68,124 +68,134 @@ public class Game {
 				int direction = player.getDirection();
 				Node currentCell = cellField[player.getPosition().x][player.getPosition().y];
 				Node nextCell = cellField[0][0];
-				switch(direction)	{
-				case 1: // Right
-					if(player.getPosition().x != gridCol - 1)	{
-						nextCell = cellField[player.getPosition().x + 1][player.getPosition().y];
-						player.setPosition(player.getPosition().x + 1, player.getPosition().y);
+
+				/*
+				 * Thread fix
+				 * 
+				 * If the Thread is not done with reading/saving the settings, the player cannot step forward because there is no grid.
+				 * To fix it, we firstly check is there a grid and avoid an exception.
+				 */
+				StackPane tmpCellCheck = (StackPane) currentCell;
+				if(tmpCellCheck != null)	{
+					switch(direction)	{
+					case 1: // Right
+						if(player.getPosition().x != gridCol - 1)	{
+							nextCell = cellField[player.getPosition().x + 1][player.getPosition().y];
+							player.setPosition(player.getPosition().x + 1, player.getPosition().y);
+						}
+						else	{
+							nextCell = cellField[0][player.getPosition().y];
+							player.setPosition(0, player.getPosition().y);
+						}
+						break;
+					case 2: // Down
+						if(player.getPosition().y != gridRow - 1)	{
+							nextCell = cellField[player.getPosition().x][player.getPosition().y + 1];
+							player.setPosition(player.getPosition().x, player.getPosition().y + 1);
+						}
+						else	{
+							nextCell = cellField[player.getPosition().x][0];
+							player.setPosition(player.getPosition().x, 0);
+						}
+						break;
+					case 3: // Left
+						if(player.getPosition().x != 0)	{
+							nextCell = cellField[player.getPosition().x - 1][player.getPosition().y];
+							player.setPosition(player.getPosition().x - 1, player.getPosition().y);
+						}
+						else	{
+							nextCell = cellField[gridCol - 1][player.getPosition().y];
+							player.setPosition(gridCol - 1, player.getPosition().y);
+						}
+						break;
+					case 4: // Up
+						if(player.getPosition().y != 0)	{
+							nextCell = cellField[player.getPosition().x][player.getPosition().y - 1];
+							player.setPosition(player.getPosition().x, player.getPosition().y - 1);
+						}
+						else	{
+							nextCell = cellField[player.getPosition().x][gridRow - 1];
+							player.setPosition(player.getPosition().x, gridRow - 1);
+						}
+						break;
+					default:
+						log.log(Level.WARNING, "Something gut mest up with the direction O.o ...");
 					}
-					else	{
-						nextCell = cellField[0][player.getPosition().y];
-						player.setPosition(0, player.getPosition().y);
+					StackPane currentCellSP = (StackPane) currentCell;
+					Label laFromCurrentCell = (Label) currentCellSP.getChildren().get(1);
+					Rectangle reFromCurrentCell = (Rectangle) currentCellSP.getChildren().get(0);		
+					StackPane nextCellSP = (StackPane) nextCell;
+					Label laFromNextCell = (Label) nextCellSP.getChildren().get(1);
+					Rectangle reFromNextCell = (Rectangle) nextCellSP.getChildren().get(0);	
+					String nextCellLabel = laFromNextCell.getText();				
+					switch(nextCellLabel)	{
+					case "0":	
+						laFromCurrentCell.setText("0");
+						reFromNextCell.setFill(Color.BLACK);
+						laFromNextCell.setText("-2");
+						player.entityPosition.add(new Point(player.getPosition().x,player.getPosition().y));
+						Point firstEntity = player.entityPosition.getFirst();
+						Node cellFromEntity = cellField[firstEntity.x][firstEntity.y];
+						StackPane cellSPFromEntity = (StackPane) cellFromEntity;
+						Label laCellFromEntity = (Label) cellSPFromEntity.getChildren().get(1);
+						laCellFromEntity.setText("0");
+						player.entityPosition.removeFirst();
+						break;
+					case "-1":
+						player.setIsDeath(true);
+						reFromNextCell.setFill(Color.RED);
+						laFromNextCell.setText("0");
+						player.entityPosition.removeFirst();
+						break;
+					case "-2":
+						player.setIsDeath(true);
+						reFromNextCell.setFill(Color.RED);
+						laFromNextCell.setText("0");
+						player.entityPosition.removeFirst();
+						break;
+					case "1":
+						reFromNextCell.setFill(Color.BLACK);
+						laFromNextCell.setText("-2");
+						player.setSize(1);
+						player.setScore(1);
+						score.setText(""+player.getSore());
+						Random randomGenerator = new Random();
+						int col = randomGenerator.nextInt(gridCol - 1);
+						int row = randomGenerator.nextInt(gridRow - 1);
+						replaceField("FOOD", col, row);
+						player.entityPosition.add(new Point(player.getPosition().x,player.getPosition().y));
+						break;
 					}
-					break;
-				case 2: // Down
-					if(player.getPosition().y != gridRow - 1)	{
-						nextCell = cellField[player.getPosition().x][player.getPosition().y + 1];
-						player.setPosition(player.getPosition().x, player.getPosition().y + 1);
+
+					for(Point entity : player.entityPosition)	{
+						replaceField("SNAKE", entity.x, entity.y);
 					}
-					else	{
-						nextCell = cellField[player.getPosition().x][0];
-						player.setPosition(player.getPosition().x, 0);
+
+					for(int col = 0; col < gridCol; col++)	{
+						for(int row = 0; row < gridRow; row++)	{
+							Node cellRepaint = cellField[col][row];
+							StackPane cellSPRepaint = (StackPane) cellRepaint;
+							Label laFromCellRepaint = (Label) cellSPRepaint.getChildren().get(1);
+							if(laFromCellRepaint.getText().equals("0"))
+								replaceField("EMPTY", col, row);
+							if(laFromCellRepaint.getText().equals("-2"))
+								if(player.getPlayerIndex() == 0)	{
+									replaceField("SNAKE", col, row);								
+								} else	{
+									replaceField("SNAKE02", col, row);								
+								}
+						}
 					}
-					break;
-				case 3: // Left
-					if(player.getPosition().x != 0)	{
-						nextCell = cellField[player.getPosition().x - 1][player.getPosition().y];
-						player.setPosition(player.getPosition().x - 1, player.getPosition().y);
-					}
-					else	{
-						nextCell = cellField[gridCol - 1][player.getPosition().y];
-						player.setPosition(gridCol - 1, player.getPosition().y);
-					}
-					break;
-				case 4: // Up
-					if(player.getPosition().y != 0)	{
-						nextCell = cellField[player.getPosition().x][player.getPosition().y - 1];
-						player.setPosition(player.getPosition().x, player.getPosition().y - 1);
-					}
-					else	{
-						nextCell = cellField[player.getPosition().x][gridRow - 1];
-						player.setPosition(player.getPosition().x, gridRow - 1);
-					}
-					break;
-				default:
-					log.log(Level.WARNING, "Something gut mest up with the direction O.o ...");
-				}
-				StackPane currentCellSP = (StackPane) currentCell;
-				Label laFromCurrentCell = (Label) currentCellSP.getChildren().get(1);
-				Rectangle reFromCurrentCell = (Rectangle) currentCellSP.getChildren().get(0);		
-				StackPane nextCellSP = (StackPane) nextCell;
-				Label laFromNextCell = (Label) nextCellSP.getChildren().get(1);
-				Rectangle reFromNextCell = (Rectangle) nextCellSP.getChildren().get(0);	
-				String nextCellLabel = laFromNextCell.getText();				
-				switch(nextCellLabel)	{
-				case "0":	
-					laFromCurrentCell.setText("0");
-					reFromNextCell.setFill(Color.BLACK);
-					laFromNextCell.setText("-2");
-					player.entityPosition.add(new Point(player.getPosition().x,player.getPosition().y));
-					Point firstEntity = player.entityPosition.getFirst();
-					Node cellFromEntity = cellField[firstEntity.x][firstEntity.y];
-					StackPane cellSPFromEntity = (StackPane) cellFromEntity;
-					Label laCellFromEntity = (Label) cellSPFromEntity.getChildren().get(1);
-					laCellFromEntity.setText("0");
-					player.entityPosition.removeFirst();
-					break;
-				case "-1":
-					player.setIsDeath(true);
-					reFromNextCell.setFill(Color.RED);
-					laFromNextCell.setText("0");
-					player.entityPosition.removeFirst();
-					break;
-				case "-2":
-					player.setIsDeath(true);
-					reFromNextCell.setFill(Color.RED);
-					laFromNextCell.setText("0");
-					player.entityPosition.removeFirst();
-					break;
-				case "1":
-					reFromNextCell.setFill(Color.BLACK);
-					laFromNextCell.setText("-2");
-					player.setSize(1);
-					player.setScore(1);
-					score.setText(""+player.getSore());
-					Random randomGenerator = new Random();
-					int col = randomGenerator.nextInt(gridCol - 1);
-					int row = randomGenerator.nextInt(gridRow - 1);
-					replaceField("FOOD", col, row);
-					player.entityPosition.add(new Point(player.getPosition().x,player.getPosition().y));
-					break;
-				}
-				
-				for(Point entity : player.entityPosition)	{
-					replaceField("SNAKE", entity.x, entity.y);
 				}
 
-				for(int col = 0; col < gridCol; col++)	{
-					for(int row = 0; row < gridRow; row++)	{
-						Node cellRepaint = cellField[col][row];
-						StackPane cellSPRepaint = (StackPane) cellRepaint;
-						Label laFromCellRepaint = (Label) cellSPRepaint.getChildren().get(1);
-						if(laFromCellRepaint.getText().equals("0"))
-							replaceField("EMPTY", col, row);
-						if(laFromCellRepaint.getText().equals("-2"))
-							if(player.getPlayerIndex() == 0)	{
-								replaceField("SNAKE", col, row);								
-							} else	{
-								replaceField("SNAKE02", col, row);								
-							}
-					}
-				}
-				
 			}});
 
 	}
-	
+
 	public boolean getPlayerStatus()	{
 		return player01.getIsDeath();
 	}
-	
+
 	public void replaceFieldInArray(String element, int[][] grids)	{
 		for(int col = 0; col < grids.length; col++)	{
 			for(int row = 0; row < grids[col].length; row++)	{	
@@ -231,11 +241,11 @@ public class Game {
 			break;
 		}
 	}
-	
+
 	public void setTemplate(String name)	{
 		int[][] food = new int[][]	{
 			{6,4},{12,9},{7,2}
-			};
+		};
 		int[][] standardWalls = new int[][]	{
 			// Up left
 			{0,0},{0,1},{0,2},{0,3},{0,4},
@@ -249,7 +259,7 @@ public class Game {
 			// Down right
 			{gridCol - 1,gridRow - 1},{gridCol - 1,gridRow - 2},{gridCol - 1,gridRow - 3},{gridCol - 1,gridRow - 4},{gridCol - 1,gridRow - 5},
 			{gridCol - 1,gridRow - 1},{gridCol - 2,gridRow - 1},{gridCol - 3,gridRow - 1},{gridCol - 4,gridRow - 1},			
-			};
+		};
 		int[][] standardWallsRan = new int[][]	{
 			// Up left
 			{1,0},{1,1},{1,2},{1,3},{1,4},
@@ -263,7 +273,7 @@ public class Game {
 			// Down right
 			{gridCol - 2,gridRow - 1},{gridCol - 2,gridRow - 2},{gridCol - 2,gridRow - 3},{gridCol - 2,gridRow - 4},{gridCol - 2,gridRow - 5},
 			{gridCol - 2,gridRow - 2},{gridCol - 3,gridRow - 2},{gridCol - 4,gridRow - 2},{gridCol - 5,gridRow - 2},			
-			};
+		};
 		switch (name)	{
 		case "Standard":	
 			replaceFieldInArray("FOOD", food);			

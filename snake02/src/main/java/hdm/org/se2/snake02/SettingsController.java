@@ -40,31 +40,31 @@ public class SettingsController extends Settings implements Initializable, Actio
 	Button Save;
 
 	@FXML
-	ComboBox resolution;
+	ComboBox resolutionFxml;
 
 	@FXML
-	ToggleGroup difficulty;
+	ToggleGroup difficultyFxml;
 
 	@FXML
-	ToggleGroup theme;
+	ToggleGroup themeFxml;
 
 	@FXML
-	ToggleGroup mode;
+	ToggleGroup modeFxml;
 
 	@FXML
-	ToggleGroup multiplayer;
+	ToggleGroup multiplayerFxml;
 
 	@FXML
-	ColorPicker colorPickerBackground;
+	ColorPicker colorPickerBackgroundFxml;
 
 	@FXML
-	ColorPicker colorPickerPlayer;
+	ColorPicker colorPickerPlayerFxml;
 
 	@FXML
-	ColorPicker colorPickerWall;
+	ColorPicker colorPickerWallFxml;
 
 	@FXML
-	ColorPicker colorPickerFood;
+	ColorPicker colorPickerFoodFxml;
 
 	@FXML	
 	public void saveSettings() throws Exception{
@@ -74,7 +74,7 @@ public class SettingsController extends Settings implements Initializable, Actio
 
 		// Set the resolution
 		try	{
-			String resString = resolution.getValue().toString();
+			String resString = resolutionFxml.getValue().toString();
 			int resolutionX, resolutionY;
 			String[] resSplit = resString.split("x");		
 			resolutionX = Integer.parseInt(resSplit[0]);
@@ -87,7 +87,7 @@ public class SettingsController extends Settings implements Initializable, Actio
 
 		// Set the difficulty
 		try	{
-			String tempDiffString = difficulty.getSelectedToggle().toString();
+			String tempDiffString = difficultyFxml.getSelectedToggle().toString();
 			String [] arr = tempDiffString.split("]");
 			String tempDiffString2 = arr[1];
 			String difficultyString = tempDiffString2.substring(1, tempDiffString2.length()-1);
@@ -99,7 +99,7 @@ public class SettingsController extends Settings implements Initializable, Actio
 
 		//Set theme
 		try{
-			String tempThemeString = theme.getSelectedToggle().toString();
+			String tempThemeString = themeFxml.getSelectedToggle().toString();
 			String [] arr1 = tempThemeString.split("]");
 			String tempDiffString2 = arr1[1];
 			String themeString = tempDiffString2.substring(1, tempDiffString2.length()-1);
@@ -110,7 +110,7 @@ public class SettingsController extends Settings implements Initializable, Actio
 
 		//Set mode
 		try{
-			String tempModeString = mode.getSelectedToggle().toString();
+			String tempModeString = modeFxml.getSelectedToggle().toString();
 			String [] arr2 = tempModeString.split("]");
 			String tempModeString2 = arr2[1];
 			String modeString = tempModeString2.substring(1, tempModeString2.length()-1);
@@ -121,7 +121,7 @@ public class SettingsController extends Settings implements Initializable, Actio
 
 		//Set mode
 		try{
-			String tempMultiplayerString = multiplayer.getSelectedToggle().toString();
+			String tempMultiplayerString = multiplayerFxml.getSelectedToggle().toString();
 			String [] arr3 = tempMultiplayerString.split("]");
 			String tempMultiplayerString2 = arr3[1];
 			String multiplayerString = tempMultiplayerString2.substring(1, tempMultiplayerString2.length()-1);
@@ -131,7 +131,7 @@ public class SettingsController extends Settings implements Initializable, Actio
 		}
 
 		try{			
-			setColors(picker2color(colorPickerBackground), picker2color(colorPickerPlayer), picker2color(colorPickerWall), picker2color(colorPickerFood));
+			setColors(picker2color(colorPickerBackgroundFxml), picker2color(colorPickerPlayerFxml), picker2color(colorPickerWallFxml), picker2color(colorPickerFoodFxml));
 		} catch(Exception e1)	{
 			log.log(Level.SEVERE, "an exception was thrown", e1);			
 		}
@@ -153,33 +153,33 @@ public class SettingsController extends Settings implements Initializable, Actio
 
 	public void initialize(URL location, ResourceBundle resources){		
 
-		resolution.getSelectionModel().select(settingsConf.getResolution().x+"x"+settingsConf.getResolution().y);
-		resolution.setPromptText(resolution.getConverter().toString(resolution.getValue()));	
+		resolutionFxml.getSelectionModel().select(settingsConf.getResolution().x+"x"+settingsConf.getResolution().y);
+		resolutionFxml.setPromptText(resolutionFxml.getConverter().toString(resolutionFxml.getValue()));	
 
-		for(int i = 0; i < difficulty.getToggles().size();i++){
-			if(difficulty.getToggles().get(i).toString().contains(settingsConf.getDifficulty()))
-				difficulty.getToggles().get(i).setSelected(true);		
+		for(int i = 0; i < difficultyFxml.getToggles().size();i++){
+			if(difficultyFxml.getToggles().get(i).toString().contains(settingsConf.getDifficulty()))
+				difficultyFxml.getToggles().get(i).setSelected(true);		
 		}
 
-		for(int i = 0; i < theme.getToggles().size();i++){
-			if(theme.getToggles().get(i).toString().contains(settingsConf.getTheme()))
-				theme.getToggles().get(i).setSelected(true);
+		for(int i = 0; i < themeFxml.getToggles().size();i++){
+			if(themeFxml.getToggles().get(i).toString().contains(settingsConf.getTheme()))
+				themeFxml.getToggles().get(i).setSelected(true);
 		}
 
-		for(int i = 0; i < mode.getToggles().size();i++){
-			if(mode.getToggles().get(i).toString().contains(settingsConf.getMode()))
-				mode.getToggles().get(i).setSelected(true);		
+		for(int i = 0; i < modeFxml.getToggles().size();i++){
+			if(modeFxml.getToggles().get(i).toString().contains(settingsConf.getMode()))
+				modeFxml.getToggles().get(i).setSelected(true);		
 		}
 
-		for(int i = 0; i < multiplayer.getToggles().size();i++){
-			if(multiplayer.getToggles().get(i).toString().contains(settingsConf.getMultiplayer()))
-				multiplayer.getToggles().get(i).setSelected(true);		
+		for(int i = 0; i < multiplayerFxml.getToggles().size();i++){
+			if(multiplayerFxml.getToggles().get(i).toString().contains(settingsConf.getMultiplayer()))
+				multiplayerFxml.getToggles().get(i).setSelected(true);		
 		}
 
-		colorPickerBackground.setValue(getBackground());
-		colorPickerPlayer.setValue(getPlayer());
-		colorPickerWall.setValue(getWall());
-		colorPickerFood.setValue(getFood());
+		colorPickerBackgroundFxml.setValue(getBackground());
+		colorPickerPlayerFxml.setValue(getPlayer());
+		colorPickerWallFxml.setValue(getWall());
+		colorPickerFoodFxml.setValue(getFood());
 
 
 	}
