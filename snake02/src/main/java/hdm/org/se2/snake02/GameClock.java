@@ -44,7 +44,7 @@ public class GameClock {
 			break;
 		case "stop":
 			running = false;
-//			loop.stop();
+//			loop.stop(); // Just for debug, never use in live!
 			break;
 		default:
 			log.warning("We couldn't found the selected mode: "+mode);

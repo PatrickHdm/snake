@@ -66,9 +66,10 @@ public class Settings {
 			// check if File exists. if not, create it. if yes, go on.
 			File file = new File(settingscsv);
 			if (file.exists()) {
-				System.out.println("Found");
+				log.info("SettingsFile Found");
 			}
 			if (!file.exists()) {
+				log.info("No SettingsFile Available");
 				file.createNewFile();
 			}
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file, false));
@@ -77,8 +78,7 @@ public class Settings {
 			bw.close();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace(); 
+			log.log(Level.SEVERE, "an exception was thrown", e);	
 		}
 	}
 

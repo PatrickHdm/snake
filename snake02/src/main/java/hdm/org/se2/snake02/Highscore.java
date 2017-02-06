@@ -7,8 +7,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Highscore {
+	
+	public static Logger log = Logger.getLogger(Highscore.class.getName());
+	
 	final String scorecsv = "temp/Highscore.csv";
 
 	public Highscore() {
@@ -30,10 +35,10 @@ public class Highscore {
 		try {
 			File file = new File("temp/Highscore.csv");
 			if (file.exists()) {
-				System.out.println("HighScoreFile Found");
+				log.info("HighScoreFile Found");
 			}
 			if (!file.exists()) {
-				System.out.println("No HighscoreFile Available");
+				log.info("No HighscoreFile Available");
 			}
 			// init Reader
 			BufferedReader breader = new BufferedReader(new FileReader(file));
@@ -48,7 +53,7 @@ public class Highscore {
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.log(Level.SEVERE, "an exception was thrown", e);
 		}
 
 		return TempList;
@@ -67,8 +72,7 @@ public class Highscore {
 			bw.write(temp);
 			bw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.log(Level.SEVERE, "an exception was thrown", e);
 		}
 
 	}

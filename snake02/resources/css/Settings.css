@@ -1,7 +1,6 @@
 #header	{
 	-fx-background-color: #ff9933;
 	-fx-padding: 10;
-	-fx-min-width: -infinity;
 }
 
 #headline	{
@@ -46,7 +45,7 @@
     -fx-border-insets: 10px;
     -fx-background-insets: 10px;
     -fx-background-color: none;
-    -fx-text-fill: #000;	
+    -fx-text-fill: #000;
 }
 
 .combo-box	{
@@ -72,5 +71,17 @@
 }
 
 .button:focused	{
+	-fx-background-color: rgba(158,158,158,.4);
+}
+
+.color-picker:focused	{
+	-fx-background-color: rgba(158,158,158,.4);
+}
+
+.radio-button:focused	{
+	-fx-background-color: rgba(158,158,158,.4);
+}
+
+.combo-box:focused	{
 	-fx-background-color: rgba(158,158,158,.4);
 }
