@@ -11,6 +11,7 @@
 
 #body	{
 	-fx-alignment: center;
+	-fx-padding: 10px;
 }
 
 #GridField	{
@@ -27,6 +28,10 @@
 #footer .label	{
     -fx-font: 24px "Serif";
 	-fx-text-fill: #000000;
+}
+
+#body .label	{
+	-fx-padding: 10 20;
 }
 
 .button {

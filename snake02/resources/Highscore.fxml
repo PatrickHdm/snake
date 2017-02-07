@@ -6,6 +6,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ScrollPane?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.HighscoreController">
 	
@@ -18,7 +23,9 @@
 		</top>
 		
 		<center>
-			<VBox fx:id="pHighscore" id="body"></VBox>
+			<ScrollPane >
+				<GridPane fx:id="pHighscore" id="body"></GridPane>			
+			</ScrollPane>
 		</center>
 		
 		

@@ -14,8 +14,9 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.GameOverController">
 	
 	<BorderPane fx:id="GridField" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+				
 		<top>
-			<VBox>
+			<VBox id="header">
 				<Label>GAME OVER</Label>
 				<HBox>
 					<Label>Your score: </Label><Label fx:id="score">XXX</Label>
@@ -24,13 +25,15 @@
 		</top>
 		
 		<center>
-			<HBox>
+			<HBox id="body">
 				<Label>Name: </Label><TextField fx:id="name"></TextField>
 			</HBox>
 		</center>
 		
 		<bottom>
-				<Button fx:id="saveHighscore" onAction="#saveHighscore">Save</Button>				
+			<VBox id="footer">
+				<Button fx:id="saveHighscore" onAction="#saveHighscore">Save</Button>	
+			</VBox>
 		</bottom>
 		
 	</BorderPane>

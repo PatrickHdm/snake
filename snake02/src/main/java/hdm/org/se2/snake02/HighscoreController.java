@@ -2,10 +2,15 @@ package hdm.org.se2.snake02;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
+
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
@@ -15,13 +20,13 @@ import javafx.fxml.Initializable;
 public class HighscoreController implements Initializable {
 
 	Logger log = Logger.getLogger(HighscoreController.class.getName());
-	
+
 	@FXML
 	private BorderPane HighscoreField;
-	
+
 	@FXML 
-	private VBox pHighscore;
-	
+	private GridPane pHighscore;
+
 	@FXML
 	private void toMenu()	{
 		try {
@@ -33,23 +38,34 @@ public class HighscoreController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
-		ArrayList<String> scores = Highscore.readFromFile();
-		if(!scores.isEmpty())	{
-			int sScores = scores.size();
-			VBox pHighscore = new VBox(sScores+1);
-			Label header = new Label("Score \t Name \t\t Date");
-			pHighscore.getChildren().add(header);
+
+
+		String[][] scores = Highscore.readFromFile();
+
+		if(scores != null)	{
+
+			Arrays.sort(scores, 
+		            Comparator.comparing((String[] entry) -> Double.parseDouble(entry[0]))
+		                      .reversed());
 			
-			for (int i = 0; i < sScores; i++) {
-				Label label = new Label(scores.get(i)
-				.replaceAll("\"", "  ").replaceAll(",","   \t"));
-				pHighscore.getChildren().add(label);
-				HighscoreField.setCenter(pHighscore);
-			}	
+			// Create Header for List
+			Label scoreLabel = new Label("Score");
+			Label nameLabel = new Label("Name");
+			Label dateLabel = new Label("Date");
+			pHighscore.add(scoreLabel, 0, 0);
+			pHighscore.add(nameLabel, 1, 0);
+			pHighscore.add(dateLabel, 2, 0);
+
+			for(int i = 0; i < scores.length; i++)	{
+				for(int j = 0; j < scores[i].length; j++)	{
+					Label nLabel = new Label(scores[i][j]);
+					pHighscore.add(nLabel, j, i + 1);
+				}
+			}
+
 		}
-		
-		
+
+
 	}
-	
+
 }
