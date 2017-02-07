@@ -7,8 +7,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 public class Highscore {
 
@@ -28,13 +30,11 @@ public class Highscore {
 				.append("\";").toString();
 		writeToFile(highscorecsv, temp);
 
-
 		currentWindow.restart(currentWindow.windowStage);
 
 	}
 
-	public static ArrayList<String> readFromFile() {
-		ArrayList<String> TempList = new ArrayList<String>();
+	public static Stream<String[]> readFromFile() {
 
 		try {
 			File file = new File(highscorecsv);
@@ -47,24 +47,31 @@ public class Highscore {
 
 			// init Reader
 			BufferedReader breader = new BufferedReader(new FileReader(file));
-			if(breader.ready())	{
+			if (breader.ready()) {
 				String temp = breader.readLine();
+				temp = temp.replaceAll("\"", "");
+				breader.close(); // Close Reader
 
-				if(!temp.isEmpty())	{
+				if (!temp.isEmpty()) {
 					String[] ntemp = temp.split(";");
-					breader.close(); // Close Reader
+					String[][] DataScore = new String[ntemp.length][3];
 
 					for (int i = 0; i < ntemp.length; i++) { // Abfragen&ArrayList
-						TempList.add(ntemp[i]);
+						String[] ftemp = ntemp[i].split(",");
+						for (int j = 0; j < ftemp.length; j++) {
+							DataScore[i][j] = ftemp[j];
+							//System.out.println(DataScore[i][j]);
+						}
 					}
+					Stream<String[]> hservice = Arrays.stream(DataScore);
+					return hservice;
 				}
 			}
 
 		} catch (IOException e) {
 			log.log(Level.SEVERE, "an exception was thrown", e);
 		}
-
-		return TempList;
+		return null;
 	}
 
 	public void writeToFile(String scoresv, String temp) {
