@@ -34,7 +34,7 @@ public class Highscore {
 
 	}
 
-	public static Stream<String[]> readFromFile() {
+	public static String[][] readFromFile() {
 
 		try {
 			File file = new File(highscorecsv);
@@ -60,11 +60,10 @@ public class Highscore {
 						String[] ftemp = ntemp[i].split(",");
 						for (int j = 0; j < ftemp.length; j++) {
 							DataScore[i][j] = ftemp[j];
-							//System.out.println(DataScore[i][j]);
 						}
 					}
 					Stream<String[]> hservice = Arrays.stream(DataScore);
-					return hservice;
+					return DataScore;
 				}
 			}
 
