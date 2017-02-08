@@ -98,7 +98,17 @@
 						<ColorPicker fx:id="colorPickerFoodFxml"></ColorPicker>
 					</HBox>
 				</VBox>
-				
+				<HBox>
+				<Label>MUSIC:</Label>
+				<ComboBox fx:id="soundFxml">
+					<items>
+						<FXCollections fx:factory="observableArrayList">
+							<String fx:value="Gagsound" />
+							<String fx:value="Retrosound" />
+						</FXCollections>
+					</items>
+				</ComboBox>				
+				</HBox>				
 			</VBox>
 		</center>
 		

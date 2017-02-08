@@ -34,6 +34,7 @@ public class Settings {
 	public String mode;
 	public String multiplayer;
 	public Color background, player, player02, wall, food;
+	public String sound;
 	final static String settingscsv = "config/Settings.csv";
 
 	public Settings()	{
@@ -56,11 +57,12 @@ public class Settings {
 			this.wall = Color.BLACK;
 			this.food = Color.GREEN;
 			this.multiplayer = "No";
-			setSettings(getResolution(), getDifficulty(), getTheme(), getMode(), getBackground(), getPlayer(), getWall(), getFood(), getMultiplayer());
+			this.sound = "Gagsound";
+			setSettings(getResolution(), getDifficulty(), getTheme(), getMode(), getBackground(), getPlayer(), getWall(), getFood(), getMultiplayer(), getSound());
 		}
 	}
 
-	public static void setSettings(Point resolution, String difficulty, String theme, String mode, Color background, Color player, Color wall, Color food, String multiplayer) {
+	public static void setSettings(Point resolution, String difficulty, String theme, String mode, Color background, Color player, Color wall, Color food, String multiplayer, String sound) {
 
 
 		// Create String from Score, Name, Date & Write to File
@@ -68,7 +70,7 @@ public class Settings {
 				new StringBuilder("\"").append(resolution.x).append("x").append(resolution.y).append("\",\"").append(difficulty)
 				.append("\",\"").append(theme).append("\",\"").append(mode).append("\",\"").append(background.toString()).append("\",\"")
 				.append(player.toString()).append("\",\"").append(wall.toString()).append("\",\"").append(food.toString())
-				.append("\",\"").append(multiplayer).append("\";").toString();
+				.append("\",\"").append(multiplayer).append("\",\"").append(sound).append("\";").toString();
 		writeToFile(settingscsv, temp);
 
 	}
@@ -113,7 +115,7 @@ public class Settings {
 				log.info("resolution = " + settingsFile[0].replace("\"", "") + " difficulty =" +  settingsFile[1] + 
 						" theme = " + settingsFile[2] + " mode = " + settingsFile[3] + " background = " + 
 						settingsFile[4] + " player = " + settingsFile[5] + " wall = " + settingsFile[6] + 
-						" food = " + settingsFile[7] + " Multiplayer = " + settingsFile[8]);
+						" food = " + settingsFile[7] + " Multiplayer = " + settingsFile[8] + " Sound = " + settingsFile[9]);
 
 
 
@@ -126,6 +128,7 @@ public class Settings {
 				settings.setTheme(settingsFile[2].replace("\"", ""));
 				settings.setMode(settingsFile[3].replace("\"", ""));
 				settings.setMultiplayer(settingsFile[8].replace("\"", ""));
+				settings.setSound(settingsFile[9].replace("\"", ""));
 
 
 				Color backgroundFix = picker2color(settingsFile[4]);
@@ -188,10 +191,18 @@ public class Settings {
 
 	public String getMultiplayer() {
 		return multiplayer;
-	}
+	}	
 
 	public void setMultiplayer(String multiplayer) {
 		this.multiplayer = multiplayer;
+	}
+
+	public void setSound(String sound) {
+		this.sound = sound;
+	}
+
+	public String getSound() {
+		return sound;
 	}
 
 	public void setColors(Color background, Color player, Color wall, Color food)	{

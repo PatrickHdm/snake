@@ -3,12 +3,19 @@ package hdm.org.se2.snake02;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.beans.EventHandler;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -20,7 +27,7 @@ import javafx.scene.control.Label;
 import hdm.org.se2.snake02.Window;
 
 public class Game {	
-	Logger log = Logger.getLogger(Game.class.getName());
+	static Logger log = Logger.getLogger(Game.class.getName());
 
 	private int gridRow = 24;
 	private int gridCol = 24;
@@ -146,12 +153,14 @@ public class Game {
 						reFromNextCell.setFill(Color.RED);
 						laFromNextCell.setText("0");
 						player.entityPosition.removeFirst();
+						gameOverSound();
 						break;
 					case "-2":
 						player.setIsDeath(true);
 						reFromNextCell.setFill(Color.RED);
 						laFromNextCell.setText("0");
 						player.entityPosition.removeFirst();
+						gameOverSound();
 						break;
 					case "1":
 						reFromNextCell.setFill(Color.BLACK);
@@ -164,6 +173,10 @@ public class Game {
 						int row = randomGenerator.nextInt(gridRow - 1);
 						replaceField("FOOD", col, row);
 						player.entityPosition.add(new Point(player.getPosition().x,player.getPosition().y));
+						eatFood();
+						if((player.getSore() % 10) == 0)	{
+							monsterSnake();
+						}						
 						break;
 					}
 
@@ -289,6 +302,60 @@ public class Game {
 			replaceFieldInArray("FOOD", food);			
 			break;
 		}
+		
+	}
+		
+		
+	public static synchronized void eatFood() {
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					URL isa = getClass().getResource("/sounds/PickUp_converted.wav");
+
+					AudioInputStream stream = AudioSystem.getAudioInputStream(isa);
+					Clip clip = AudioSystem.getClip();
+					clip.open(stream);
+					clip.start();
+
+				} catch (Exception e) {
+					log.log(Level.SEVERE, "an exception was thrown", e);
+				}
+			}
+		}).start();
+	}
+	
+	public static synchronized void monsterSnake() {
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					URL isa = getClass().getResource("/sounds/SNAKESOUND_converted.wav");
+					AudioInputStream stream = AudioSystem.getAudioInputStream(isa);
+					Clip clip = AudioSystem.getClip();
+					clip.open(stream);
+					clip.start();
+
+				} catch (Exception e) {
+					log.log(Level.SEVERE, "an exception was thrown", e);
+				}
+			}
+		}).start();
+	}
+	
+	public static synchronized void gameOverSound() {
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					URL isa = getClass().getResource("/sounds/GameOver_converted.wav");
+					AudioInputStream stream = AudioSystem.getAudioInputStream(isa);
+					Clip clip = AudioSystem.getClip();
+					clip.open(stream);
+					clip.start();
+
+				} catch (Exception e) {
+					log.log(Level.SEVERE, "an exception was thrown", e);
+				}
+			}
+		}).start();
 	}
 
 	public static class cellField extends StackPane	{

@@ -47,6 +47,9 @@ public class SettingsController extends Settings implements Initializable, Actio
 	ComboBox resolutionFxml;
 
 	@FXML
+	ComboBox soundFxml;
+
+	@FXML
 	ToggleGroup difficultyFxml;
 
 	@FXML
@@ -87,6 +90,14 @@ public class SettingsController extends Settings implements Initializable, Actio
 
 		}catch(Exception e){
 			log.info("no res found");
+		}
+		
+		// Set the sound
+		try	{
+			String soundString = soundFxml.getValue().toString();
+			setSound(soundString);	
+		}catch(Exception e){
+			log.info("no sound found");
 		}
 
 		// Set the difficulty
@@ -140,7 +151,7 @@ public class SettingsController extends Settings implements Initializable, Actio
 			log.log(Level.SEVERE, "an exception was thrown", e1);			
 		}
 
-		Settings.setSettings(getResolution(),getDifficulty(),getTheme(),getMode(),getBackground(),getPlayer(),getWall(),getFood(),getMultiplayer());
+		Settings.setSettings(getResolution(),getDifficulty(),getTheme(),getMode(),getBackground(),getPlayer(),getWall(),getFood(),getMultiplayer(),getSound());
 
 		currentWindow.restart(currentWindow.windowStage);
 
@@ -158,7 +169,11 @@ public class SettingsController extends Settings implements Initializable, Actio
 	public void initialize(URL location, ResourceBundle resources){		
 
 		resolutionFxml.getSelectionModel().select(settingsConf.getResolution().x+"x"+settingsConf.getResolution().y);
-		resolutionFxml.setPromptText(resolutionFxml.getConverter().toString(resolutionFxml.getValue()));	
+		resolutionFxml.setPromptText(resolutionFxml.getConverter().toString(resolutionFxml.getValue()));
+		
+
+		soundFxml.getSelectionModel().select(settingsConf.getSound());
+		soundFxml.setPromptText(soundFxml.getConverter().toString(soundFxml.getValue()));
 
 		for(int i = 0; i < difficultyFxml.getToggles().size();i++){
 			if(difficultyFxml.getToggles().get(i).toString().contains(settingsConf.getDifficulty()))
