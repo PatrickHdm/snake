@@ -23,10 +23,10 @@ public class Highscore {
 
 	}
 
-	public void setHighscore(String name, String score, String date) throws Exception {
+	public void setHighscore(String name, String score, String date, String difficulty, String theme, String mode) throws Exception {
 
 		// Create String from Score, Name, Date & Write to File
-		String temp = new StringBuilder("\"").append(score).append("\",\"").append(name).append("\",\"").append(date)
+		String temp = new StringBuilder("\"").append(score).append("\",\"").append(name).append("\",\"").append(date).append("\",\"").append(difficulty).append("\",\"").append(theme).append("\",\"").append(mode)
 				.append("\";").toString();
 		writeToFile(highscorecsv, temp);
 
@@ -54,7 +54,7 @@ public class Highscore {
 
 				if (!temp.isEmpty()) {
 					String[] ntemp = temp.split(";");
-					String[][] DataScore = new String[ntemp.length][3];
+					String[][] DataScore = new String[ntemp.length][6];
 
 					for (int i = 0; i < ntemp.length; i++) { // Abfragen&ArrayList
 						String[] ftemp = ntemp[i].split(",");

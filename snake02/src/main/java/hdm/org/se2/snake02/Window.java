@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import hdm.org.se2.snake02.controller.GameOverController;
+import hdm.org.se2.snake02.controller.SettingsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -47,6 +49,7 @@ public class Window extends Application {
 		highscoreConf.currentWindow = this;
 		SettingsController.settingsConf = settingsConf;
 		Game.settingsConf = settingsConf;
+		GameOverController.settingsConf = settingsConf;
 		GameOverController.highscoreConf = highscoreConf;
 		
 		// Before we set a new scene, we need to create our layout. We have it as a fxml, so that we need to load it.

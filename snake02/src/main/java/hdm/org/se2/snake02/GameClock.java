@@ -3,6 +3,7 @@ package hdm.org.se2.snake02;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import hdm.org.se2.snake02.controller.GameController;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;

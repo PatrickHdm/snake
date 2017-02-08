@@ -11,7 +11,7 @@
 <?import com.sun.javafx.scene.control.skin.InputField?>
 <?import javafx.scene.control.TextField?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.GameOverController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="hdm.org.se2.snake02.controller.GameOverController">
 	
 	<BorderPane fx:id="GridField" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
 				
@@ -32,7 +32,10 @@
 		
 		<bottom>
 			<VBox id="footer">
-				<Button fx:id="saveHighscore" onAction="#saveHighscore">Save</Button>	
+				<HBox>
+					<Button fx:id="restartGame" onAction="#restartGame">Restart</Button>	
+					<Button fx:id="saveHighscore" onAction="#saveHighscore">Save</Button>				
+				</HBox>
 			</VBox>
 		</bottom>
 		
